@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dbbc5861df90f426eb412d153a98cfdc
+guid: c105bb8aa80dd2c79a0e7007679af440
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ColourMaterial
-    second: {fileID: 2100000, guid: ba8232047669f157da111a58bc32b32f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: ba8232047669f157da111a58bc32b32f, type: 2}
+      name: MarbleMaterial
+    second: {fileID: 2100000, guid: fe7a0b1146ebb8d1c903c4c2c2b2e7af, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -88,7 +83,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   humanDescription:
     serializedVersion: 3
     human: []
@@ -107,7 +102,7 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
