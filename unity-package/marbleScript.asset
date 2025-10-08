@@ -17,59 +17,70 @@ MonoBehaviour:
   udonAssembly: ".data_start\n\n    .export myMarbleRenderer\n    .export mTypeIdx\n   
     .export parentGame\n    .export nNW\n    .export nNE\n    .export nE\n    .export
     nSE\n    .export nSW\n    .export nW\n    .export mIsFree\n    .export mTypeUnlocked\n   
-    \n    __instance_0: %VRCUdonUdonBehaviour, this\n    __target_0: %VRCUdonCommonInterfacesNetworkEventTarget,
+    .export dtRendererCopyVals\n    .export mIsSelected\n    \n    __instance_0:
+    %VRCUdonUdonBehaviour, this\n    __target_0: %VRCUdonCommonInterfacesNetworkEventTarget,
     null\n    __eventName_0: %SystemString, null\n    __parameter0_0: %SystemObject,
     null\n    __String_0: %SystemString, null\n    __instance_1: %UnityEngineTransform,
     this\n    __instance_2: %VRCUdonUdonBehaviour, this\n    __eventName_1: %SystemString,
     null\n    __instance_3: %VRCUdonUdonBehaviour, this\n    __value_0: %SystemBoolean,
     null\n    __Boolean_0: %SystemBoolean, null\n    __Boolean_1: %SystemBoolean,
     null\n    __Boolean_2: %SystemBoolean, null\n    __Boolean_3: %SystemBoolean,
-    null\n    __instance_4: %VRCUdonUdonBehaviour, this\n    __symbolName_0: %SystemString,
-    null\n    __value_1: %SystemObject, null\n    __String_1: %SystemString, null\n   
-    __instance_5: %VRCUdonUdonBehaviour, this\n    __eventName_2: %SystemString,
-    null\n    __String_2: %SystemString, null\n    __message_0: %SystemObject, null\n   
-    __String_3: %SystemString, null\n    __instance_6: %VRCUdonUdonBehaviour, this\n   
-    __eventName_3: %SystemString, null\n    __instance_7: %VRCUdonUdonBehaviour,
-    this\n    __value_2: %SystemBoolean, null\n    __Boolean_4: %SystemBoolean, null\n   
-    __Boolean_5: %SystemBoolean, null\n    __Boolean_6: %SystemBoolean, null\n   
-    __Boolean_7: %SystemBoolean, null\n    __instance_8: %VRCUdonUdonBehaviour, this\n   
-    __symbolName_1: %SystemString, null\n    __value_3: %SystemObject, null\n   
-    __String_4: %SystemString, null\n    __instance_9: %VRCUdonUdonBehaviour, this\n   
-    __eventName_4: %SystemString, null\n    __String_5: %SystemString, null\n   
-    __Boolean_8: %SystemBoolean, null\n    __Boolean_9: %SystemBoolean, null\n   
-    __Boolean_A: %SystemBoolean, null\n    __Boolean_B: %SystemBoolean, null\n   
-    __Boolean_C: %SystemBoolean, null\n    __Boolean_D: %SystemBoolean, null\n   
-    __Boolean_E: %SystemBoolean, null\n    __Boolean_F: %SystemBoolean, null\n   
-    __Boolean_10: %SystemBoolean, null\n    __Boolean_11: %SystemBoolean, null\n   
-    __Boolean_12: %SystemBoolean, null\n    __Boolean_13: %SystemBoolean, null\n   
-    __Boolean_14: %SystemBoolean, null\n    __Boolean_15: %SystemBoolean, null\n   
-    __Boolean_16: %SystemBoolean, null\n    __Boolean_17: %SystemBoolean, null\n   
-    __Boolean_18: %SystemBoolean, null\n    __Boolean_19: %SystemBoolean, null\n   
-    __Boolean_1A: %SystemBoolean, null\n    __Boolean_1B: %SystemBoolean, null\n   
-    __Int32_4: %SystemInt32, null\n    __Int32_5: %SystemInt32, null\n    __instance_C:
-    %VRCUdonUdonBehaviour, this\n    __symbolName_4: %SystemString, null\n    __Boolean_1C:
-    %SystemBoolean, null\n    __Boolean_1D: %SystemBoolean, null\n    __Boolean_1E:
-    %SystemBoolean, null\n    __Boolean_1F: %SystemBoolean, null\n    __Int32_6:
-    %SystemInt32, null\n    __Int32_7: %SystemInt32, null\n    __instance_D: %VRCUdonUdonBehaviour,
-    this\n    __symbolName_5: %SystemString, null\n    __Boolean_20: %SystemBoolean,
-    null\n    __Boolean_21: %SystemBoolean, null\n    __Boolean_22: %SystemBoolean,
-    null\n    __Boolean_23: %SystemBoolean, null\n    __Boolean_24: %SystemBoolean,
-    null\n    __Boolean_25: %SystemBoolean, null\n    __Int32_8: %SystemInt32, null\n   
-    __Int32_9: %SystemInt32, null\n    __instance_E: %VRCUdonUdonBehaviour, this\n   
-    __symbolName_6: %SystemString, null\n    __Boolean_26: %SystemBoolean, null\n   
-    __Boolean_27: %SystemBoolean, null\n    __Boolean_28: %SystemBoolean, null\n   
-    __Boolean_29: %SystemBoolean, null\n    __Int32_A: %SystemInt32, null\n    __Int32_B:
-    %SystemInt32, null\n    __instance_F: %VRCUdonUdonBehaviour, this\n    __symbolName_7:
-    %SystemString, null\n    __Int32_0: %SystemInt32, null\n    __Int32_1: %SystemInt32,
-    null\n    __instance_A: %VRCUdonUdonBehaviour, this\n    __symbolName_2: %SystemString,
+    null\n    __index_0: %SystemInt32, null\n    __condition_0: %SystemBoolean, null\n   
+    __instance_5: %VRCUdonUdonBehaviour, this\n    __symbolName_0: %SystemString,
+    null\n    __value_1: %SystemObject, null\n    __instance_7: %VRCUdonUdonBehaviour,
+    this\n    __symbolName_1: %SystemString, null\n    __instance_6: %SystemStringArray,
+    null\n    __Int32_0: %SystemInt32, null\n    __start_0: %SystemInt32, null\n   
+    __end_0: %SystemInt32, null\n    __step_0: %SystemInt32, null\n    __instance_4:
+    %SystemStringArray, null\n    __instance_8: %VRCUdonUdonBehaviour, this\n   
+    __eventName_2: %SystemString, null\n    __String_1: %SystemString, null\n   
+    __message_0: %SystemObject, null\n    __String_2: %SystemString, null\n    __instance_9:
+    %VRCUdonUdonBehaviour, this\n    __eventName_3: %SystemString, null\n    __instance_A:
+    %VRCUdonUdonBehaviour, this\n    __value_2: %SystemBoolean, null\n    __Boolean_4:
+    %SystemBoolean, null\n    __Boolean_5: %SystemBoolean, null\n    __Boolean_6:
+    %SystemBoolean, null\n    __Boolean_7: %SystemBoolean, null\n    __index_1: %SystemInt32,
+    null\n    __condition_1: %SystemBoolean, null\n    __instance_C: %VRCUdonUdonBehaviour,
+    this\n    __symbolName_2: %SystemString, null\n    __value_3: %SystemObject,
+    null\n    __instance_E: %VRCUdonUdonBehaviour, this\n    __symbolName_3: %SystemString,
+    null\n    __instance_D: %SystemStringArray, null\n    __Int32_1: %SystemInt32,
+    null\n    __start_1: %SystemInt32, null\n    __end_1: %SystemInt32, null\n   
+    __step_1: %SystemInt32, null\n    __instance_B: %SystemStringArray, null\n   
+    __instance_F: %VRCUdonUdonBehaviour, this\n    __eventName_4: %SystemString,
+    null\n    __String_3: %SystemString, null\n    __Boolean_8: %SystemBoolean, null\n   
+    __Boolean_9: %SystemBoolean, null\n    __Boolean_A: %SystemBoolean, null\n   
+    __Boolean_B: %SystemBoolean, null\n    __Boolean_C: %SystemBoolean, null\n   
+    __Boolean_D: %SystemBoolean, null\n    __Boolean_E: %SystemBoolean, null\n   
+    __Boolean_F: %SystemBoolean, null\n    __Boolean_10: %SystemBoolean, null\n   
+    __Boolean_11: %SystemBoolean, null\n    __Boolean_12: %SystemBoolean, null\n   
+    __Boolean_13: %SystemBoolean, null\n    __Boolean_14: %SystemBoolean, null\n   
+    __Boolean_15: %SystemBoolean, null\n    __Boolean_16: %SystemBoolean, null\n   
+    __Boolean_17: %SystemBoolean, null\n    __Boolean_18: %SystemBoolean, null\n   
+    __Boolean_19: %SystemBoolean, null\n    __Boolean_1A: %SystemBoolean, null\n   
+    __Boolean_1B: %SystemBoolean, null\n    __Int32_6: %SystemInt32, null\n    __Int32_7:
+    %SystemInt32, null\n    __instance_12: %VRCUdonUdonBehaviour, this\n    __symbolName_6:
+    %SystemString, null\n    __Boolean_1C: %SystemBoolean, null\n    __Boolean_1D:
+    %SystemBoolean, null\n    __Boolean_1E: %SystemBoolean, null\n    __Boolean_1F:
+    %SystemBoolean, null\n    __Int32_8: %SystemInt32, null\n    __Int32_9: %SystemInt32,
+    null\n    __instance_13: %VRCUdonUdonBehaviour, this\n    __symbolName_7: %SystemString,
+    null\n    __Boolean_20: %SystemBoolean, null\n    __Boolean_21: %SystemBoolean,
+    null\n    __Boolean_22: %SystemBoolean, null\n    __Boolean_23: %SystemBoolean,
+    null\n    __Boolean_24: %SystemBoolean, null\n    __Boolean_25: %SystemBoolean,
+    null\n    __Int32_A: %SystemInt32, null\n    __Int32_B: %SystemInt32, null\n   
+    __instance_14: %VRCUdonUdonBehaviour, this\n    __symbolName_8: %SystemString,
+    null\n    __Boolean_26: %SystemBoolean, null\n    __Boolean_27: %SystemBoolean,
+    null\n    __Boolean_28: %SystemBoolean, null\n    __Boolean_29: %SystemBoolean,
+    null\n    __Int32_C: %SystemInt32, null\n    __Int32_D: %SystemInt32, null\n   
+    __instance_15: %VRCUdonUdonBehaviour, this\n    __symbolName_9: %SystemString,
     null\n    __Int32_2: %SystemInt32, null\n    __Int32_3: %SystemInt32, null\n   
-    __instance_B: %VRCUdonUdonBehaviour, this\n    __symbolName_3: %SystemString,
-    null\n    __String_6: %SystemString, null\n    myMarbleRenderer: %VRCUdonUdonBehaviour,
+    __instance_10: %VRCUdonUdonBehaviour, this\n    __symbolName_4: %SystemString,
+    null\n    __Int32_4: %SystemInt32, null\n    __Int32_5: %SystemInt32, null\n   
+    __instance_11: %VRCUdonUdonBehaviour, this\n    __symbolName_5: %SystemString,
+    null\n    __String_4: %SystemString, null\n    myMarbleRenderer: %VRCUdonUdonBehaviour,
     this\n    mTypeIdx: %SystemInt32, null\n    parentGame: %VRCUdonUdonBehaviour,
     this\n    nNW: %VRCUdonUdonBehaviour, this\n    nNE: %VRCUdonUdonBehaviour, this\n   
     nE: %VRCUdonUdonBehaviour, this\n    nSE: %VRCUdonUdonBehaviour, this\n    nSW:
     %VRCUdonUdonBehaviour, this\n    nW: %VRCUdonUdonBehaviour, this\n    mIsFree:
-    %SystemBoolean, null\n    mTypeUnlocked: %SystemBoolean, null\n\n.data_end\n\n.code_start\n\n   
+    %SystemBoolean, null\n    mTypeUnlocked: %SystemBoolean, null\n    dtRendererCopyVals:
+    %SystemStringArray, null\n    mIsSelected: %SystemBoolean, null\n\n.data_end\n\n.code_start\n\n   
     .export _interact\n    \n    _interact:\n    \n        PUSH, parentGame\n       
     PUSH, __instance_0\n        COPY\n        PUSH, __String_0\n        PUSH, __eventName_0\n       
     COPY\n        PUSH, __instance_1\n        PUSH, __parameter0_0\n        EXTERN,
@@ -83,86 +94,124 @@ MonoBehaviour:
     PUSH, __Boolean_0\n        PUSH, __Boolean_1\n        PUSH, __value_0\n       
     EXTERN, \"SystemBoolean.__op_ConditionalXor__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
     PUSH, __instance_3\n        PUSH, __value_0\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__set_DisableInteractive__SystemBoolean__SystemVoid\"\n       
-    PUSH, myMarbleRenderer\n        PUSH, __instance_4\n        COPY\n        PUSH,
-    __String_1\n        PUSH, __symbolName_0\n        COPY\n        PUSH, __instance_4\n       
-    PUSH, __symbolName_0\n        PUSH, mTypeIdx\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SetProgramVariable__SystemString_SystemObject__SystemVoid\"\n       
-    PUSH, myMarbleRenderer\n        PUSH, __instance_5\n        COPY\n        PUSH,
-    __String_2\n        PUSH, __eventName_2\n        COPY\n        PUSH, __instance_5\n       
+    PUSH, dtRendererCopyVals\n        PUSH, __instance_4\n        COPY\n        PUSH,
+    __instance_4\n        PUSH, __end_0\n        EXTERN, \"SystemStringArray.__get_Length__SystemInt32\"\n       
+    PUSH, __start_0\n        PUSH, __index_0\n        COPY\n        PUSH, __index_0\n       
+    PUSH, __end_0\n        PUSH, __condition_0\n        EXTERN, \"SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean\"\n       
+    PUSH, __condition_0\n        JUMP_IF_FALSE, 0x000002B8\n        PUSH, myMarbleRenderer\n       
+    PUSH, __instance_5\n        COPY\n        PUSH, dtRendererCopyVals\n        PUSH,
+    __instance_6\n        COPY\n        PUSH, dtRendererCopyVals\n        PUSH, __instance_4\n       
+    COPY\n        PUSH, __index_0\n        PUSH, __Int32_0\n        COPY\n       
+    PUSH, __instance_6\n        PUSH, __Int32_0\n        PUSH, __symbolName_0\n       
+    EXTERN, \"SystemStringArray.__Get__SystemInt32__SystemString\"\n        PUSH,
+    dtRendererCopyVals\n        PUSH, __instance_6\n        COPY\n        PUSH, dtRendererCopyVals\n       
+    PUSH, __instance_4\n        COPY\n        PUSH, __index_0\n        PUSH, __Int32_0\n       
+    COPY\n        PUSH, __symbolName_0\n        PUSH, __symbolName_1\n        COPY\n       
+    PUSH, __instance_7\n        PUSH, __symbolName_0\n        PUSH, __value_1\n       
+    EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __instance_5\n        PUSH, __symbolName_0\n        PUSH, __value_1\n       
+    EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SetProgramVariable__SystemString_SystemObject__SystemVoid\"\n       
+    PUSH, myMarbleRenderer\n        PUSH, __instance_8\n        COPY\n        PUSH,
+    __String_1\n        PUSH, __eventName_2\n        COPY\n        PUSH, __instance_8\n       
     PUSH, __eventName_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
+    PUSH, __index_0\n        PUSH, __step_0\n        PUSH, __index_0\n        EXTERN,
+    \"SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32\"\n       
+    JUMP, 0x00000120\n        PUSH, myMarbleRenderer\n        PUSH, __instance_8\n       
+    COPY\n        PUSH, __String_1\n        PUSH, __eventName_2\n        COPY\n       
+    PUSH, __instance_8\n        PUSH, __eventName_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n    .export marbleInteract\n    \n    marbleInteract:\n   
-    \n        PUSH, __String_3\n        PUSH, __message_0\n        COPY\n       
+    \n        PUSH, __String_2\n        PUSH, __message_0\n        COPY\n       
     PUSH, __message_0\n        EXTERN, \"UnityEngineDebug.__Log__SystemObject__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n    .export _refresh\n    \n    _refresh:\n    \n       
-    PUSH, __instance_6\n        PUSH, __eventName_3\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
+    PUSH, __instance_9\n        PUSH, __eventName_3\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
     PUSH, mIsFree\n        PUSH, mTypeUnlocked\n        PUSH, __Boolean_4\n       
     EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
     PUSH, __Boolean_4\n        PUSH, __Boolean_5\n        PUSH, __value_2\n       
     EXTERN, \"SystemBoolean.__op_ConditionalXor__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, __instance_7\n        PUSH, __value_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__set_DisableInteractive__SystemBoolean__SystemVoid\"\n       
-    PUSH, myMarbleRenderer\n        PUSH, __instance_8\n        COPY\n        PUSH,
-    __String_4\n        PUSH, __symbolName_1\n        COPY\n        PUSH, __instance_8\n       
-    PUSH, __symbolName_1\n        PUSH, mTypeIdx\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SetProgramVariable__SystemString_SystemObject__SystemVoid\"\n       
-    PUSH, myMarbleRenderer\n        PUSH, __instance_9\n        COPY\n        PUSH,
-    __String_5\n        PUSH, __eventName_4\n        COPY\n        PUSH, __instance_9\n       
+    PUSH, __instance_A\n        PUSH, __value_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__set_DisableInteractive__SystemBoolean__SystemVoid\"\n       
+    PUSH, dtRendererCopyVals\n        PUSH, __instance_B\n        COPY\n        PUSH,
+    __instance_B\n        PUSH, __end_1\n        EXTERN, \"SystemStringArray.__get_Length__SystemInt32\"\n       
+    PUSH, __start_1\n        PUSH, __index_1\n        COPY\n        PUSH, __index_1\n       
+    PUSH, __end_1\n        PUSH, __condition_1\n        EXTERN, \"SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean\"\n       
+    PUSH, __condition_1\n        JUMP_IF_FALSE, 0x00000574\n        PUSH, myMarbleRenderer\n       
+    PUSH, __instance_C\n        COPY\n        PUSH, dtRendererCopyVals\n        PUSH,
+    __instance_D\n        COPY\n        PUSH, dtRendererCopyVals\n        PUSH, __instance_B\n       
+    COPY\n        PUSH, __index_1\n        PUSH, __Int32_1\n        COPY\n       
+    PUSH, __instance_D\n        PUSH, __Int32_1\n        PUSH, __symbolName_2\n       
+    EXTERN, \"SystemStringArray.__Get__SystemInt32__SystemString\"\n        PUSH,
+    dtRendererCopyVals\n        PUSH, __instance_D\n        COPY\n        PUSH, dtRendererCopyVals\n       
+    PUSH, __instance_B\n        COPY\n        PUSH, __index_1\n        PUSH, __Int32_1\n       
+    COPY\n        PUSH, __symbolName_2\n        PUSH, __symbolName_3\n        COPY\n       
+    PUSH, __instance_E\n        PUSH, __symbolName_2\n        PUSH, __value_3\n       
+    EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __instance_C\n        PUSH, __symbolName_2\n        PUSH, __value_3\n       
+    EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SetProgramVariable__SystemString_SystemObject__SystemVoid\"\n       
+    PUSH, myMarbleRenderer\n        PUSH, __instance_F\n        COPY\n        PUSH,
+    __String_3\n        PUSH, __eventName_4\n        COPY\n        PUSH, __instance_F\n       
     PUSH, __eventName_4\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
+    PUSH, __index_1\n        PUSH, __step_1\n        PUSH, __index_1\n        EXTERN,
+    \"SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32\"\n       
+    JUMP, 0x000003DC\n        PUSH, myMarbleRenderer\n        PUSH, __instance_F\n       
+    COPY\n        PUSH, __String_3\n        PUSH, __eventName_4\n        COPY\n       
+    PUSH, __instance_F\n        PUSH, __eventName_4\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n    .export _calcIsFree\n    \n    _calcIsFree:\n   
-    \n        PUSH, nNW\n        PUSH, __instance_A\n        COPY\n        PUSH,
-    __String_6\n        PUSH, __symbolName_2\n        COPY\n        PUSH, __instance_A\n       
-    PUSH, __symbolName_2\n        PUSH, __Int32_0\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
-    PUSH, __Int32_0\n        PUSH, __Int32_1\n        PUSH, __Boolean_10\n       
+    \n        PUSH, nNW\n        PUSH, __instance_10\n        COPY\n        PUSH,
+    __String_4\n        PUSH, __symbolName_4\n        COPY\n        PUSH, __instance_10\n       
+    PUSH, __symbolName_4\n        PUSH, __Int32_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __Int32_2\n        PUSH, __Int32_3\n        PUSH, __Boolean_10\n       
     EXTERN, \"SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean\"\n       
-    PUSH, nNE\n        PUSH, __instance_B\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_3\n        COPY\n        PUSH, __instance_B\n        PUSH,
-    __symbolName_3\n        PUSH, __Int32_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
-    PUSH, __Int32_2\n        PUSH, __Int32_3\n        PUSH, __Boolean_11\n       
+    PUSH, nNE\n        PUSH, __instance_11\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_5\n        COPY\n        PUSH, __instance_11\n        PUSH,
+    __symbolName_5\n        PUSH, __Int32_4\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __Int32_4\n        PUSH, __Int32_5\n        PUSH, __Boolean_11\n       
     EXTERN, \"SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean\"\n       
     PUSH, __Boolean_10\n        PUSH, __Boolean_11\n        PUSH, __Boolean_E\n       
     EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nE\n        PUSH, __instance_C\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_4\n        COPY\n        PUSH, __instance_C\n        PUSH,
-    __symbolName_4\n        PUSH, __Int32_4\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
-    PUSH, __Int32_4\n        PUSH, __Int32_5\n        PUSH, __Boolean_F\n       
+    PUSH, nE\n        PUSH, __instance_12\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_6\n        COPY\n        PUSH, __instance_12\n        PUSH,
+    __symbolName_6\n        PUSH, __Int32_6\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __Int32_6\n        PUSH, __Int32_7\n        PUSH, __Boolean_F\n       
     EXTERN, \"SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean\"\n       
     PUSH, __Boolean_E\n        PUSH, __Boolean_F\n        PUSH, __Boolean_C\n       
     EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nNE\n        PUSH, __instance_B\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_3\n        COPY\n        PUSH, __Boolean_11\n        PUSH,
-    __Boolean_14\n        COPY\n        PUSH, nE\n        PUSH, __instance_C\n       
-    COPY\n        PUSH, __String_6\n        PUSH, __symbolName_4\n        COPY\n       
+    PUSH, nNE\n        PUSH, __instance_11\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_5\n        COPY\n        PUSH, __Boolean_11\n        PUSH,
+    __Boolean_14\n        COPY\n        PUSH, nE\n        PUSH, __instance_12\n       
+    COPY\n        PUSH, __String_4\n        PUSH, __symbolName_6\n        COPY\n       
     PUSH, __Boolean_F\n        PUSH, __Boolean_15\n        COPY\n        PUSH, __Boolean_11\n       
     PUSH, __Boolean_F\n        PUSH, __Boolean_12\n        EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nSE\n        PUSH, __instance_D\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_5\n        COPY\n        PUSH, __instance_D\n        PUSH,
-    __symbolName_5\n        PUSH, __Int32_6\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
-    PUSH, __Int32_6\n        PUSH, __Int32_7\n        PUSH, __Boolean_13\n       
+    PUSH, nSE\n        PUSH, __instance_13\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_7\n        COPY\n        PUSH, __instance_13\n        PUSH,
+    __symbolName_7\n        PUSH, __Int32_8\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __Int32_8\n        PUSH, __Int32_9\n        PUSH, __Boolean_13\n       
     EXTERN, \"SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean\"\n       
     PUSH, __Boolean_12\n        PUSH, __Boolean_13\n        PUSH, __Boolean_D\n       
     EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
     PUSH, __Boolean_C\n        PUSH, __Boolean_D\n        PUSH, __Boolean_A\n       
     EXTERN, \"SystemBoolean.__op_ConditionalOr__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nE\n        PUSH, __instance_C\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_4\n        COPY\n        PUSH, __Boolean_F\n        PUSH,
-    __Boolean_1A\n        COPY\n        PUSH, nSE\n        PUSH, __instance_D\n       
-    COPY\n        PUSH, __String_6\n        PUSH, __symbolName_5\n        COPY\n       
+    PUSH, nE\n        PUSH, __instance_12\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_6\n        COPY\n        PUSH, __Boolean_F\n        PUSH,
+    __Boolean_1A\n        COPY\n        PUSH, nSE\n        PUSH, __instance_13\n       
+    COPY\n        PUSH, __String_4\n        PUSH, __symbolName_7\n        COPY\n       
     PUSH, __Boolean_13\n        PUSH, __Boolean_1B\n        COPY\n        PUSH, __Boolean_F\n       
     PUSH, __Boolean_13\n        PUSH, __Boolean_18\n        EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nSW\n        PUSH, __instance_E\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_6\n        COPY\n        PUSH, __instance_E\n        PUSH,
-    __symbolName_6\n        PUSH, __Int32_8\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
-    PUSH, __Int32_8\n        PUSH, __Int32_9\n        PUSH, __Boolean_19\n       
+    PUSH, nSW\n        PUSH, __instance_14\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_8\n        COPY\n        PUSH, __instance_14\n        PUSH,
+    __symbolName_8\n        PUSH, __Int32_A\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __Int32_A\n        PUSH, __Int32_B\n        PUSH, __Boolean_19\n       
     EXTERN, \"SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean\"\n       
     PUSH, __Boolean_18\n        PUSH, __Boolean_19\n        PUSH, __Boolean_16\n       
     EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nSE\n        PUSH, __instance_D\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_5\n        COPY\n        PUSH, __Boolean_13\n        PUSH,
-    __Boolean_1E\n        COPY\n        PUSH, nSW\n        PUSH, __instance_E\n       
-    COPY\n        PUSH, __String_6\n        PUSH, __symbolName_6\n        COPY\n       
+    PUSH, nSE\n        PUSH, __instance_13\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_7\n        COPY\n        PUSH, __Boolean_13\n        PUSH,
+    __Boolean_1E\n        COPY\n        PUSH, nSW\n        PUSH, __instance_14\n       
+    COPY\n        PUSH, __String_4\n        PUSH, __symbolName_8\n        COPY\n       
     PUSH, __Boolean_19\n        PUSH, __Boolean_1F\n        COPY\n        PUSH, __Boolean_13\n       
     PUSH, __Boolean_19\n        PUSH, __Boolean_1C\n        EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nW\n        PUSH, __instance_F\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_7\n        COPY\n        PUSH, __instance_F\n        PUSH,
-    __symbolName_7\n        PUSH, __Int32_A\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
-    PUSH, __Int32_A\n        PUSH, __Int32_B\n        PUSH, __Boolean_1D\n       
+    PUSH, nW\n        PUSH, __instance_15\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_9\n        COPY\n        PUSH, __instance_15\n        PUSH,
+    __symbolName_9\n        PUSH, __Int32_C\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __Int32_C\n        PUSH, __Int32_D\n        PUSH, __Boolean_1D\n       
     EXTERN, \"SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean\"\n       
     PUSH, __Boolean_1C\n        PUSH, __Boolean_1D\n        PUSH, __Boolean_17\n       
     EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
@@ -170,24 +219,24 @@ MonoBehaviour:
     EXTERN, \"SystemBoolean.__op_ConditionalOr__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
     PUSH, __Boolean_A\n        PUSH, __Boolean_B\n        PUSH, __Boolean_8\n       
     EXTERN, \"SystemBoolean.__op_ConditionalOr__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nSW\n        PUSH, __instance_E\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_6\n        COPY\n        PUSH, __Boolean_19\n        PUSH,
-    __Boolean_24\n        COPY\n        PUSH, nW\n        PUSH, __instance_F\n       
-    COPY\n        PUSH, __String_6\n        PUSH, __symbolName_7\n        COPY\n       
+    PUSH, nSW\n        PUSH, __instance_14\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_8\n        COPY\n        PUSH, __Boolean_19\n        PUSH,
+    __Boolean_24\n        COPY\n        PUSH, nW\n        PUSH, __instance_15\n       
+    COPY\n        PUSH, __String_4\n        PUSH, __symbolName_9\n        COPY\n       
     PUSH, __Boolean_1D\n        PUSH, __Boolean_25\n        COPY\n        PUSH, __Boolean_19\n       
     PUSH, __Boolean_1D\n        PUSH, __Boolean_22\n        EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nNW\n        PUSH, __instance_A\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_2\n        COPY\n        PUSH, __Boolean_10\n        PUSH,
+    PUSH, nNW\n        PUSH, __instance_10\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_4\n        COPY\n        PUSH, __Boolean_10\n        PUSH,
     __Boolean_23\n        COPY\n        PUSH, __Boolean_22\n        PUSH, __Boolean_10\n       
     PUSH, __Boolean_20\n        EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nW\n        PUSH, __instance_F\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_7\n        COPY\n        PUSH, __Boolean_1D\n        PUSH,
-    __Boolean_28\n        COPY\n        PUSH, nNW\n        PUSH, __instance_A\n       
-    COPY\n        PUSH, __String_6\n        PUSH, __symbolName_2\n        COPY\n       
+    PUSH, nW\n        PUSH, __instance_15\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_9\n        COPY\n        PUSH, __Boolean_1D\n        PUSH,
+    __Boolean_28\n        COPY\n        PUSH, nNW\n        PUSH, __instance_10\n       
+    COPY\n        PUSH, __String_4\n        PUSH, __symbolName_4\n        COPY\n       
     PUSH, __Boolean_10\n        PUSH, __Boolean_29\n        COPY\n        PUSH, __Boolean_1D\n       
     PUSH, __Boolean_10\n        PUSH, __Boolean_26\n        EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, nNE\n        PUSH, __instance_B\n        COPY\n        PUSH, __String_6\n       
-    PUSH, __symbolName_3\n        COPY\n        PUSH, __Boolean_11\n        PUSH,
+    PUSH, nNE\n        PUSH, __instance_11\n        COPY\n        PUSH, __String_4\n       
+    PUSH, __symbolName_5\n        COPY\n        PUSH, __Boolean_11\n        PUSH,
     __Boolean_27\n        COPY\n        PUSH, __Boolean_26\n        PUSH, __Boolean_11\n       
     PUSH, __Boolean_21\n        EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
     PUSH, __Boolean_20\n        PUSH, __Boolean_21\n        PUSH, __Boolean_9\n       
@@ -209,7 +258,7 @@ MonoBehaviour:
       nodeValues: []
     - fullName: UnityEngineDebug.__Log__SystemObject__SystemVoid
       uid: de31e3f8-54a5-449b-80f4-f16ff3fb3742
-      position: {x: 1937.0916, y: -599.9999}
+      position: {x: 2226.6665, y: -558.6667}
       nodeUIDs:
       - 748b7e7c-2257-4844-b123-d8698ef82bf3|0
       - 
@@ -261,38 +310,13 @@ MonoBehaviour:
       - 
       - e7a45f0d-318e-40c6-ad4b-8327011fd1a0|0
       flowUIDs:
-      - 23c5702b-fb5d-4286-8a8c-8c547889b1cc
+      - ba452dd3-c3c2-42f6-a7d4-5368cf1dac57
       nodeValues:
       - unityObjectValue: {fileID: 0}
         stringValue: 
       - unityObjectValue: {fileID: 0}
         stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089|False
-    - fullName: VRCUdonCommonInterfacesIUdonEventReceiver.__SetProgramVariable__SystemString_SystemObject__SystemVoid
-      uid: 23c5702b-fb5d-4286-8a8c-8c547889b1cc
-      position: {x: 1207.1951, y: -630.5}
-      nodeUIDs:
-      - 70ab3b36-efcb-4a28-bd4b-e98116b48eb8|0
-      - 5f854286-f156-4e0e-aec9-0227f5fb09b4|0
-      - 255e5890-478e-4e92-8843-ea22282a1aef|0
-      flowUIDs:
-      - 011eccc8-16c3-496b-bccf-48e56a2c5fa5
-      nodeValues:
-      - unityObjectValue: {fileID: 0}
-        stringValue: 
-      - unityObjectValue: {fileID: 0}
-        stringValue: 
-      - unityObjectValue: {fileID: 0}
-        stringValue: 
-    - fullName: Const_SystemString
-      uid: 5f854286-f156-4e0e-aec9-0227f5fb09b4
-      position: {x: 1171.058, y: -473.50003}
-      nodeUIDs:
-      - 
-      flowUIDs: []
-      nodeValues:
-      - unityObjectValue: {fileID: 0}
-        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|mTypeIdx
     - fullName: Event_Start
       uid: 4522fd37-495e-4a0a-9067-0fbd9fe4c1c3
       position: {x: 476, y: -656}
@@ -302,7 +326,7 @@ MonoBehaviour:
       nodeValues: []
     - fullName: VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid
       uid: 011eccc8-16c3-496b-bccf-48e56a2c5fa5
-      position: {x: 1479.8107, y: -606.0001}
+      position: {x: 1841.2502, y: -624.5001}
       nodeUIDs:
       - 70ab3b36-efcb-4a28-bd4b-e98116b48eb8|0
       - 905d925e-62da-4ad3-b92a-9fbd4830c841|0
@@ -315,7 +339,7 @@ MonoBehaviour:
         stringValue: 
     - fullName: Const_SystemString
       uid: 905d925e-62da-4ad3-b92a-9fbd4830c841
-      position: {x: 1454.9131, y: -454.0001}
+      position: {x: 1832.0001, y: -454.5001}
       nodeUIDs:
       - 
       flowUIDs: []
@@ -616,7 +640,7 @@ MonoBehaviour:
         stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
     - fullName: SystemString.__Format__SystemString_SystemObject__SystemString
       uid: 748b7e7c-2257-4844-b123-d8698ef82bf3
-      position: {x: 1819.4791, y: -453.99988}
+      position: {x: 2108.6665, y: -412.6667}
       nodeUIDs:
       - 
       - 255e5890-478e-4e92-8843-ea22282a1aef|0
@@ -1222,11 +1246,135 @@ MonoBehaviour:
         stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|9e3a9005-bfc6-4563-b87f-ed96dd8dd059
       - unityObjectValue: {fileID: 0}
         stringValue: 
+    - fullName: Variable_SystemStringArray
+      uid: cdbb35c5-e430-43b7-872b-3a08b786e9d2
+      position: {x: 0, y: 0}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      - 
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String[], mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|{"value":[]}
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|dtRendererCopyVals
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|True
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
+    - fullName: Get_Variable
+      uid: c9bbe026-8445-415c-ba84-06b83c102431
+      position: {x: 845.8002, y: -770.5001}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|cdbb35c5-e430-43b7-872b-3a08b786e9d2
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: For
+      uid: ba452dd3-c3c2-42f6-a7d4-5368cf1dac57
+      position: {x: 1239.5, y: -694}
+      nodeUIDs:
+      - 
+      - 8cc2f259-a7ff-40b2-95e4-887abe1c70e9|0
+      - 
+      flowUIDs:
+      - cf64441a-23ba-4229-a92e-bb66e3818e54
+      - 011eccc8-16c3-496b-bccf-48e56a2c5fa5
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|1
+    - fullName: SystemStringArray.__Get__SystemInt32__SystemString
+      uid: c98b3683-ba9a-44a5-9712-c5beea0bec41
+      position: {x: 1396, y: -785.8225}
+      nodeUIDs:
+      - c9bbe026-8445-415c-ba84-06b83c102431|0
+      - ba452dd3-c3c2-42f6-a7d4-5368cf1dac57|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
+    - fullName: SystemStringArray.__get_Length__SystemInt32
+      uid: 8cc2f259-a7ff-40b2-95e4-887abe1c70e9
+      position: {x: 1092.0001, y: -751.8169}
+      nodeUIDs:
+      - c9bbe026-8445-415c-ba84-06b83c102431|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: VRCUdonCommonInterfacesIUdonEventReceiver.__SetProgramVariable__SystemString_SystemObject__SystemVoid
+      uid: cf64441a-23ba-4229-a92e-bb66e3818e54
+      position: {x: 1608, y: -701.5}
+      nodeUIDs:
+      - 70ab3b36-efcb-4a28-bd4b-e98116b48eb8|0
+      - c98b3683-ba9a-44a5-9712-c5beea0bec41|0
+      - 95773a77-dbd8-439a-846a-d5bd3e5d6796|0
+      flowUIDs:
+      - 011eccc8-16c3-496b-bccf-48e56a2c5fa5
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject
+      uid: 95773a77-dbd8-439a-846a-d5bd3e5d6796
+      position: {x: 1586, y: -801}
+      nodeUIDs:
+      - 
+      - c98b3683-ba9a-44a5-9712-c5beea0bec41|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: Variable_SystemBoolean
+      uid: f2eca20a-171d-4451-934c-56482f45eb30
+      position: {x: 0, y: 0}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      - 
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|mIsSelected
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|True
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
     updateOrder: 0
   graphElementData:
   - type: 2
     uid: b81414c0-d270-4252-bf20-5dea1835f13a
-    jsonData: '{"uid":"b81414c0-d270-4252-bf20-5dea1835f13a","layout":{"serializedVersion":"2","x":331.0,"y":-715.0,"width":1363.0,"height":433.0},"containedElements":["5f854286-f156-4e0e-aec9-0227f5fb09b4","23c5702b-fb5d-4286-8a8c-8c547889b1cc","c9affd74-ce8b-4487-833e-af1362d604fe","70ab3b36-efcb-4a28-bd4b-e98116b48eb8","7f5e38dd-f429-4c12-b2d1-483402159334","ae32bd0b-a8c1-4853-b4e3-55f414ad6705","4522fd37-495e-4a0a-9067-0fbd9fe4c1c3","011eccc8-16c3-496b-bccf-48e56a2c5fa5","905d925e-62da-4ad3-b92a-9fbd4830c841","255e5890-478e-4e92-8843-ea22282a1aef","f238a445-6c35-4af0-8b6c-11f690b82edb","ed374b6b-c10b-448d-a783-a64b0143ac4a","e7a45f0d-318e-40c6-ad4b-8327011fd1a0"],"title":"Propagate
+    jsonData: '{"uid":"b81414c0-d270-4252-bf20-5dea1835f13a","layout":{"serializedVersion":"2","x":331.0000305175781,"y":-860.0000610351563,"width":1740.0,"height":578.0},"containedElements":["c9affd74-ce8b-4487-833e-af1362d604fe","70ab3b36-efcb-4a28-bd4b-e98116b48eb8","7f5e38dd-f429-4c12-b2d1-483402159334","ae32bd0b-a8c1-4853-b4e3-55f414ad6705","4522fd37-495e-4a0a-9067-0fbd9fe4c1c3","011eccc8-16c3-496b-bccf-48e56a2c5fa5","905d925e-62da-4ad3-b92a-9fbd4830c841","255e5890-478e-4e92-8843-ea22282a1aef","f238a445-6c35-4af0-8b6c-11f690b82edb","ed374b6b-c10b-448d-a783-a64b0143ac4a","e7a45f0d-318e-40c6-ad4b-8327011fd1a0","ba452dd3-c3c2-42f6-a7d4-5368cf1dac57","c9bbe026-8445-415c-ba84-06b83c102431","8cc2f259-a7ff-40b2-95e4-887abe1c70e9","c98b3683-ba9a-44a5-9712-c5beea0bec41","cf64441a-23ba-4229-a92e-bb66e3818e54","95773a77-dbd8-439a-846a-d5bd3e5d6796"],"title":"Propagate
       Marble Type Changes","layer":-1,"elementTypeColor":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}'
   - type: 2
     uid: e022a18f-dc98-45c7-bed7-5121d18951a5
