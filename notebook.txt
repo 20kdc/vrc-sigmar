@@ -1,0 +1,46 @@
+marble types
+
+0 (1): none _
+1 (2): fire f
+2 (4): earth e
+3 (8): air a
+4 (16): water w
+5 (32): salt s
+6 (64): quicksilver q
+7 (128): vitae v
+8 (256): mors m
+9 (512): metal0 (lead/'h') 0
+10 (1024): metal1 (tin/'t') 1
+11 (2048): metal2 (iron/mars) 2
+12 (4096): metal3 (copper/venus) 3
+13 (8192): metal4 (silver/moon) 4
+14 (16384): gold (gold/origin) 5
+15 (32768): quintessence (unsupported) 6
+
+_feawsqvm0123456
+
+blank board
+     _ _ _ _ _ _
+    _ _ _ _ _ _ _
+   _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _
+ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _
+ _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _
+   _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _
+     _ _ _ _ _ _
+
+test board ( https://bits.ondrovo.com/sigmar/?seed=1759940137391 )
+     q v a s w f
+    _ e _ a s _ _
+   _ 1 _ _ a _ _ _
+  _ q 2 _ q 4 s f _
+ _ _ e v e _ a w f _
+a _ _ v _ 5 e _ _ w e
+ w e m e f _ f _ _ q
+  e 0 _ _ q v m f s
+   w _ _ a 3 _ m f
+    w m f a _ _ w
+     a _ _ _ _ w

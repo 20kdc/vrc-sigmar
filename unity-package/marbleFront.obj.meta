@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: c105bb8aa80dd2c79a0e7007679af440
+guid: 8a0fec6ad6b1507ad873296ec8bbefd6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MarbleMaterial
-    second: {fileID: 2100000, guid: fe7a0b1146ebb8d1c903c4c2c2b2e7af, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -72,7 +67,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
