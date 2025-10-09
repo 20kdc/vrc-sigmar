@@ -17,14 +17,14 @@ MonoBehaviour:
   udonAssembly: ".data_start\n\n    .export myMarbleRenderer\n    .export mTypeIdx\n   
     .export parentGame\n    .export nNW\n    .export nNE\n    .export nE\n    .export
     nSE\n    .export nSW\n    .export nW\n    .export mIsFree\n    .export mTypeUnlocked\n   
-    .export dtRendererCopyVals\n    .export mIsSelected\n    \n    __instance_0:
-    %VRCUdonUdonBehaviour, this\n    __target_0: %VRCUdonCommonInterfacesNetworkEventTarget,
+    .export dtRendererCopyVals\n    .export mIsSelected\n    .export mIsDimmed\n   
+    \n    __instance_0: %VRCUdonUdonBehaviour, this\n    __target_0: %VRCUdonCommonInterfacesNetworkEventTarget,
     null\n    __eventName_0: %SystemString, null\n    __parameter0_0: %SystemObject,
     null\n    __String_0: %SystemString, null\n    __instance_1: %UnityEngineTransform,
     this\n    __instance_2: %VRCUdonUdonBehaviour, this\n    __eventName_1: %SystemString,
-    null\n    __instance_3: %VRCUdonUdonBehaviour, this\n    __value_0: %SystemBoolean,
     null\n    __Boolean_0: %SystemBoolean, null\n    __Boolean_1: %SystemBoolean,
     null\n    __Boolean_2: %SystemBoolean, null\n    __Boolean_3: %SystemBoolean,
+    null\n    __instance_3: %VRCUdonUdonBehaviour, this\n    __value_0: %SystemBoolean,
     null\n    __index_0: %SystemInt32, null\n    __condition_0: %SystemBoolean, null\n   
     __instance_5: %VRCUdonUdonBehaviour, this\n    __symbolName_0: %SystemString,
     null\n    __value_1: %SystemObject, null\n    __instance_7: %VRCUdonUdonBehaviour,
@@ -34,17 +34,17 @@ MonoBehaviour:
     %SystemStringArray, null\n    __instance_8: %VRCUdonUdonBehaviour, this\n   
     __eventName_2: %SystemString, null\n    __String_1: %SystemString, null\n   
     __message_0: %SystemObject, null\n    __String_2: %SystemString, null\n    __instance_9:
-    %VRCUdonUdonBehaviour, this\n    __eventName_3: %SystemString, null\n    __instance_A:
-    %VRCUdonUdonBehaviour, this\n    __value_2: %SystemBoolean, null\n    __Boolean_4:
+    %VRCUdonUdonBehaviour, this\n    __eventName_3: %SystemString, null\n    __Boolean_4:
     %SystemBoolean, null\n    __Boolean_5: %SystemBoolean, null\n    __Boolean_6:
-    %SystemBoolean, null\n    __Boolean_7: %SystemBoolean, null\n    __index_1: %SystemInt32,
-    null\n    __condition_1: %SystemBoolean, null\n    __instance_C: %VRCUdonUdonBehaviour,
-    this\n    __symbolName_2: %SystemString, null\n    __value_3: %SystemObject,
-    null\n    __instance_E: %VRCUdonUdonBehaviour, this\n    __symbolName_3: %SystemString,
-    null\n    __instance_D: %SystemStringArray, null\n    __Int32_1: %SystemInt32,
-    null\n    __start_1: %SystemInt32, null\n    __end_1: %SystemInt32, null\n   
-    __step_1: %SystemInt32, null\n    __instance_B: %SystemStringArray, null\n   
-    __instance_F: %VRCUdonUdonBehaviour, this\n    __eventName_4: %SystemString,
+    %SystemBoolean, null\n    __Boolean_7: %SystemBoolean, null\n    __instance_A:
+    %VRCUdonUdonBehaviour, this\n    __value_2: %SystemBoolean, null\n    __index_1:
+    %SystemInt32, null\n    __condition_1: %SystemBoolean, null\n    __instance_C:
+    %VRCUdonUdonBehaviour, this\n    __symbolName_2: %SystemString, null\n    __value_3:
+    %SystemObject, null\n    __instance_E: %VRCUdonUdonBehaviour, this\n    __symbolName_3:
+    %SystemString, null\n    __instance_D: %SystemStringArray, null\n    __Int32_1:
+    %SystemInt32, null\n    __start_1: %SystemInt32, null\n    __end_1: %SystemInt32,
+    null\n    __step_1: %SystemInt32, null\n    __instance_B: %SystemStringArray,
+    null\n    __instance_F: %VRCUdonUdonBehaviour, this\n    __eventName_4: %SystemString,
     null\n    __String_3: %SystemString, null\n    __Boolean_8: %SystemBoolean, null\n   
     __Boolean_9: %SystemBoolean, null\n    __Boolean_A: %SystemBoolean, null\n   
     __Boolean_B: %SystemBoolean, null\n    __Boolean_C: %SystemBoolean, null\n   
@@ -80,20 +80,20 @@ MonoBehaviour:
     nE: %VRCUdonUdonBehaviour, this\n    nSE: %VRCUdonUdonBehaviour, this\n    nSW:
     %VRCUdonUdonBehaviour, this\n    nW: %VRCUdonUdonBehaviour, this\n    mIsFree:
     %SystemBoolean, null\n    mTypeUnlocked: %SystemBoolean, null\n    dtRendererCopyVals:
-    %SystemStringArray, null\n    mIsSelected: %SystemBoolean, null\n\n.data_end\n\n.code_start\n\n   
-    .export _interact\n    \n    _interact:\n    \n        PUSH, parentGame\n       
-    PUSH, __instance_0\n        COPY\n        PUSH, __String_0\n        PUSH, __eventName_0\n       
-    COPY\n        PUSH, __instance_1\n        PUSH, __parameter0_0\n        EXTERN,
-    \"UnityEngineTransform.__GetSiblingIndex__SystemInt32\"\n        PUSH, __instance_0\n       
-    PUSH, __target_0\n        PUSH, __eventName_0\n        PUSH, __parameter0_0\n       
-    EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomNetworkEvent__VRCUdonCommonInterfacesNetworkEventTarget_SystemString_SystemObject__SystemVoid\"\n       
+    %SystemStringArray, null\n    mIsSelected: %SystemBoolean, null\n    mIsDimmed:
+    %SystemBoolean, null\n\n.data_end\n\n.code_start\n\n    .export _interact\n   
+    \n    _interact:\n    \n        PUSH, parentGame\n        PUSH, __instance_0\n       
+    COPY\n        PUSH, __String_0\n        PUSH, __eventName_0\n        COPY\n       
+    PUSH, __instance_1\n        PUSH, __parameter0_0\n        EXTERN, \"UnityEngineTransform.__GetSiblingIndex__SystemInt32\"\n       
+    PUSH, __instance_0\n        PUSH, __target_0\n        PUSH, __eventName_0\n       
+    PUSH, __parameter0_0\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomNetworkEvent__VRCUdonCommonInterfacesNetworkEventTarget_SystemString_SystemObject__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n    .export _start\n    \n    _start:\n    \n       
     PUSH, __instance_2\n        PUSH, __eventName_1\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
     PUSH, mIsFree\n        PUSH, mTypeUnlocked\n        PUSH, __Boolean_0\n       
     EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, __Boolean_0\n        PUSH, __Boolean_1\n        PUSH, __value_0\n       
+    PUSH, __Boolean_0\n        PUSH, __Boolean_1\n        PUSH, mIsDimmed\n       
     EXTERN, \"SystemBoolean.__op_ConditionalXor__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, __instance_3\n        PUSH, __value_0\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__set_DisableInteractive__SystemBoolean__SystemVoid\"\n       
+    PUSH, __instance_3\n        PUSH, mIsDimmed\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__set_DisableInteractive__SystemBoolean__SystemVoid\"\n       
     PUSH, dtRendererCopyVals\n        PUSH, __instance_4\n        COPY\n        PUSH,
     __instance_4\n        PUSH, __end_0\n        EXTERN, \"SystemStringArray.__get_Length__SystemInt32\"\n       
     PUSH, __start_0\n        PUSH, __index_0\n        COPY\n        PUSH, __index_0\n       
@@ -126,9 +126,9 @@ MonoBehaviour:
     PUSH, __instance_9\n        PUSH, __eventName_3\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
     PUSH, mIsFree\n        PUSH, mTypeUnlocked\n        PUSH, __Boolean_4\n       
     EXTERN, \"SystemBoolean.__op_ConditionalAnd__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, __Boolean_4\n        PUSH, __Boolean_5\n        PUSH, __value_2\n       
+    PUSH, __Boolean_4\n        PUSH, __Boolean_5\n        PUSH, mIsDimmed\n       
     EXTERN, \"SystemBoolean.__op_ConditionalXor__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
-    PUSH, __instance_A\n        PUSH, __value_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__set_DisableInteractive__SystemBoolean__SystemVoid\"\n       
+    PUSH, __instance_A\n        PUSH, mIsDimmed\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__set_DisableInteractive__SystemBoolean__SystemVoid\"\n       
     PUSH, dtRendererCopyVals\n        PUSH, __instance_B\n        COPY\n        PUSH,
     __instance_B\n        PUSH, __end_1\n        EXTERN, \"SystemStringArray.__get_Length__SystemInt32\"\n       
     PUSH, __start_1\n        PUSH, __index_1\n        COPY\n        PUSH, __index_1\n       
@@ -308,7 +308,7 @@ MonoBehaviour:
       position: {x: 913.78265, y: -563.50006}
       nodeUIDs:
       - 
-      - e7a45f0d-318e-40c6-ad4b-8327011fd1a0|0
+      - 441b2547-f11e-488a-b1d8-e71f584bcf5a|0
       flowUIDs:
       - ba452dd3-c3c2-42f6-a7d4-5368cf1dac57
       nodeValues:
@@ -694,7 +694,7 @@ MonoBehaviour:
       - 
       - 
       flowUIDs:
-      - c9affd74-ce8b-4487-833e-af1362d604fe
+      - 61d698c3-2656-43fc-9891-e8a08682b674
       nodeValues:
       - unityObjectValue: {fileID: 0}
         stringValue: 
@@ -729,7 +729,7 @@ MonoBehaviour:
         stringValue: 
     - fullName: SystemBoolean.__op_ConditionalXor__SystemBoolean_SystemBoolean__SystemBoolean
       uid: e7a45f0d-318e-40c6-ad4b-8327011fd1a0
-      position: {x: 924.9002, y: -432.00006}
+      position: {x: 422, y: -432.00006}
       nodeUIDs:
       - cacf542e-b4ed-4ef6-8599-cbf3728a379b|0
       - 
@@ -1370,11 +1370,62 @@ MonoBehaviour:
           PublicKeyToken=b77a5c561934e089|False
       - unityObjectValue: {fileID: 0}
         stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
+    - fullName: Variable_SystemBoolean
+      uid: 60a65d3d-fc4d-48e4-871a-b9715d03b078
+      position: {x: 0, y: 0}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      - 
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|mIsDimmed
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|True
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
+    - fullName: Set_Variable
+      uid: 61d698c3-2656-43fc-9891-e8a08682b674
+      position: {x: 663.1833, y: -458.00006}
+      nodeUIDs:
+      - 
+      - e7a45f0d-318e-40c6-ad4b-8327011fd1a0|0
+      - 
+      flowUIDs:
+      - c9affd74-ce8b-4487-833e-af1362d604fe
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|60a65d3d-fc4d-48e4-871a-b9715d03b078
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+    - fullName: Get_Variable
+      uid: 441b2547-f11e-488a-b1d8-e71f584bcf5a
+      position: {x: 889.73346, y: -407.99997}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|60a65d3d-fc4d-48e4-871a-b9715d03b078
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
     updateOrder: 0
   graphElementData:
   - type: 2
     uid: b81414c0-d270-4252-bf20-5dea1835f13a
-    jsonData: '{"uid":"b81414c0-d270-4252-bf20-5dea1835f13a","layout":{"serializedVersion":"2","x":331.0000305175781,"y":-860.0000610351563,"width":1740.0,"height":578.0},"containedElements":["c9affd74-ce8b-4487-833e-af1362d604fe","70ab3b36-efcb-4a28-bd4b-e98116b48eb8","7f5e38dd-f429-4c12-b2d1-483402159334","ae32bd0b-a8c1-4853-b4e3-55f414ad6705","4522fd37-495e-4a0a-9067-0fbd9fe4c1c3","011eccc8-16c3-496b-bccf-48e56a2c5fa5","905d925e-62da-4ad3-b92a-9fbd4830c841","255e5890-478e-4e92-8843-ea22282a1aef","f238a445-6c35-4af0-8b6c-11f690b82edb","ed374b6b-c10b-448d-a783-a64b0143ac4a","e7a45f0d-318e-40c6-ad4b-8327011fd1a0","ba452dd3-c3c2-42f6-a7d4-5368cf1dac57","c9bbe026-8445-415c-ba84-06b83c102431","8cc2f259-a7ff-40b2-95e4-887abe1c70e9","c98b3683-ba9a-44a5-9712-c5beea0bec41","cf64441a-23ba-4229-a92e-bb66e3818e54","95773a77-dbd8-439a-846a-d5bd3e5d6796"],"title":"Propagate
+    jsonData: '{"uid":"b81414c0-d270-4252-bf20-5dea1835f13a","layout":{"serializedVersion":"2","x":331.0,"y":-860.0001220703125,"width":1740.0,"height":578.0},"containedElements":["c9affd74-ce8b-4487-833e-af1362d604fe","70ab3b36-efcb-4a28-bd4b-e98116b48eb8","7f5e38dd-f429-4c12-b2d1-483402159334","ae32bd0b-a8c1-4853-b4e3-55f414ad6705","4522fd37-495e-4a0a-9067-0fbd9fe4c1c3","011eccc8-16c3-496b-bccf-48e56a2c5fa5","905d925e-62da-4ad3-b92a-9fbd4830c841","255e5890-478e-4e92-8843-ea22282a1aef","f238a445-6c35-4af0-8b6c-11f690b82edb","ed374b6b-c10b-448d-a783-a64b0143ac4a","e7a45f0d-318e-40c6-ad4b-8327011fd1a0","ba452dd3-c3c2-42f6-a7d4-5368cf1dac57","c9bbe026-8445-415c-ba84-06b83c102431","8cc2f259-a7ff-40b2-95e4-887abe1c70e9","c98b3683-ba9a-44a5-9712-c5beea0bec41","cf64441a-23ba-4229-a92e-bb66e3818e54","95773a77-dbd8-439a-846a-d5bd3e5d6796","61d698c3-2656-43fc-9891-e8a08682b674","441b2547-f11e-488a-b1d8-e71f584bcf5a"],"title":"Propagate
       Marble Type Changes","layer":-1,"elementTypeColor":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}'
   - type: 2
     uid: e022a18f-dc98-45c7-bed7-5121d18951a5
