@@ -1,20 +1,20 @@
 marble types
 
 0 (1): none _
-1 (2): fire f
-2 (4): earth e
-3 (8): air a
-4 (16): water w
-5 (32): salt s
-6 (64): quicksilver q
-7 (128): vitae v
-8 (256): mors m
-9 (512): metal0 (lead/'h') 0
-10 (1024): metal1 (tin/'t') 1
-11 (2048): metal2 (iron/mars) 2
-12 (4096): metal3 (copper/venus) 3
-13 (8192): metal4 (silver/moon) 4
-14 (16384): gold (gold/origin) 5
+1 (2): fire/🜂 f
+2 (4): earth/🜃 e
+3 (8): air/🜁 a
+4 (16): water/🜄 w
+5 (32): salt/🜔 s
+6 (64): quicksilver/☿ q
+7 (128): vitae/🜍 v
+8 (256): mors/🜞 m
+9 (512): metal0 (lead/♄) 0
+10 (1024): metal1 (tin/♃) 1
+11 (2048): metal2 (iron/♂) 2
+12 (4096): metal3 (copper/♀) 3
+13 (8192): metal4 (silver/☽) 4
+14 (16384): gold (gold/☉) 5
 15 (32768): quintessence (unsupported) 6
 
 _feawsqvm0123456
