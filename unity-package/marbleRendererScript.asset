@@ -17,143 +17,177 @@ MonoBehaviour:
   udonAssembly: ".data_start\n\n    .export billboardQuad\n    .export backTypes\n   
     .export symTypes\n    .export mTypeIdx\n    .export marbleBackMR\n    .export
     marbleFrontMR\n    .export renderTypes\n    .export mIsSelected\n    .export
-    selectionIndicator\n    \n    __instance_0: %UnityEngineTransform, this\n   
-    __value_0: %UnityEngineQuaternion, null\n    __instance_1: %VRCSDKBaseVRCPlayerApiTrackingData,
-    null\n    __instance_2: %VRCSDKBaseVRCPlayerApi, null\n    __tt_0: %VRCSDKBaseVRCPlayerApiTrackingDataType,
-    null\n    __instance_3: %UnityEngineMeshRenderer, null\n    __value_1: %SystemBoolean,
+    selectionIndicator\n    .export backTypesDim\n    .export symbolMR\n    \n   
+    __Boolean_0: %SystemBoolean, null\n    __instance_0: %UnityEngineMeshRenderer,
+    null\n    __instance_1: %UnityEngineTransform, this\n    __value_0: %UnityEngineQuaternion,
+    null\n    __instance_2: %VRCSDKBaseVRCPlayerApiTrackingData, null\n    __instance_3:
+    %VRCSDKBaseVRCPlayerApi, null\n    __tt_0: %VRCSDKBaseVRCPlayerApiTrackingDataType,
+    null\n    __instance_4: %UnityEngineTransform, this\n    __value_1: %UnityEngineVector3,
+    null\n    __instance_5: %UnityEngineMeshRenderer, null\n    __value_2: %SystemBoolean,
     null\n    __Int32_0: %SystemInt32, null\n    __Int32_1: %SystemInt32, null\n   
-    __Int32_2: %SystemInt32, null\n    __Int32_3: %SystemInt32, null\n    __instance_5:
-    %UnityEngineMeshRenderer, null\n    __value_2: %SystemBoolean, null\n    __Int32_7:
-    %SystemInt32, null\n    __Int32_8: %SystemInt32, null\n    __Int32_9: %SystemInt32,
-    null\n    __Int32_A: %SystemInt32, null\n    __instance_6: %UnityEngineGameObject,
-    this\n    __value_3: %SystemBoolean, null\n    __instance_7: %UnityEngineTransform,
-    this\n    __Int32_B: %SystemInt32, null\n    __Int32_C: %SystemInt32, null\n   
-    __Int32_D: %SystemInt32, null\n    __Int32_E: %SystemInt32, null\n    __instance_4:
-    %SystemInt32Array, null\n    __Int32_4: %SystemInt32, null\n    __instance_8:
+    __Int32_2: %SystemInt32, null\n    __Int32_3: %SystemInt32, null\n    __instance_7:
+    %UnityEngineMeshRenderer, null\n    __value_3: %SystemBoolean, null\n    __instance_8:
     %UnityEngineGameObject, this\n    __value_4: %SystemBoolean, null\n    __instance_9:
-    %UnityEngineMeshRenderer, null\n    __value_5: %UnityEngineMaterial, null\n   
-    __instance_B: %UnityEngineMeshRenderer, null\n    __value_6: %UnityEngineMaterial,
-    null\n    __instance_A: %UnityEngineMaterialArray, null\n    __Int32_F: %SystemInt32,
-    null\n    __instance_C: %UnityEngineMeshRenderer, null\n    __value_7: %UnityEngineMaterial,
-    null\n    __instance_D: %UnityEngineTransform, this\n    __type_0: %SystemType,
-    null\n    __Type_0: %SystemType, null\n    __instance_E: %UnityEngineMaterialArray,
+    %UnityEngineTransform, this\n    __Int32_B: %SystemInt32, null\n    __Int32_C:
+    %SystemInt32, null\n    __Int32_D: %SystemInt32, null\n    __Int32_E: %SystemInt32,
+    null\n    __instance_A: %UnityEngineGameObject, this\n    __value_5: %SystemBoolean,
+    null\n    __Boolean_1: %SystemBoolean, null\n    __Int32_7: %SystemInt32, null\n   
+    __Int32_8: %SystemInt32, null\n    __Int32_9: %SystemInt32, null\n    __Int32_A:
+    %SystemInt32, null\n    __instance_6: %SystemInt32Array, null\n    __Int32_4:
+    %SystemInt32, null\n    __instance_B: %UnityEngineTransform, this\n    __value_6:
+    %UnityEngineVector3, null\n    __Type_0: %SystemType, null\n    __instance_D:
+    %UnityEngineTransform, this\n    __value_7: %UnityEngineVector3, null\n    __instance_C:
+    %UnityEngineMeshRenderer, null\n    __type_0: %SystemType, null\n    __Type_1:
+    %SystemType, null\n    __instance_E: %UnityEngineMeshRenderer, null\n    __value_8:
+    %UnityEngineMaterial, null\n    __instance_10: %UnityEngineMeshRenderer, null\n   
+    __value_9: %UnityEngineMaterial, null\n    __instance_F: %UnityEngineMaterialArray,
+    null\n    __Int32_F: %SystemInt32, null\n    __instance_11: %UnityEngineMeshRenderer,
+    null\n    __value_A: %UnityEngineMaterial, null\n    __instance_12: %UnityEngineMaterialArray,
     null\n    __Int32_10: %SystemInt32, null\n    __Int32_5: %SystemInt32, null\n   
-    __Int32_6: %SystemInt32, null\n    __instance_F: %UnityEngineMeshRenderer, null\n   
-    __value_8: %SystemBoolean, null\n    __Int32_11: %SystemInt32, null\n    __Int32_12:
+    __Int32_6: %SystemInt32, null\n    __instance_13: %UnityEngineMeshRenderer, null\n   
+    __value_B: %SystemBoolean, null\n    __Int32_11: %SystemInt32, null\n    __Int32_12:
     %SystemInt32, null\n    __Int32_13: %SystemInt32, null\n    __Int32_14: %SystemInt32,
-    null\n    __instance_11: %UnityEngineMeshRenderer, null\n    __value_9: %SystemBoolean,
-    null\n    __Int32_18: %SystemInt32, null\n    __Int32_19: %SystemInt32, null\n   
-    __Int32_1A: %SystemInt32, null\n    __Int32_1B: %SystemInt32, null\n    __instance_12:
-    %UnityEngineGameObject, this\n    __value_A: %SystemBoolean, null\n    __instance_13:
-    %UnityEngineTransform, this\n    __Int32_1C: %SystemInt32, null\n    __Int32_1D:
-    %SystemInt32, null\n    __Int32_1E: %SystemInt32, null\n    __Int32_1F: %SystemInt32,
-    null\n    __instance_10: %SystemInt32Array, null\n    __Int32_15: %SystemInt32,
-    null\n    __instance_14: %UnityEngineGameObject, this\n    __value_B: %SystemBoolean,
-    null\n    __instance_15: %UnityEngineMeshRenderer, null\n    __value_C: %UnityEngineMaterial,
-    null\n    __instance_17: %UnityEngineMeshRenderer, null\n    __value_D: %UnityEngineMaterial,
-    null\n    __instance_16: %UnityEngineMaterialArray, null\n    __Int32_20: %SystemInt32,
-    null\n    __instance_18: %UnityEngineMeshRenderer, null\n    __value_E: %UnityEngineMaterial,
-    null\n    __instance_19: %UnityEngineTransform, this\n    __type_1: %SystemType,
-    null\n    __Type_1: %SystemType, null\n    __instance_1A: %UnityEngineMaterialArray,
+    null\n    __instance_15: %UnityEngineMeshRenderer, null\n    __value_C: %SystemBoolean,
+    null\n    __instance_16: %UnityEngineGameObject, this\n    __value_D: %SystemBoolean,
+    null\n    __instance_17: %UnityEngineTransform, this\n    __Int32_1C: %SystemInt32,
+    null\n    __Int32_1D: %SystemInt32, null\n    __Int32_1E: %SystemInt32, null\n   
+    __Int32_1F: %SystemInt32, null\n    __instance_18: %UnityEngineGameObject, this\n   
+    __value_E: %SystemBoolean, null\n    __Boolean_2: %SystemBoolean, null\n    __Int32_18:
+    %SystemInt32, null\n    __Int32_19: %SystemInt32, null\n    __Int32_1A: %SystemInt32,
+    null\n    __Int32_1B: %SystemInt32, null\n    __instance_14: %SystemInt32Array,
+    null\n    __Int32_15: %SystemInt32, null\n    __instance_19: %UnityEngineTransform,
+    this\n    __value_F: %UnityEngineVector3, null\n    __Type_2: %SystemType, null\n   
+    __instance_1B: %UnityEngineTransform, this\n    __value_10: %UnityEngineVector3,
+    null\n    __instance_1A: %UnityEngineMeshRenderer, null\n    __type_1: %SystemType,
+    null\n    __Type_3: %SystemType, null\n    __instance_1C: %UnityEngineMeshRenderer,
+    null\n    __value_11: %UnityEngineMaterial, null\n    __instance_1E: %UnityEngineMeshRenderer,
+    null\n    __value_12: %UnityEngineMaterial, null\n    __instance_1D: %UnityEngineMaterialArray,
+    null\n    __Int32_20: %SystemInt32, null\n    __instance_1F: %UnityEngineMeshRenderer,
+    null\n    __value_13: %UnityEngineMaterial, null\n    __instance_20: %UnityEngineMaterialArray,
     null\n    __Int32_21: %SystemInt32, null\n    __Int32_16: %SystemInt32, null\n   
     __Int32_17: %SystemInt32, null\n    billboardQuad: %UnityEngineTransform, this\n   
     backTypes: %UnityEngineMaterialArray, null\n    symTypes: %UnityEngineMaterialArray,
     null\n    mTypeIdx: %SystemInt32, null\n    marbleBackMR: %UnityEngineMeshRenderer,
     null\n    marbleFrontMR: %UnityEngineMeshRenderer, null\n    renderTypes: %SystemInt32Array,
     null\n    mIsSelected: %SystemBoolean, null\n    selectionIndicator: %UnityEngineGameObject,
-    this\n\n.data_end\n\n.code_start\n\n    .export _update\n    \n    _update:\n   
-    \n        PUSH, billboardQuad\n        PUSH, __instance_0\n        COPY\n       
-    PUSH, __instance_2\n        EXTERN, \"VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi\"\n       
-    PUSH, __instance_2\n        PUSH, __tt_0\n        PUSH, __instance_1\n       
-    EXTERN, \"VRCSDKBaseVRCPlayerApi.__GetTrackingData__VRCSDKBaseVRCPlayerApiTrackingDataType__VRCSDKBaseVRCPlayerApiTrackingData\"\n       
-    PUSH, __instance_1\n        PUSH, __value_0\n        EXTERN, \"VRCSDKBaseVRCPlayerApiTrackingData.__get_rotation__UnityEngineQuaternion\"\n       
-    PUSH, __instance_0\n        PUSH, __value_0\n        EXTERN, \"UnityEngineTransform.__set_rotation__UnityEngineQuaternion__SystemVoid\"\n       
+    this\n    backTypesDim: %UnityEngineMaterialArray, null\n    symbolMR: %UnityEngineMeshRenderer,
+    null\n\n.data_end\n\n.code_start\n\n    .export _update\n    \n    _update:\n   
+    \n        PUSH, marbleBackMR\n        PUSH, __instance_0\n        COPY\n       
+    PUSH, __instance_0\n        PUSH, __Boolean_0\n        EXTERN, \"UnityEngineMeshRenderer.__get_enabled__SystemBoolean\"\n       
+    PUSH, __Boolean_0\n        JUMP_IF_FALSE, 0x000000B8\n        PUSH, billboardQuad\n       
+    PUSH, __instance_1\n        COPY\n        PUSH, __instance_3\n        EXTERN,
+    \"VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi\"\n        PUSH,
+    __instance_3\n        PUSH, __tt_0\n        PUSH, __instance_2\n        EXTERN,
+    \"VRCSDKBaseVRCPlayerApi.__GetTrackingData__VRCSDKBaseVRCPlayerApiTrackingDataType__VRCSDKBaseVRCPlayerApiTrackingData\"\n       
+    PUSH, __instance_2\n        PUSH, __value_0\n        EXTERN, \"VRCSDKBaseVRCPlayerApiTrackingData.__get_rotation__UnityEngineQuaternion\"\n       
+    PUSH, __instance_1\n        PUSH, __value_0\n        EXTERN, \"UnityEngineTransform.__set_rotation__UnityEngineQuaternion__SystemVoid\"\n       
+    JUMP, 0x000000E4\n        PUSH, billboardQuad\n        PUSH, __instance_4\n       
+    COPY\n        PUSH, __instance_4\n        PUSH, __value_1\n        EXTERN, \"UnityEngineTransform.__set_eulerAngles__UnityEngineVector3__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n    .export _start\n    \n    _start:\n    \n       
-    PUSH, marbleBackMR\n        PUSH, __instance_3\n        COPY\n        PUSH, renderTypes\n       
-    PUSH, __instance_4\n        COPY\n        PUSH, mTypeIdx\n        PUSH, __Int32_6\n       
+    PUSH, marbleBackMR\n        PUSH, __instance_5\n        COPY\n        PUSH, renderTypes\n       
+    PUSH, __instance_6\n        COPY\n        PUSH, mTypeIdx\n        PUSH, __Int32_6\n       
     PUSH, __Int32_4\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
-    PUSH, __instance_4\n        PUSH, __Int32_4\n        PUSH, __Int32_2\n       
+    PUSH, __instance_6\n        PUSH, __Int32_4\n        PUSH, __Int32_2\n       
     EXTERN, \"SystemInt32Array.__Get__SystemInt32__SystemInt32\"\n        PUSH, __Int32_2\n       
     PUSH, __Int32_3\n        PUSH, __Int32_0\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
-    PUSH, __Int32_0\n        PUSH, __Int32_1\n        PUSH, __value_1\n        EXTERN,
-    \"SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean\"\n       
-    PUSH, __instance_3\n        PUSH, __value_1\n        EXTERN, \"UnityEngineMeshRenderer.__set_enabled__SystemBoolean__SystemVoid\"\n       
-    PUSH, marbleFrontMR\n        PUSH, __instance_5\n        COPY\n        PUSH,
-    renderTypes\n        PUSH, __instance_4\n        COPY\n        PUSH, __Int32_2\n       
-    PUSH, __Int32_9\n        COPY\n        PUSH, __Int32_2\n        PUSH, __Int32_A\n       
-    PUSH, __Int32_7\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
-    PUSH, __Int32_7\n        PUSH, __Int32_8\n        PUSH, __value_2\n        EXTERN,
+    PUSH, __Int32_0\n        PUSH, __Int32_1\n        PUSH, __value_2\n        EXTERN,
     \"SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean\"\n       
     PUSH, __instance_5\n        PUSH, __value_2\n        EXTERN, \"UnityEngineMeshRenderer.__set_enabled__SystemBoolean__SystemVoid\"\n       
-    PUSH, billboardQuad\n        PUSH, __instance_7\n        COPY\n        PUSH,
-    __instance_7\n        PUSH, __instance_6\n        EXTERN, \"UnityEngineTransform.__get_gameObject__UnityEngineGameObject\"\n       
-    PUSH, renderTypes\n        PUSH, __instance_4\n        COPY\n        PUSH, __Int32_2\n       
+    PUSH, marbleFrontMR\n        PUSH, __instance_7\n        COPY\n        PUSH,
+    renderTypes\n        PUSH, __instance_6\n        COPY\n        PUSH, __Int32_2\n       
+    PUSH, __Int32_9\n        COPY\n        PUSH, __Int32_2\n        PUSH, __Int32_A\n       
+    PUSH, __Int32_7\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
+    PUSH, __Int32_7\n        PUSH, __Int32_8\n        PUSH, __value_3\n        EXTERN,
+    \"SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean\"\n       
+    PUSH, __instance_7\n        PUSH, __value_3\n        EXTERN, \"UnityEngineMeshRenderer.__set_enabled__SystemBoolean__SystemVoid\"\n       
+    PUSH, billboardQuad\n        PUSH, __instance_9\n        COPY\n        PUSH,
+    __instance_9\n        PUSH, __instance_8\n        EXTERN, \"UnityEngineTransform.__get_gameObject__UnityEngineGameObject\"\n       
+    PUSH, renderTypes\n        PUSH, __instance_6\n        COPY\n        PUSH, __Int32_2\n       
     PUSH, __Int32_D\n        COPY\n        PUSH, __Int32_2\n        PUSH, __Int32_E\n       
     PUSH, __Int32_B\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
-    PUSH, __Int32_B\n        PUSH, __Int32_C\n        PUSH, __value_3\n        EXTERN,
+    PUSH, __Int32_B\n        PUSH, __Int32_C\n        PUSH, __value_4\n        EXTERN,
     \"SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean\"\n       
-    PUSH, __instance_6\n        PUSH, __value_3\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
-    PUSH, selectionIndicator\n        PUSH, __instance_8\n        COPY\n        PUSH,
-    __instance_8\n        PUSH, mIsSelected\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
-    PUSH, marbleFrontMR\n        PUSH, __instance_9\n        COPY\n        PUSH,
-    backTypes\n        PUSH, __instance_A\n        COPY\n        PUSH, __Int32_4\n       
-    PUSH, __Int32_F\n        COPY\n        PUSH, __instance_A\n        PUSH, __Int32_4\n       
-    PUSH, __value_5\n        EXTERN, \"UnityEngineMaterialArray.__Get__SystemInt32__UnityEngineMaterial\"\n       
-    PUSH, __instance_9\n        PUSH, __value_5\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
-    PUSH, marbleBackMR\n        PUSH, __instance_B\n        COPY\n        PUSH, backTypes\n       
-    PUSH, __instance_A\n        COPY\n        PUSH, __Int32_4\n        PUSH, __Int32_F\n       
-    COPY\n        PUSH, __value_5\n        PUSH, __value_6\n        COPY\n       
-    PUSH, __instance_B\n        PUSH, __value_5\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
-    PUSH, billboardQuad\n        PUSH, __instance_D\n        COPY\n        PUSH,
-    __Type_0\n        PUSH, __type_0\n        COPY\n        PUSH, __instance_D\n       
-    PUSH, __type_0\n        PUSH, __instance_C\n        EXTERN, \"UnityEngineTransform.__GetComponent__SystemType__UnityEngineComponent\"\n       
-    PUSH, symTypes\n        PUSH, __instance_E\n        COPY\n        PUSH, __Int32_4\n       
-    PUSH, __Int32_10\n        COPY\n        PUSH, __instance_E\n        PUSH, __Int32_4\n       
-    PUSH, __value_7\n        EXTERN, \"UnityEngineMaterialArray.__Get__SystemInt32__UnityEngineMaterial\"\n       
-    PUSH, __instance_C\n        PUSH, __value_7\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
+    PUSH, __instance_8\n        PUSH, __value_4\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
+    PUSH, selectionIndicator\n        PUSH, __instance_A\n        COPY\n        PUSH,
+    __instance_A\n        PUSH, mIsSelected\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
+    PUSH, renderTypes\n        PUSH, __instance_6\n        COPY\n        PUSH, __Int32_2\n       
+    PUSH, __Int32_9\n        COPY\n        PUSH, __value_3\n        PUSH, __Boolean_1\n       
+    COPY\n        PUSH, __value_3\n        JUMP_IF_FALSE, 0x000003CC\n        PUSH,
+    symbolMR\n        PUSH, __instance_C\n        COPY\n        PUSH, __Type_0\n       
+    PUSH, __type_0\n        COPY\n        PUSH, __instance_C\n        PUSH, __type_0\n       
+    PUSH, __instance_B\n        EXTERN, \"UnityEngineMeshRenderer.__GetComponent__SystemType__UnityEngineComponent\"\n       
+    PUSH, __instance_B\n        PUSH, __value_6\n        EXTERN, \"UnityEngineTransform.__set_localPosition__UnityEngineVector3__SystemVoid\"\n       
+    JUMP, 0x00000420\n        PUSH, symbolMR\n        PUSH, __instance_C\n       
+    COPY\n        PUSH, __Type_1\n        PUSH, __type_0\n        COPY\n        PUSH,
+    __instance_B\n        PUSH, __instance_D\n        COPY\n        PUSH, __instance_B\n       
+    PUSH, __value_7\n        EXTERN, \"UnityEngineTransform.__set_localPosition__UnityEngineVector3__SystemVoid\"\n       
+    PUSH, marbleFrontMR\n        PUSH, __instance_E\n        COPY\n        PUSH,
+    backTypes\n        PUSH, __instance_F\n        COPY\n        PUSH, __Int32_4\n       
+    PUSH, __Int32_F\n        COPY\n        PUSH, __instance_F\n        PUSH, __Int32_4\n       
+    PUSH, __value_8\n        EXTERN, \"UnityEngineMaterialArray.__Get__SystemInt32__UnityEngineMaterial\"\n       
+    PUSH, __instance_E\n        PUSH, __value_8\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
+    PUSH, marbleBackMR\n        PUSH, __instance_10\n        COPY\n        PUSH,
+    backTypes\n        PUSH, __instance_F\n        COPY\n        PUSH, __Int32_4\n       
+    PUSH, __Int32_F\n        COPY\n        PUSH, __value_8\n        PUSH, __value_9\n       
+    COPY\n        PUSH, __instance_10\n        PUSH, __value_8\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
+    PUSH, symbolMR\n        PUSH, __instance_11\n        COPY\n        PUSH, symTypes\n       
+    PUSH, __instance_12\n        COPY\n        PUSH, __Int32_4\n        PUSH, __Int32_10\n       
+    COPY\n        PUSH, __instance_12\n        PUSH, __Int32_4\n        PUSH, __value_A\n       
+    EXTERN, \"UnityEngineMaterialArray.__Get__SystemInt32__UnityEngineMaterial\"\n       
+    PUSH, __instance_11\n        PUSH, __value_A\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n    .export DidChangeType\n    \n    DidChangeType:\n   
-    \n        PUSH, marbleBackMR\n        PUSH, __instance_F\n        COPY\n       
-    PUSH, renderTypes\n        PUSH, __instance_10\n        COPY\n        PUSH, mTypeIdx\n       
+    \n        PUSH, marbleBackMR\n        PUSH, __instance_13\n        COPY\n       
+    PUSH, renderTypes\n        PUSH, __instance_14\n        COPY\n        PUSH, mTypeIdx\n       
     PUSH, __Int32_17\n        PUSH, __Int32_15\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
-    PUSH, __instance_10\n        PUSH, __Int32_15\n        PUSH, __Int32_13\n       
+    PUSH, __instance_14\n        PUSH, __Int32_15\n        PUSH, __Int32_13\n       
     EXTERN, \"SystemInt32Array.__Get__SystemInt32__SystemInt32\"\n        PUSH, __Int32_13\n       
     PUSH, __Int32_14\n        PUSH, __Int32_11\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
-    PUSH, __Int32_11\n        PUSH, __Int32_12\n        PUSH, __value_8\n       
+    PUSH, __Int32_11\n        PUSH, __Int32_12\n        PUSH, __value_B\n       
     EXTERN, \"SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean\"\n       
-    PUSH, __instance_F\n        PUSH, __value_8\n        EXTERN, \"UnityEngineMeshRenderer.__set_enabled__SystemBoolean__SystemVoid\"\n       
-    PUSH, marbleFrontMR\n        PUSH, __instance_11\n        COPY\n        PUSH,
-    renderTypes\n        PUSH, __instance_10\n        COPY\n        PUSH, __Int32_13\n       
+    PUSH, __instance_13\n        PUSH, __value_B\n        EXTERN, \"UnityEngineMeshRenderer.__set_enabled__SystemBoolean__SystemVoid\"\n       
+    PUSH, marbleFrontMR\n        PUSH, __instance_15\n        COPY\n        PUSH,
+    renderTypes\n        PUSH, __instance_14\n        COPY\n        PUSH, __Int32_13\n       
     PUSH, __Int32_1A\n        COPY\n        PUSH, __Int32_13\n        PUSH, __Int32_1B\n       
     PUSH, __Int32_18\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
-    PUSH, __Int32_18\n        PUSH, __Int32_19\n        PUSH, __value_9\n       
+    PUSH, __Int32_18\n        PUSH, __Int32_19\n        PUSH, __value_C\n       
     EXTERN, \"SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean\"\n       
-    PUSH, __instance_11\n        PUSH, __value_9\n        EXTERN, \"UnityEngineMeshRenderer.__set_enabled__SystemBoolean__SystemVoid\"\n       
-    PUSH, billboardQuad\n        PUSH, __instance_13\n        COPY\n        PUSH,
-    __instance_13\n        PUSH, __instance_12\n        EXTERN, \"UnityEngineTransform.__get_gameObject__UnityEngineGameObject\"\n       
-    PUSH, renderTypes\n        PUSH, __instance_10\n        COPY\n        PUSH, __Int32_13\n       
+    PUSH, __instance_15\n        PUSH, __value_C\n        EXTERN, \"UnityEngineMeshRenderer.__set_enabled__SystemBoolean__SystemVoid\"\n       
+    PUSH, billboardQuad\n        PUSH, __instance_17\n        COPY\n        PUSH,
+    __instance_17\n        PUSH, __instance_16\n        EXTERN, \"UnityEngineTransform.__get_gameObject__UnityEngineGameObject\"\n       
+    PUSH, renderTypes\n        PUSH, __instance_14\n        COPY\n        PUSH, __Int32_13\n       
     PUSH, __Int32_1E\n        COPY\n        PUSH, __Int32_13\n        PUSH, __Int32_1F\n       
     PUSH, __Int32_1C\n        EXTERN, \"SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32\"\n       
-    PUSH, __Int32_1C\n        PUSH, __Int32_1D\n        PUSH, __value_A\n       
+    PUSH, __Int32_1C\n        PUSH, __Int32_1D\n        PUSH, __value_D\n       
     EXTERN, \"SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean\"\n       
-    PUSH, __instance_12\n        PUSH, __value_A\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
-    PUSH, selectionIndicator\n        PUSH, __instance_14\n        COPY\n       
-    PUSH, __instance_14\n        PUSH, mIsSelected\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
-    PUSH, marbleFrontMR\n        PUSH, __instance_15\n        COPY\n        PUSH,
-    backTypes\n        PUSH, __instance_16\n        COPY\n        PUSH, __Int32_15\n       
-    PUSH, __Int32_20\n        COPY\n        PUSH, __instance_16\n        PUSH, __Int32_15\n       
-    PUSH, __value_C\n        EXTERN, \"UnityEngineMaterialArray.__Get__SystemInt32__UnityEngineMaterial\"\n       
-    PUSH, __instance_15\n        PUSH, __value_C\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
-    PUSH, marbleBackMR\n        PUSH, __instance_17\n        COPY\n        PUSH,
-    backTypes\n        PUSH, __instance_16\n        COPY\n        PUSH, __Int32_15\n       
-    PUSH, __Int32_20\n        COPY\n        PUSH, __value_C\n        PUSH, __value_D\n       
-    COPY\n        PUSH, __instance_17\n        PUSH, __value_C\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
-    PUSH, billboardQuad\n        PUSH, __instance_19\n        COPY\n        PUSH,
-    __Type_1\n        PUSH, __type_1\n        COPY\n        PUSH, __instance_19\n       
-    PUSH, __type_1\n        PUSH, __instance_18\n        EXTERN, \"UnityEngineTransform.__GetComponent__SystemType__UnityEngineComponent\"\n       
-    PUSH, symTypes\n        PUSH, __instance_1A\n        COPY\n        PUSH, __Int32_15\n       
-    PUSH, __Int32_21\n        COPY\n        PUSH, __instance_1A\n        PUSH, __Int32_15\n       
-    PUSH, __value_E\n        EXTERN, \"UnityEngineMaterialArray.__Get__SystemInt32__UnityEngineMaterial\"\n       
-    PUSH, __instance_18\n        PUSH, __value_E\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
+    PUSH, __instance_16\n        PUSH, __value_D\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
+    PUSH, selectionIndicator\n        PUSH, __instance_18\n        COPY\n       
+    PUSH, __instance_18\n        PUSH, mIsSelected\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
+    PUSH, renderTypes\n        PUSH, __instance_14\n        COPY\n        PUSH, __Int32_13\n       
+    PUSH, __Int32_1A\n        COPY\n        PUSH, __value_C\n        PUSH, __Boolean_2\n       
+    COPY\n        PUSH, __value_C\n        JUMP_IF_FALSE, 0x00000858\n        PUSH,
+    symbolMR\n        PUSH, __instance_1A\n        COPY\n        PUSH, __Type_2\n       
+    PUSH, __type_1\n        COPY\n        PUSH, __instance_1A\n        PUSH, __type_1\n       
+    PUSH, __instance_19\n        EXTERN, \"UnityEngineMeshRenderer.__GetComponent__SystemType__UnityEngineComponent\"\n       
+    PUSH, __instance_19\n        PUSH, __value_F\n        EXTERN, \"UnityEngineTransform.__set_localPosition__UnityEngineVector3__SystemVoid\"\n       
+    JUMP, 0x000008AC\n        PUSH, symbolMR\n        PUSH, __instance_1A\n       
+    COPY\n        PUSH, __Type_3\n        PUSH, __type_1\n        COPY\n        PUSH,
+    __instance_19\n        PUSH, __instance_1B\n        COPY\n        PUSH, __instance_19\n       
+    PUSH, __value_10\n        EXTERN, \"UnityEngineTransform.__set_localPosition__UnityEngineVector3__SystemVoid\"\n       
+    PUSH, marbleFrontMR\n        PUSH, __instance_1C\n        COPY\n        PUSH,
+    backTypes\n        PUSH, __instance_1D\n        COPY\n        PUSH, __Int32_15\n       
+    PUSH, __Int32_20\n        COPY\n        PUSH, __instance_1D\n        PUSH, __Int32_15\n       
+    PUSH, __value_11\n        EXTERN, \"UnityEngineMaterialArray.__Get__SystemInt32__UnityEngineMaterial\"\n       
+    PUSH, __instance_1C\n        PUSH, __value_11\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
+    PUSH, marbleBackMR\n        PUSH, __instance_1E\n        COPY\n        PUSH,
+    backTypes\n        PUSH, __instance_1D\n        COPY\n        PUSH, __Int32_15\n       
+    PUSH, __Int32_20\n        COPY\n        PUSH, __value_11\n        PUSH, __value_12\n       
+    COPY\n        PUSH, __instance_1E\n        PUSH, __value_11\n        EXTERN,
+    \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
+    PUSH, symbolMR\n        PUSH, __instance_1F\n        COPY\n        PUSH, symTypes\n       
+    PUSH, __instance_20\n        COPY\n        PUSH, __Int32_15\n        PUSH, __Int32_21\n       
+    COPY\n        PUSH, __instance_20\n        PUSH, __Int32_15\n        PUSH, __value_13\n       
+    EXTERN, \"UnityEngineMaterialArray.__Get__SystemInt32__UnityEngineMaterial\"\n       
+    PUSH, __instance_1F\n        PUSH, __value_13\n        EXTERN, \"UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n\n.code_end\n"
   assemblyError: 
   graphData:
@@ -162,20 +196,20 @@ MonoBehaviour:
     nodes:
     - fullName: Event_Update
       uid: 4f15880d-e6ed-4eaf-8522-b47e2b4d7aad
-      position: {x: 432.55966, y: 71.99997}
+      position: {x: 442.49997, y: -214.5}
       nodeUIDs: []
       flowUIDs:
-      - 81b36ec2-68fa-4cf3-bde2-fa7fd9d5d1ad
+      - b8d821ad-67dd-4b80-8a58-409db39af4a1
       nodeValues: []
     - fullName: VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi
       uid: 319c6579-ddf0-4e47-84d1-1c859bf0df4e
-      position: {x: 897.8501, y: -136.12868}
+      position: {x: 686.8841, y: -406.49283}
       nodeUIDs: []
       flowUIDs: []
       nodeValues: []
     - fullName: VRCSDKBaseVRCPlayerApi.__GetTrackingData__VRCSDKBaseVRCPlayerApiTrackingDataType__VRCSDKBaseVRCPlayerApiTrackingData
       uid: ae832a58-8b49-4178-8638-49f068c858ea
-      position: {x: 657.8501, y: -85.12868}
+      position: {x: 646.3333, y: -288.99997}
       nodeUIDs:
       - 319c6579-ddf0-4e47-84d1-1c859bf0df4e|0
       - 
@@ -188,7 +222,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null|Head
     - fullName: VRCSDKBaseVRCPlayerApiTrackingData.__get_rotation__UnityEngineQuaternion
       uid: dd87eed2-03d0-4b3d-a863-ee9ed51f646f
-      position: {x: 692.8501, y: 37.871323}
+      position: {x: 895, y: -298}
       nodeUIDs:
       - ae832a58-8b49-4178-8638-49f068c858ea|0
       flowUIDs: []
@@ -198,7 +232,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null|{"position":{"x":0.0,"y":0.0,"z":0.0},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":0.0}}
     - fullName: UnityEngineTransform.__set_rotation__UnityEngineQuaternion__SystemVoid
       uid: 81b36ec2-68fa-4cf3-bde2-fa7fd9d5d1ad
-      position: {x: 926.8501, y: -32.128677}
+      position: {x: 1242.6001, y: -372.00006}
       nodeUIDs:
       - 242e9c68-abee-4267-99d8-a15e5a0ad290|0
       - dd87eed2-03d0-4b3d-a863-ee9ed51f646f|0
@@ -234,7 +268,7 @@ MonoBehaviour:
         stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
     - fullName: Get_Variable
       uid: 242e9c68-abee-4267-99d8-a15e5a0ad290
-      position: {x: 657.8501, y: -168.12868}
+      position: {x: 974.50006, y: -381.00006}
       nodeUIDs:
       - 
       flowUIDs: []
@@ -331,26 +365,9 @@ MonoBehaviour:
       nodeValues:
       - unityObjectValue: {fileID: 0}
         stringValue: 
-    - fullName: Type_UnityEngineMeshRenderer
-      uid: 1515ee23-68a6-4c3d-9b94-f6a0048a0ac9
-      position: {x: 1737.9872, y: 165.70453}
-      nodeUIDs: []
-      flowUIDs: []
-      nodeValues: []
-    - fullName: Get_Variable
-      uid: e9c2741b-ca42-4316-8d84-994b0b32a19b
-      position: {x: 1748.9872, y: 255.70453}
-      nodeUIDs:
-      - 
-      flowUIDs: []
-      nodeValues:
-      - unityObjectValue: {fileID: 0}
-        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|3e85d1b9-eb27-42b9-9739-de8d563a63dd
-      - unityObjectValue: {fileID: 0}
-        stringValue: 
     - fullName: UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid
       uid: 734a3286-ab26-465d-a274-d20729399ae7
-      position: {x: 2216.9873, y: 67.70453}
+      position: {x: 2420.8176, y: 349.59003}
       nodeUIDs:
       - 1f195fb8-2547-4ea5-9972-1e31e6ea41e4|0
       - b61d5312-961f-4c91-b460-f97bef9980f8|0
@@ -409,24 +426,12 @@ MonoBehaviour:
         stringValue: 
     - fullName: UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid
       uid: e08f80c0-3aa9-4fcb-9633-4773bae75333
-      position: {x: 2238.9873, y: 221.70453}
+      position: {x: 2442.8176, y: 503.59003}
       nodeUIDs:
-      - afb211b5-e30b-4d9b-8a2e-d4e4077724cc|0
+      - 4ddeb1f8-0466-435d-96cb-14812f73c6c2|0
       - e8fa20a0-fdfd-4685-ac5e-6f54a3f0dc3c|0
       flowUIDs:
       - 
-      nodeValues:
-      - unityObjectValue: {fileID: 0}
-        stringValue: 
-      - unityObjectValue: {fileID: 0}
-        stringValue: 
-    - fullName: UnityEngineTransform.__GetComponent__SystemType__UnityEngineComponent
-      uid: afb211b5-e30b-4d9b-8a2e-d4e4077724cc
-      position: {x: 1997.9872, y: 225.70453}
-      nodeUIDs:
-      - e9c2741b-ca42-4316-8d84-994b0b32a19b|0
-      - 1515ee23-68a6-4c3d-9b94-f6a0048a0ac9|0
-      flowUIDs: []
       nodeValues:
       - unityObjectValue: {fileID: 0}
         stringValue: 
@@ -551,7 +556,7 @@ MonoBehaviour:
         stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
     - fullName: Get_Variable
       uid: 1f195fb8-2547-4ea5-9972-1e31e6ea41e4
-      position: {x: 1737.9872, y: -4.295471}
+      position: {x: 1941.8176, y: 277.59003}
       nodeUIDs:
       - 
       flowUIDs: []
@@ -562,7 +567,7 @@ MonoBehaviour:
         stringValue: 
     - fullName: UnityEngineMeshRenderer.__set_material__UnityEngineMaterial__SystemVoid
       uid: 7272bd78-b087-40a6-9789-986194004bf6
-      position: {x: 2023.9872, y: 57.70453}
+      position: {x: 2227.8176, y: 339.59003}
       nodeUIDs:
       - ca77c75f-ec60-4b4a-90b4-84fabc7c4dc8|0
       - b61d5312-961f-4c91-b460-f97bef9980f8|0
@@ -575,7 +580,7 @@ MonoBehaviour:
         stringValue: 
     - fullName: Get_Variable
       uid: ca77c75f-ec60-4b4a-90b4-84fabc7c4dc8
-      position: {x: 1737.9872, y: 82.70453}
+      position: {x: 1941.8176, y: 364.59003}
       nodeUIDs:
       - 
       flowUIDs: []
@@ -770,7 +775,7 @@ MonoBehaviour:
       - 570058b3-756b-4817-95fb-f92a126708ce|0
       - 3ecfda05-8322-4c9e-aecf-4926978ff714|0
       flowUIDs:
-      - 7272bd78-b087-40a6-9789-986194004bf6
+      - 8b1a3ad3-fca6-49a2-9396-c1c4c2f18e06
       nodeValues:
       - unityObjectValue: {fileID: 0}
         stringValue: 
@@ -822,14 +827,194 @@ MonoBehaviour:
         stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|af8ae424-53c2-4378-b4ae-c6d17c010ca7
       - unityObjectValue: {fileID: 0}
         stringValue: 
+    - fullName: Variable_UnityEngineMaterialArray
+      uid: 4eebaf04-6246-4a12-ab62-3b4b1d8b5d66
+      position: {x: 0, y: 0}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      - 
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|backTypesDim
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|True
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
+    - fullName: Variable_UnityEngineMeshRenderer
+      uid: dddabffc-19dd-464a-8fca-f6d6cc509e7b
+      position: {x: 0, y: 0}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      - 
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|symbolMR
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|True
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
+    - fullName: Get_Variable
+      uid: 4ddeb1f8-0466-435d-96cb-14812f73c6c2
+      position: {x: 1954.8176, y: 470.59003}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|dddabffc-19dd-464a-8fca-f6d6cc509e7b
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: Get_Variable
+      uid: ca823d19-6ce0-47aa-81d8-e21601cbc795
+      position: {x: 991.00006, y: 152.73917}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|dddabffc-19dd-464a-8fca-f6d6cc509e7b
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: UnityEngineTransform.__set_localPosition__UnityEngineVector3__SystemVoid
+      uid: c8f98a13-0cfa-4495-880d-44940a75f265
+      position: {x: 1536, y: 135.92107}
+      nodeUIDs:
+      - 00cfde8f-40e3-4bd9-a141-6f42a914fa8f|0
+      - 
+      flowUIDs:
+      - 
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null|{"x":0.0,"y":0.0,"z":-0.007000000216066837}
+    - fullName: Block
+      uid: 8b1a3ad3-fca6-49a2-9396-c1c4c2f18e06
+      position: {x: 1430.5001, y: 403.00003}
+      nodeUIDs: []
+      flowUIDs:
+      - f7978c13-9b9b-4243-987d-c9a36053e757
+      - 7272bd78-b087-40a6-9789-986194004bf6
+      nodeValues: []
+    - fullName: UnityEngineTransform.__set_localPosition__UnityEngineVector3__SystemVoid
+      uid: 5e060295-ad92-44be-8e18-a046798e5d7f
+      position: {x: 1536, y: 278}
+      nodeUIDs:
+      - 00cfde8f-40e3-4bd9-a141-6f42a914fa8f|0
+      - 
+      flowUIDs:
+      - 
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null|{"x":0.0,"y":0.0,"z":0.0}
+    - fullName: Branch
+      uid: f7978c13-9b9b-4243-987d-c9a36053e757
+      position: {x: 1572.7533, y: 409}
+      nodeUIDs:
+      - 7be17bc5-d712-43d7-a8b2-1b22942a0224|0
+      flowUIDs:
+      - c8f98a13-0cfa-4495-880d-44940a75f265
+      - 5e060295-ad92-44be-8e18-a046798e5d7f
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+    - fullName: UnityEngineMeshRenderer.__GetComponent__SystemType__UnityEngineComponent
+      uid: 00cfde8f-40e3-4bd9-a141-6f42a914fa8f
+      position: {x: 1202.8986, y: 122}
+      nodeUIDs:
+      - ca823d19-6ce0-47aa-81d8-e21601cbc795|0
+      - 940bb60b-e374-41d7-a8f3-556cacdcd50e|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: Type_UnityEngineTransform
+      uid: 940bb60b-e374-41d7-a8f3-556cacdcd50e
+      position: {x: 956.0002, y: 249.00002}
+      nodeUIDs: []
+      flowUIDs: []
+      nodeValues: []
+    - fullName: Branch
+      uid: b8d821ad-67dd-4b80-8a58-409db39af4a1
+      position: {x: 1071, y: -164}
+      nodeUIDs:
+      - 186edabf-0df8-4672-ab41-7484a9563c61|0
+      flowUIDs:
+      - 81b36ec2-68fa-4cf3-bde2-fa7fd9d5d1ad
+      - 73efae0f-e10a-4f82-92e3-7a3ff8e3eee3
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+    - fullName: Get_Variable
+      uid: 652a95d1-42c7-4188-a74d-b757cd5fddc5
+      position: {x: 646, y: -139.66666}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|3dcc85af-9f8d-4f16-8088-0d80490a1ec9
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: UnityEngineMeshRenderer.__get_enabled__SystemBoolean
+      uid: 186edabf-0df8-4672-ab41-7484a9563c61
+      position: {x: 874, y: -131}
+      nodeUIDs:
+      - 652a95d1-42c7-4188-a74d-b757cd5fddc5|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: UnityEngineTransform.__set_eulerAngles__UnityEngineVector3__SystemVoid
+      uid: 73efae0f-e10a-4f82-92e3-7a3ff8e3eee3
+      position: {x: 1257.1449, y: -205.50003}
+      nodeUIDs:
+      - 242e9c68-abee-4267-99d8-a15e5a0ad290|0
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null|{"x":0.0,"y":0.0,"z":0.0}
     updateOrder: 0
   graphElementData:
   - type: 2
     uid: 5dd64253-b4e7-4195-834a-4eb12a2d511a
-    jsonData: '{"uid":"5dd64253-b4e7-4195-834a-4eb12a2d511a","layout":{"serializedVersion":"2","x":633.0,"y":-227.00001525878907,"width":492.0,"height":373.0},"containedElements":["81b36ec2-68fa-4cf3-bde2-fa7fd9d5d1ad","dd87eed2-03d0-4b3d-a863-ee9ed51f646f","ae832a58-8b49-4178-8638-49f068c858ea","319c6579-ddf0-4e47-84d1-1c859bf0df4e","242e9c68-abee-4267-99d8-a15e5a0ad290"],"title":"Billboard","layer":-1,"elementTypeColor":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}'
+    jsonData: '{"uid":"5dd64253-b4e7-4195-834a-4eb12a2d511a","layout":{"serializedVersion":"2","x":621.0,"y":-465.0000305175781,"width":944.0,"height":442.0},"containedElements":["81b36ec2-68fa-4cf3-bde2-fa7fd9d5d1ad","dd87eed2-03d0-4b3d-a863-ee9ed51f646f","ae832a58-8b49-4178-8638-49f068c858ea","319c6579-ddf0-4e47-84d1-1c859bf0df4e","242e9c68-abee-4267-99d8-a15e5a0ad290","b8d821ad-67dd-4b80-8a58-409db39af4a1","652a95d1-42c7-4188-a74d-b757cd5fddc5","186edabf-0df8-4672-ab41-7484a9563c61","73efae0f-e10a-4f82-92e3-7a3ff8e3eee3"],"title":"Billboard
+      (change methods based on if back rendering is used)","layer":-1,"elementTypeColor":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}'
   - type: 2
     uid: bf951067-fee1-4330-ae05-866db30f1d94
-    jsonData: '{"uid":"bf951067-fee1-4330-ae05-866db30f1d94","layout":{"serializedVersion":"2","x":374.0,"y":176.0,"width":1070.0,"height":555.0},"containedElements":["49319eca-8420-4144-aedc-246787c1cb90","810a7e37-ca9f-42b0-8ee9-151891c06744","9909dcd9-d59f-4de4-a4fc-6c14707a5a91","7b586c6e-d2ca-4f68-bdd3-303fdf7c230e","e09ddad6-aa69-4433-bb8c-c4b9405744e1","b60bd24c-ae6b-45b9-98e2-6c1ac276343f","b49343f0-5b0f-426b-b92f-f11a7c9a0675","bbeadbb0-9e26-4265-bdb2-3dc24242b6b1","5237577d-9c8a-445a-b3bc-e8292f417ffc","dc87a352-438c-4ea7-a425-b6029b0c81d8","cba8c553-c9a7-4170-adf3-aeb51f0c7b41","a1544ff3-0100-4c33-8c0a-abb856c0bc3d","3ecfda05-8322-4c9e-aecf-4926978ff714","570058b3-756b-4817-95fb-f92a126708ce"],"title":"Update
+    jsonData: '{"uid":"bf951067-fee1-4330-ae05-866db30f1d94","layout":{"serializedVersion":"2","x":374.0,"y":63.000003814697269,"width":1470.0,"height":668.0},"containedElements":["49319eca-8420-4144-aedc-246787c1cb90","810a7e37-ca9f-42b0-8ee9-151891c06744","9909dcd9-d59f-4de4-a4fc-6c14707a5a91","7b586c6e-d2ca-4f68-bdd3-303fdf7c230e","e09ddad6-aa69-4433-bb8c-c4b9405744e1","b60bd24c-ae6b-45b9-98e2-6c1ac276343f","b49343f0-5b0f-426b-b92f-f11a7c9a0675","bbeadbb0-9e26-4265-bdb2-3dc24242b6b1","5237577d-9c8a-445a-b3bc-e8292f417ffc","dc87a352-438c-4ea7-a425-b6029b0c81d8","cba8c553-c9a7-4170-adf3-aeb51f0c7b41","a1544ff3-0100-4c33-8c0a-abb856c0bc3d","3ecfda05-8322-4c9e-aecf-4926978ff714","570058b3-756b-4817-95fb-f92a126708ce","ca823d19-6ce0-47aa-81d8-e21601cbc795","c8f98a13-0cfa-4495-880d-44940a75f265","8b1a3ad3-fca6-49a2-9396-c1c4c2f18e06","5e060295-ad92-44be-8e18-a046798e5d7f","f7978c13-9b9b-4243-987d-c9a36053e757","00cfde8f-40e3-4bd9-a141-6f42a914fa8f","940bb60b-e374-41d7-a8f3-556cacdcd50e"],"title":"Update
       Render State","layer":-1,"elementTypeColor":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}'
   - type: 2
     uid: adbb6fe0-4a26-45de-8355-ac46e6ff5e1f
@@ -840,7 +1025,7 @@ MonoBehaviour:
     jsonData: '{"uid":"a34a99e6-4419-4187-a120-83a436168310","layout":{"serializedVersion":"2","x":914.0,"y":789.0,"width":443.0,"height":324.0},"containedElements":["8e1c9d7a-85a3-47f7-a031-d58e03d72bbf","ba37ec88-8e36-4e12-8ac5-7c7dfb54bde7","e8fa20a0-fdfd-4685-ac5e-6f54a3f0dc3c","b61d5312-961f-4c91-b460-f97bef9980f8"],"title":"Material","layer":-1,"elementTypeColor":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}'
   - type: 2
     uid: c5a0e067-092a-4c66-a325-ca6f70422e2b
-    jsonData: '{"uid":"c5a0e067-092a-4c66-a325-ca6f70422e2b","layout":{"serializedVersion":"2","x":1713.0,"y":-63.0,"width":705.0,"height":441.0},"containedElements":["fabed128-4702-4e8b-9995-d44f202c8c82","afb211b5-e30b-4d9b-8a2e-d4e4077724cc","e08f80c0-3aa9-4fcb-9633-4773bae75333","734a3286-ab26-465d-a274-d20729399ae7","e9c2741b-ca42-4316-8d84-994b0b32a19b","1515ee23-68a6-4c3d-9b94-f6a0048a0ac9","1f195fb8-2547-4ea5-9972-1e31e6ea41e4","7272bd78-b087-40a6-9789-986194004bf6","ca77c75f-ec60-4b4a-90b4-84fabc7c4dc8"],"title":"Set
+    jsonData: '{"uid":"c5a0e067-092a-4c66-a325-ca6f70422e2b","layout":{"serializedVersion":"2","x":1920.0,"y":220.99996948242188,"width":705.0,"height":441.0},"containedElements":["fabed128-4702-4e8b-9995-d44f202c8c82","e08f80c0-3aa9-4fcb-9633-4773bae75333","734a3286-ab26-465d-a274-d20729399ae7","1f195fb8-2547-4ea5-9972-1e31e6ea41e4","7272bd78-b087-40a6-9789-986194004bf6","ca77c75f-ec60-4b4a-90b4-84fabc7c4dc8","4ddeb1f8-0466-435d-96cb-14812f73c6c2"],"title":"Set
       Materials","layer":-1,"elementTypeColor":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}'
   version: 1.0.0
   showAssembly: 0
