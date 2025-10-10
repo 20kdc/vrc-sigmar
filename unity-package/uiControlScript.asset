@@ -15,34 +15,38 @@ MonoBehaviour:
   serializedUdonProgramAsset: {fileID: 11400000, guid: 4783304daae47bf8a87a7a8b9b58a9cc,
     type: 2}
   udonAssembly: ".data_start\n\n    .export centralGameScript\n    .export boardCodeInput\n   
-    .export randomBoardStoreScript\n    .export goTallyArr\n    \n    __instance_0:
-    %TMProTMP_InputField, null\n    __input_0: %SystemString, null\n    __value_0:
-    %SystemCharArray, null\n    __instance_1: %VRCUdonUdonBehaviour, this\n    __symbolName_0:
-    %SystemString, null\n    __String_0: %SystemString, null\n    __index_0: %SystemInt32,
-    null\n    __condition_0: %SystemBoolean, null\n    __instance_2: %SystemInt32Array,
-    null\n    __Int32_0: %SystemInt32, null\n    __instance_3: %VRCUdonUdonBehaviour,
-    this\n    __symbolName_1: %SystemString, null\n    __String_1: %SystemString,
-    null\n    __object_0: %SystemObject, null\n    __result_0: %SystemBoolean, null\n   
-    __instance_5: %TMProTMP_Text, null\n    __value_1: %SystemString, null\n    __instance_4:
-    %TMProTMP_TextArray, null\n    __Int32_1: %SystemInt32, null\n    __start_0:
-    %SystemInt32, null\n    __end_0: %SystemInt32, null\n    __step_0: %SystemInt32,
-    null\n    __value_2: %SystemInt32, null\n    __instance_6: %VRCUdonUdonBehaviour,
-    this\n    __target_0: %VRCUdonCommonInterfacesNetworkEventTarget, null\n    __eventName_0:
-    %SystemString, null\n    __parameter0_0: %SystemObject, null\n    __String_2:
-    %SystemString, null\n    __instance_7: %SystemString, null\n    __instance_8:
-    %TMProTMP_InputField, null\n    __instance_9: %VRCUdonUdonBehaviour, this\n   
-    __eventName_1: %SystemString, null\n    __String_3: %SystemString, null\n   
-    __instance_A: %TMProTMP_InputField, null\n    __input_1: %SystemString, null\n   
-    __instance_B: %VRCUdonUdonBehaviour, this\n    __symbolName_2: %SystemString,
+    .export randomBoardStoreScript\n    .export goTallyArr\n    .export goManual\n   
+    \n    __instance_0: %TMProTMP_InputField, null\n    __input_0: %SystemString,
+    null\n    __value_0: %SystemCharArray, null\n    __instance_1: %VRCUdonUdonBehaviour,
+    this\n    __symbolName_0: %SystemString, null\n    __String_0: %SystemString,
+    null\n    __index_0: %SystemInt32, null\n    __condition_0: %SystemBoolean, null\n   
+    __instance_2: %SystemInt32Array, null\n    __Int32_0: %SystemInt32, null\n   
+    __instance_3: %VRCUdonUdonBehaviour, this\n    __symbolName_1: %SystemString,
+    null\n    __String_1: %SystemString, null\n    __object_0: %SystemObject, null\n   
+    __result_0: %SystemBoolean, null\n    __instance_5: %TMProTMP_Text, null\n   
+    __value_1: %SystemString, null\n    __instance_4: %TMProTMP_TextArray, null\n   
+    __Int32_1: %SystemInt32, null\n    __start_0: %SystemInt32, null\n    __end_0:
+    %SystemInt32, null\n    __step_0: %SystemInt32, null\n    __value_2: %SystemInt32,
+    null\n    __instance_6: %VRCUdonUdonBehaviour, this\n    __target_0: %VRCUdonCommonInterfacesNetworkEventTarget,
+    null\n    __eventName_0: %SystemString, null\n    __parameter0_0: %SystemObject,
+    null\n    __String_2: %SystemString, null\n    __instance_7: %SystemString, null\n   
+    __instance_8: %TMProTMP_InputField, null\n    __instance_9: %VRCUdonUdonBehaviour,
+    this\n    __eventName_1: %SystemString, null\n    __String_3: %SystemString,
+    null\n    __instance_A: %TMProTMP_InputField, null\n    __input_1: %SystemString,
+    null\n    __instance_B: %VRCUdonUdonBehaviour, this\n    __symbolName_2: %SystemString,
     null\n    __String_4: %SystemString, null\n    __instance_C: %VRCUdonUdonBehaviour,
-    this\n    __eventName_2: %SystemString, null\n    centralGameScript: %VRCUdonUdonBehaviour,
-    this\n    boardCodeInput: %TMProTMP_InputField, null\n    randomBoardStoreScript:
-    %VRCUdonUdonBehaviour, this\n    goTallyArr: %TMProTMP_TextArray, null\n    tmpTallyVal:
-    %SystemInt32, null\n\n.data_end\n\n.code_start\n\n    .export _refresh\n    \n   
-    _refresh:\n    \n        PUSH, boardCodeInput\n        PUSH, __instance_0\n       
-    COPY\n        PUSH, centralGameScript\n        PUSH, __instance_1\n        COPY\n       
-    PUSH, __String_0\n        PUSH, __symbolName_0\n        COPY\n        PUSH, __instance_1\n       
-    PUSH, __symbolName_0\n        PUSH, __value_0\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    this\n    __eventName_2: %SystemString, null\n    __instance_D: %UnityEngineGameObject,
+    this\n    __value_3: %SystemBoolean, null\n    __Boolean_0: %SystemBoolean, null\n   
+    __Boolean_1: %SystemBoolean, null\n    __instance_E: %UnityEngineGameObject,
+    this\n    centralGameScript: %VRCUdonUdonBehaviour, this\n    boardCodeInput:
+    %TMProTMP_InputField, null\n    randomBoardStoreScript: %VRCUdonUdonBehaviour,
+    this\n    goTallyArr: %TMProTMP_TextArray, null\n    tmpTallyVal: %SystemInt32,
+    null\n    goManual: %UnityEngineGameObject, this\n\n.data_end\n\n.code_start\n\n   
+    .export _refresh\n    \n    _refresh:\n    \n        PUSH, boardCodeInput\n       
+    PUSH, __instance_0\n        COPY\n        PUSH, centralGameScript\n        PUSH,
+    __instance_1\n        COPY\n        PUSH, __String_0\n        PUSH, __symbolName_0\n       
+    COPY\n        PUSH, __instance_1\n        PUSH, __symbolName_0\n        PUSH,
+    __value_0\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
     PUSH, __value_0\n        PUSH, __input_0\n        EXTERN, \"SystemString.__ctor__SystemCharArray__SystemString\"\n       
     PUSH, __instance_0\n        PUSH, __input_0\n        EXTERN, \"TMProTMP_InputField.__SetTextWithoutNotify__SystemString__SystemVoid\"\n       
     PUSH, __start_0\n        PUSH, __index_0\n        COPY\n        PUSH, __index_0\n       
@@ -82,6 +86,13 @@ MonoBehaviour:
     PUSH, __symbolName_2\n        PUSH, __input_1\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
     PUSH, __instance_A\n        PUSH, __input_1\n        EXTERN, \"TMProTMP_InputField.__SetTextWithoutNotify__SystemString__SystemVoid\"\n       
     PUSH, __instance_C\n        PUSH, __eventName_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
+    JUMP, 0xFFFFFFFC\n    \n    .export _toggleManual\n    \n    _toggleManual:\n   
+    \n        PUSH, goManual\n        PUSH, __instance_D\n        COPY\n        PUSH,
+    goManual\n        PUSH, __instance_E\n        COPY\n        PUSH, __instance_E\n       
+    PUSH, __Boolean_0\n        EXTERN, \"UnityEngineGameObject.__get_activeSelf__SystemBoolean\"\n       
+    PUSH, __Boolean_0\n        PUSH, __Boolean_1\n        PUSH, __value_3\n       
+    EXTERN, \"SystemBoolean.__op_ConditionalXor__SystemBoolean_SystemBoolean__SystemBoolean\"\n       
+    PUSH, __instance_D\n        PUSH, __value_3\n        EXTERN, \"UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n\n.code_end\n"
   assemblyError: 
   graphData:
@@ -599,6 +610,89 @@ MonoBehaviour:
         stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0cd082b7-84e8-4670-af6b-5f875157987e
       - unityObjectValue: {fileID: 0}
         stringValue: 
+    - fullName: Variable_UnityEngineGameObject
+      uid: aa457475-2170-44f7-ab38-f3e940930e6a
+      position: {x: 0, y: 0}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      - 
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|goManual
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|True
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
+    - fullName: Event_Custom
+      uid: b4f2a090-dcb7-4a1e-aeea-5a63f48687d5
+      position: {x: 369.5, y: 1587.3856}
+      nodeUIDs:
+      - 
+      - 
+      flowUIDs:
+      - 50221313-650a-418b-8b58-0376533e8168
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|_toggleManual
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
+    - fullName: Get_Variable
+      uid: 62a81ae4-4505-4795-984b-f17a872de053
+      position: {x: 482, y: 1765.3333}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|aa457475-2170-44f7-ab38-f3e940930e6a
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: UnityEngineGameObject.__get_activeSelf__SystemBoolean
+      uid: 4f252268-bc4c-4a26-91f7-cea457ee35fe
+      position: {x: 721, y: 1807}
+      nodeUIDs:
+      - 62a81ae4-4505-4795-984b-f17a872de053|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid
+      uid: 50221313-650a-418b-8b58-0376533e8168
+      position: {x: 753, y: 1571.3333}
+      nodeUIDs:
+      - 62a81ae4-4505-4795-984b-f17a872de053|0
+      - 58221869-f5f9-4e25-aeac-f138a4e9ff5c|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+    - fullName: SystemBoolean.__op_ConditionalXor__SystemBoolean_SystemBoolean__SystemBoolean
+      uid: 58221869-f5f9-4e25-aeac-f138a4e9ff5c
+      position: {x: 739, y: 1699.5}
+      nodeUIDs:
+      - 4f252268-bc4c-4a26-91f7-cea457ee35fe|0
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|True
     updateOrder: 0
   graphElementData:
   - type: 2

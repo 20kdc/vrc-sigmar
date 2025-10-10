@@ -1,5 +1,10 @@
 // For use in https://bits.ondrovo.com/sigmar/
 (() => {
+	// cut out key functionality for speed
+	// console also has to be cleared often
+	window.game.renderPreparedBoard = () => {};
+	window.game.updateGameGui = () => {};
+	window.game.get_opts.url_seed = false;
 	let data = "";
 	let indexMap = [
 		0, 1, 2, 3, 4, 5,
@@ -30,20 +35,40 @@
 		silver: "4",
 		gold: "5"
 	};
-	for (let i = 0; i < 512; i++) {
-		window.game.newGame(i);
-		for (let j = 0; j < 91; j++) {
-			let orb = window.game.board.getOrbByIndex(indexMap[j]);
-			if (orb) {
-				let mapped = otMap[orb.symbol];
-				if (!mapped)
-					throw new Error("mapping: " + orb.symbol);
-				data += mapped;
-			} else {
-				data += "_";
+	const PASS_SIZE = 64;
+	let passes = 2048 / PASS_SIZE;
+	let seed = 0;
+	function runPass() {
+		console.clear();
+		let subData = "";
+		for (let i = 0; i < PASS_SIZE; i++) {
+			window.game.newGame(seed);
+			seed++;
+			for (let j = 0; j < 91; j++) {
+				let orb = window.game.board.getOrbByIndex(indexMap[j]);
+				if (orb) {
+					// Since conversion is turned off, the board doesn't remap its internal state the way it should.
+					// That's fine.
+					let mapped = orb.symbol ? otMap[orb.symbol] : otMap[orb];
+					if (!mapped)
+						throw new Error("mapping: " + orb);
+					subData += mapped;
+				} else {
+					subData += "_";
+				}
 			}
+			subData += "|";
 		}
-		data += "|";
+		data += subData;
 	}
-	console.log(data);
+	let passThenPass = () => {
+		if (passes > 0) {
+			passes--;
+			runPass();
+			setTimeout(passThenPass, 1);
+		} else {
+			console.log(data);
+		}
+	};
+	passThenPass();
 })();

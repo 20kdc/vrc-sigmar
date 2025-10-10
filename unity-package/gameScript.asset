@@ -17,102 +17,103 @@ MonoBehaviour:
   udonAssembly: ".data_start\n\n    .export dtTypeUnlockedBy\n    .export dtTypeMatchType\n   
     .export dtSelfClears\n    .export goMarbles\n    .export dtNeighbourhoods\n   
     .export dtNeighbourhoodFields\n    .export goOffBoardPlaceholder\n    .export
-    gpBoard\n    .export dtNeighbourhoodsSplit\n    .export goMarblesArr\n    .export
-    gpSelectedMarble\n    .export uiControlScript\n    .export gcTally\n    .export
-    gcBoardChars\n    .export dtBoardAlphabet\n    .sync gpBoard, none\n    .sync
-    gpSelectedMarble, none\n    \n    __Int32_0: %SystemInt32, null\n    __instance_0:
-    %SystemString, null\n    __Int32_1: %SystemInt32, null\n    __Int32_2: %SystemInt32,
-    null\n    __index_0: %SystemInt32, null\n    __condition_0: %SystemBoolean, null\n   
-    __instance_1: %UnityEngineTransformArray, null\n    __Int32_3: %SystemInt32,
-    null\n    __Transform_0: %UnityEngineTransform, this\n    __instance_2: %UnityEngineTransform,
-    this\n    __index_1: %SystemInt32, null\n    __start_0: %SystemInt32, null\n   
-    __end_0: %SystemInt32, null\n    __step_0: %SystemInt32, null\n    __Int32_4:
-    %SystemInt32, null\n    __StringArray_0: %SystemStringArray, null\n    __instance_3:
-    %SystemString, null\n    __separator_0: %SystemChar, null\n    __options_0: %SystemStringSplitOptions,
-    null\n    __index_2: %SystemInt32, null\n    __condition_1: %SystemBoolean, null\n   
-    __instance_4: %VRCUdonUdonBehaviour, this\n    __symbolName_0: %SystemString,
-    null\n    __value_0: %SystemObject, null\n    __Type_0: %SystemType, null\n   
-    __String_0: %SystemString, null\n    __instance_7: %UnityEngineGameObject, this\n   
-    __type_1: %SystemType, null\n    __Type_1: %SystemType, null\n    __Boolean_0:
-    %SystemBoolean, null\n    __Int32_B: %SystemInt32, null\n    __Int32_C: %SystemInt32,
-    null\n    __instance_A: %VRCUdonUdonBehaviour, this\n    __symbolName_1: %SystemString,
-    null\n    __value_2: %SystemObject, null\n    __Type_2: %SystemType, null\n   
-    __instance_B: %VRCUdonUdonBehaviour, this\n    __symbolName_2: %SystemString,
-    null\n    __value_3: %SystemObject, null\n    __instance_5: %UnityEngineTransform,
-    this\n    __type_0: %SystemType, null\n    __instance_6: %UnityEngineTransformArray,
-    null\n    __Int32_5: %SystemInt32, null\n    __Int32_6: %SystemInt32, null\n   
-    __Int32_7: %SystemInt32, null\n    __Type_3: %SystemType, null\n    __instance_C:
-    %UnityEngineTransform, this\n    __type_2: %SystemType, null\n    __instance_D:
-    %UnityEngineTransformArray, null\n    __Int32_E: %SystemInt32, null\n    __Type_4:
-    %SystemType, null\n    __Boolean_1: %SystemBoolean, null\n    __message_0: %SystemObject,
-    null\n    __format_0: %SystemString, null\n    __arg0_0: %SystemObject, null\n   
-    __arg1_0: %SystemObject, null\n    __arg2_0: %SystemObject, null\n    __instance_8:
-    %SystemStringArray, null\n    __Int32_8: %SystemInt32, null\n    __Int32_9: %SystemInt32,
-    null\n    __Int32_A: %SystemInt32, null\n    __value_1: %SystemString, null\n   
-    __instance_9: %SystemStringArray, null\n    __Int32_D: %SystemInt32, null\n   
-    __start_1: %SystemInt32, null\n    __end_1: %SystemInt32, null\n    __step_1:
-    %SystemInt32, null\n    __instance_E: %VRCUdonUdonBehaviour, this\n    __eventName_0:
-    %SystemString, null\n    __instance_F: %VRCUdonUdonBehaviour, this\n    __eventName_1:
-    %SystemString, null\n    __delayFrames_0: %SystemInt32, null\n    __eventTiming_0:
-    %VRCUdonCommonEnumsEventTiming, null\n    __Int32_F: %SystemInt32, null\n   
-    __index_3: %SystemInt32, null\n    __condition_2: %SystemBoolean, null\n    __Boolean_2:
-    %SystemBoolean, null\n    __Int32_10: %SystemInt32, null\n    __Int32_11: %SystemInt32,
-    null\n    __instance_11: %SystemInt32Array, null\n    __Int32_13: %SystemInt32,
-    null\n    __Int32_14: %SystemInt32, null\n    __Int32_15: %SystemInt32, null\n   
-    __Int32_16: %SystemInt32, null\n    __instance_12: %SystemInt32Array, null\n   
-    __Int32_17: %SystemInt32, null\n    __instance_13: %SystemCharArray, null\n   
-    __Int32_18: %SystemInt32, null\n    __Char_0: %SystemChar, null\n    __instance_14:
-    %SystemCharArray, null\n    __Int32_19: %SystemInt32, null\n    __instance_15:
-    %VRCUdonUdonBehaviour, this\n    __symbolName_3: %SystemString, null\n    __value_4:
-    %SystemObject, null\n    __Type_5: %SystemType, null\n    __String_1: %SystemString,
-    null\n    __instance_10: %SystemInt32Array, null\n    __Int32_12: %SystemInt32,
-    null\n    __instance_18: %VRCUdonUdonBehaviour, this\n    __symbolName_4: %SystemString,
-    null\n    __value_5: %SystemObject, null\n    __instance_16: %UnityEngineTransform,
-    this\n    __type_3: %SystemType, null\n    __instance_17: %UnityEngineTransformArray,
-    null\n    __Int32_1A: %SystemInt32, null\n    __Type_6: %SystemType, null\n   
-    __String_2: %SystemString, null\n    __Int32_1B: %SystemInt32, null\n    __Int32_1C:
-    %SystemInt32, null\n    __start_2: %SystemInt32, null\n    __end_2: %SystemInt32,
-    null\n    __step_2: %SystemInt32, null\n    __index_4: %SystemInt32, null\n   
-    __condition_3: %SystemBoolean, null\n    __instance_19: %VRCUdonUdonBehaviour,
-    this\n    __symbolName_5: %SystemString, null\n    __value_6: %SystemObject,
-    null\n    __Type_7: %SystemType, null\n    __String_3: %SystemString, null\n   
-    __Boolean_3: %SystemBoolean, null\n    __Boolean_4: %SystemBoolean, null\n   
-    __Int32_1E: %SystemInt32, null\n    __Int32_1F: %SystemInt32, null\n    __instance_1C:
-    %SystemInt32Array, null\n    __Int32_20: %SystemInt32, null\n    __instance_1D:
-    %SystemInt32Array, null\n    __Int32_21: %SystemInt32, null\n    __Int32_23:
-    %SystemInt32, null\n    __Int32_24: %SystemInt32, null\n    __instance_1E: %SystemInt32Array,
-    null\n    __Int32_22: %SystemInt32, null\n    __instance_1F: %VRCUdonUdonBehaviour,
-    this\n    __eventName_2: %SystemString, null\n    __instance_1A: %UnityEngineTransform,
-    this\n    __type_4: %SystemType, null\n    __instance_1B: %UnityEngineTransformArray,
-    null\n    __Int32_1D: %SystemInt32, null\n    __start_3: %SystemInt32, null\n   
-    __end_3: %SystemInt32, null\n    __step_3: %SystemInt32, null\n    __Type_8:
-    %SystemType, null\n    __String_4: %SystemString, null\n    __instance_20: %VRCUdonUdonBehaviour,
-    this\n    __eventName_3: %SystemString, null\n    __String_5: %SystemString,
-    null\n    __Boolean_5: %SystemBoolean, null\n    __message_1: %SystemObject,
-    null\n    __String_6: %SystemString, null\n    __instance_21: %SystemInt32Array,
-    null\n    __Int32_25: %SystemInt32, null\n    marbleInteract_Parameter1: %SystemInt32,
-    null\n    __EventName_0: %SystemString, null\n    __MaxEventsPerSecond_0: %SystemInt32,
-    null\n    __Parameter1_type_0: %SystemType, null\n    __Boolean_6: %SystemBoolean,
-    null\n    __message_2: %SystemObject, null\n    __format_1: %SystemString, null\n   
-    __arg0_1: %SystemObject, null\n    __arg1_1: %SystemObject, null\n    __arg2_1:
-    %SystemObject, null\n    __Boolean_7: %SystemBoolean, null\n    __Int32_26: %SystemInt32,
-    null\n    __Int32_27: %SystemInt32, null\n    __Boolean_8: %SystemBoolean, null\n   
-    __instance_22: %SystemBooleanArray, null\n    __Int32_28: %SystemInt32, null\n   
-    __Int32_29: %SystemInt32, null\n    __instance_23: %SystemInt32Array, null\n   
-    __Int32_2A: %SystemInt32, null\n    __Boolean_9: %SystemBoolean, null\n    __Int32_2B:
-    %SystemInt32, null\n    __Int32_2C: %SystemInt32, null\n    __Boolean_A: %SystemBoolean,
-    null\n    __Int32_2D: %SystemInt32, null\n    __Int32_2E: %SystemInt32, null\n   
-    __Int32_2F: %SystemInt32, null\n    __Int32_30: %SystemInt32, null\n    __instance_24:
-    %SystemInt32Array, null\n    __Int32_31: %SystemInt32, null\n    __Int32_32:
-    %SystemInt32, null\n    __Int32_33: %SystemInt32, null\n    __tempValue_0: %SystemObject,
-    null\n    __tempValue_1: %SystemObject, null\n    __instance_25: %SystemInt32Array,
-    null\n    __Int32_34: %SystemInt32, null\n    __Int32_35: %SystemInt32, null\n   
-    __Int32_36: %SystemInt32, null\n    __instance_26: %SystemInt32Array, null\n   
-    __Int32_37: %SystemInt32, null\n    __Int32_38: %SystemInt32, null\n    __instance_27:
-    %VRCUdonUdonBehaviour, this\n    __eventName_4: %SystemString, null\n    __Int32_39:
-    %SystemInt32, null\n    loadBoardByChars_Parameter1: %SystemCharArray, null\n   
-    __index_5: %SystemInt32, null\n    __condition_4: %SystemBoolean, null\n    __instance_29:
-    %SystemString, null\n    __value_7: %SystemChar, null\n    __instance_2A: %SystemCharArray,
+    optLogging\n    .export gpBoard\n    .export dtNeighbourhoodsSplit\n    .export
+    goMarblesArr\n    .export gpSelectedMarble\n    .export uiControlScript\n   
+    .export gcTally\n    .export gcBoardChars\n    .export dtBoardAlphabet\n    .sync
+    gpBoard, none\n    .sync gpSelectedMarble, none\n    \n    __Int32_0: %SystemInt32,
+    null\n    __instance_0: %SystemString, null\n    __Int32_1: %SystemInt32, null\n   
+    __Int32_2: %SystemInt32, null\n    __index_0: %SystemInt32, null\n    __condition_0:
+    %SystemBoolean, null\n    __instance_1: %UnityEngineTransformArray, null\n   
+    __Int32_3: %SystemInt32, null\n    __Transform_0: %UnityEngineTransform, this\n   
+    __instance_2: %UnityEngineTransform, this\n    __index_1: %SystemInt32, null\n   
+    __start_0: %SystemInt32, null\n    __end_0: %SystemInt32, null\n    __step_0:
+    %SystemInt32, null\n    __Int32_4: %SystemInt32, null\n    __StringArray_0: %SystemStringArray,
+    null\n    __instance_3: %SystemString, null\n    __separator_0: %SystemChar,
+    null\n    __options_0: %SystemStringSplitOptions, null\n    __index_2: %SystemInt32,
+    null\n    __condition_1: %SystemBoolean, null\n    __instance_4: %VRCUdonUdonBehaviour,
+    this\n    __symbolName_0: %SystemString, null\n    __value_0: %SystemObject,
+    null\n    __Type_0: %SystemType, null\n    __String_0: %SystemString, null\n   
+    __instance_7: %UnityEngineGameObject, this\n    __type_1: %SystemType, null\n   
+    __Type_1: %SystemType, null\n    __Boolean_0: %SystemBoolean, null\n    __Int32_B:
+    %SystemInt32, null\n    __Int32_C: %SystemInt32, null\n    __instance_A: %VRCUdonUdonBehaviour,
+    this\n    __symbolName_1: %SystemString, null\n    __value_2: %SystemObject,
+    null\n    __Type_2: %SystemType, null\n    __instance_B: %VRCUdonUdonBehaviour,
+    this\n    __symbolName_2: %SystemString, null\n    __value_3: %SystemObject,
+    null\n    __instance_5: %UnityEngineTransform, this\n    __type_0: %SystemType,
+    null\n    __instance_6: %UnityEngineTransformArray, null\n    __Int32_5: %SystemInt32,
+    null\n    __Int32_6: %SystemInt32, null\n    __Int32_7: %SystemInt32, null\n   
+    __Type_3: %SystemType, null\n    __instance_C: %UnityEngineTransform, this\n   
+    __type_2: %SystemType, null\n    __instance_D: %UnityEngineTransformArray, null\n   
+    __Int32_E: %SystemInt32, null\n    __Type_4: %SystemType, null\n    __Boolean_1:
+    %SystemBoolean, null\n    __message_0: %SystemObject, null\n    __format_0: %SystemString,
+    null\n    __arg0_0: %SystemObject, null\n    __arg1_0: %SystemObject, null\n   
+    __arg2_0: %SystemObject, null\n    __instance_8: %SystemStringArray, null\n   
+    __Int32_8: %SystemInt32, null\n    __Int32_9: %SystemInt32, null\n    __Int32_A:
+    %SystemInt32, null\n    __value_1: %SystemString, null\n    __instance_9: %SystemStringArray,
+    null\n    __Int32_D: %SystemInt32, null\n    __start_1: %SystemInt32, null\n   
+    __end_1: %SystemInt32, null\n    __step_1: %SystemInt32, null\n    __instance_E:
+    %VRCUdonUdonBehaviour, this\n    __eventName_0: %SystemString, null\n    __instance_F:
+    %VRCUdonUdonBehaviour, this\n    __eventName_1: %SystemString, null\n    __delayFrames_0:
+    %SystemInt32, null\n    __eventTiming_0: %VRCUdonCommonEnumsEventTiming, null\n   
+    __Int32_F: %SystemInt32, null\n    __index_3: %SystemInt32, null\n    __condition_2:
+    %SystemBoolean, null\n    __Boolean_2: %SystemBoolean, null\n    __Int32_10:
+    %SystemInt32, null\n    __Int32_11: %SystemInt32, null\n    __instance_11: %SystemInt32Array,
+    null\n    __Int32_13: %SystemInt32, null\n    __Int32_14: %SystemInt32, null\n   
+    __Int32_15: %SystemInt32, null\n    __Int32_16: %SystemInt32, null\n    __instance_12:
+    %SystemInt32Array, null\n    __Int32_17: %SystemInt32, null\n    __instance_13:
+    %SystemCharArray, null\n    __Int32_18: %SystemInt32, null\n    __Char_0: %SystemChar,
+    null\n    __instance_14: %SystemCharArray, null\n    __Int32_19: %SystemInt32,
+    null\n    __instance_15: %VRCUdonUdonBehaviour, this\n    __symbolName_3: %SystemString,
+    null\n    __value_4: %SystemObject, null\n    __Type_5: %SystemType, null\n   
+    __String_1: %SystemString, null\n    __instance_10: %SystemInt32Array, null\n   
+    __Int32_12: %SystemInt32, null\n    __instance_18: %VRCUdonUdonBehaviour, this\n   
+    __symbolName_4: %SystemString, null\n    __value_5: %SystemObject, null\n   
+    __instance_16: %UnityEngineTransform, this\n    __type_3: %SystemType, null\n   
+    __instance_17: %UnityEngineTransformArray, null\n    __Int32_1A: %SystemInt32,
+    null\n    __Type_6: %SystemType, null\n    __String_2: %SystemString, null\n   
+    __Int32_1B: %SystemInt32, null\n    __Int32_1C: %SystemInt32, null\n    __start_2:
+    %SystemInt32, null\n    __end_2: %SystemInt32, null\n    __step_2: %SystemInt32,
+    null\n    __index_4: %SystemInt32, null\n    __condition_3: %SystemBoolean, null\n   
+    __instance_19: %VRCUdonUdonBehaviour, this\n    __symbolName_5: %SystemString,
+    null\n    __value_6: %SystemObject, null\n    __Type_7: %SystemType, null\n   
+    __String_3: %SystemString, null\n    __Boolean_3: %SystemBoolean, null\n    __Boolean_4:
+    %SystemBoolean, null\n    __Int32_1E: %SystemInt32, null\n    __Int32_1F: %SystemInt32,
+    null\n    __instance_1C: %SystemInt32Array, null\n    __Int32_20: %SystemInt32,
+    null\n    __instance_1D: %SystemInt32Array, null\n    __Int32_21: %SystemInt32,
+    null\n    __Int32_23: %SystemInt32, null\n    __Int32_24: %SystemInt32, null\n   
+    __instance_1E: %SystemInt32Array, null\n    __Int32_22: %SystemInt32, null\n   
+    __instance_1F: %VRCUdonUdonBehaviour, this\n    __eventName_2: %SystemString,
+    null\n    __instance_1A: %UnityEngineTransform, this\n    __type_4: %SystemType,
+    null\n    __instance_1B: %UnityEngineTransformArray, null\n    __Int32_1D: %SystemInt32,
+    null\n    __start_3: %SystemInt32, null\n    __end_3: %SystemInt32, null\n   
+    __step_3: %SystemInt32, null\n    __Type_8: %SystemType, null\n    __String_4:
+    %SystemString, null\n    __instance_20: %VRCUdonUdonBehaviour, this\n    __eventName_3:
+    %SystemString, null\n    __String_5: %SystemString, null\n    __Boolean_5: %SystemBoolean,
+    null\n    __message_1: %SystemObject, null\n    __String_6: %SystemString, null\n   
+    __instance_21: %SystemInt32Array, null\n    __Int32_25: %SystemInt32, null\n   
+    marbleInteract_Parameter1: %SystemInt32, null\n    __EventName_0: %SystemString,
+    null\n    __MaxEventsPerSecond_0: %SystemInt32, null\n    __Parameter1_type_0:
+    %SystemType, null\n    __Boolean_6: %SystemBoolean, null\n    __message_2: %SystemObject,
+    null\n    __format_1: %SystemString, null\n    __arg0_1: %SystemObject, null\n   
+    __arg1_1: %SystemObject, null\n    __arg2_1: %SystemObject, null\n    __Boolean_7:
+    %SystemBoolean, null\n    __Int32_26: %SystemInt32, null\n    __Int32_27: %SystemInt32,
+    null\n    __Boolean_8: %SystemBoolean, null\n    __instance_22: %SystemBooleanArray,
+    null\n    __Int32_28: %SystemInt32, null\n    __Int32_29: %SystemInt32, null\n   
+    __instance_23: %SystemInt32Array, null\n    __Int32_2A: %SystemInt32, null\n   
+    __Boolean_9: %SystemBoolean, null\n    __Int32_2B: %SystemInt32, null\n    __Int32_2C:
+    %SystemInt32, null\n    __Boolean_A: %SystemBoolean, null\n    __Int32_2D: %SystemInt32,
+    null\n    __Int32_2E: %SystemInt32, null\n    __Int32_2F: %SystemInt32, null\n   
+    __Int32_30: %SystemInt32, null\n    __instance_24: %SystemInt32Array, null\n   
+    __Int32_31: %SystemInt32, null\n    __Int32_32: %SystemInt32, null\n    __Int32_33:
+    %SystemInt32, null\n    __tempValue_0: %SystemObject, null\n    __tempValue_1:
+    %SystemObject, null\n    __instance_25: %SystemInt32Array, null\n    __Int32_34:
+    %SystemInt32, null\n    __Int32_35: %SystemInt32, null\n    __Int32_36: %SystemInt32,
+    null\n    __instance_26: %SystemInt32Array, null\n    __Int32_37: %SystemInt32,
+    null\n    __Int32_38: %SystemInt32, null\n    __instance_27: %VRCUdonUdonBehaviour,
+    this\n    __eventName_4: %SystemString, null\n    __Int32_39: %SystemInt32, null\n   
+    loadBoardByChars_Parameter1: %SystemCharArray, null\n    __index_5: %SystemInt32,
+    null\n    __condition_4: %SystemBoolean, null\n    __instance_29: %SystemString,
+    null\n    __value_7: %SystemChar, null\n    __instance_2A: %SystemCharArray,
     null\n    __Int32_3A: %SystemInt32, null\n    __start_4: %SystemInt32, null\n   
     __end_4: %SystemInt32, null\n    __step_4: %SystemInt32, null\n    __instance_28:
     %SystemCharArray, null\n    __EventName_1: %SystemString, null\n    __MaxEventsPerSecond_1:
@@ -1228,7 +1229,7 @@ MonoBehaviour:
         stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|optLogging
       - unityObjectValue: {fileID: 0}
         stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089|False
+          PublicKeyToken=b77a5c561934e089|True
       - unityObjectValue: {fileID: 0}
         stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089|False
