@@ -15,45 +15,73 @@ MonoBehaviour:
   serializedUdonProgramAsset: {fileID: 11400000, guid: 4783304daae47bf8a87a7a8b9b58a9cc,
     type: 2}
   udonAssembly: ".data_start\n\n    .export centralGameScript\n    .export boardCodeInput\n   
-    .export randomBoardStoreScript\n    \n    __instance_0: %TMProTMP_InputField,
-    null\n    __input_0: %SystemString, null\n    __value_0: %SystemCharArray, null\n   
-    __instance_1: %VRCUdonUdonBehaviour, this\n    __symbolName_0: %SystemString,
-    null\n    __String_0: %SystemString, null\n    __instance_2: %VRCUdonUdonBehaviour,
+    .export randomBoardStoreScript\n    .export goTallyArr\n    \n    __instance_0:
+    %TMProTMP_InputField, null\n    __input_0: %SystemString, null\n    __value_0:
+    %SystemCharArray, null\n    __instance_1: %VRCUdonUdonBehaviour, this\n    __symbolName_0:
+    %SystemString, null\n    __String_0: %SystemString, null\n    __index_0: %SystemInt32,
+    null\n    __condition_0: %SystemBoolean, null\n    __instance_2: %SystemInt32Array,
+    null\n    __Int32_0: %SystemInt32, null\n    __instance_3: %VRCUdonUdonBehaviour,
+    this\n    __symbolName_1: %SystemString, null\n    __String_1: %SystemString,
+    null\n    __object_0: %SystemObject, null\n    __result_0: %SystemBoolean, null\n   
+    __instance_5: %TMProTMP_Text, null\n    __value_1: %SystemString, null\n    __instance_4:
+    %TMProTMP_TextArray, null\n    __Int32_1: %SystemInt32, null\n    __start_0:
+    %SystemInt32, null\n    __end_0: %SystemInt32, null\n    __step_0: %SystemInt32,
+    null\n    __value_2: %SystemInt32, null\n    __instance_6: %VRCUdonUdonBehaviour,
     this\n    __target_0: %VRCUdonCommonInterfacesNetworkEventTarget, null\n    __eventName_0:
-    %SystemString, null\n    __parameter0_0: %SystemObject, null\n    __String_1:
-    %SystemString, null\n    __instance_3: %SystemString, null\n    __instance_4:
-    %TMProTMP_InputField, null\n    __instance_5: %VRCUdonUdonBehaviour, this\n   
-    __eventName_1: %SystemString, null\n    __String_2: %SystemString, null\n   
-    __instance_6: %TMProTMP_InputField, null\n    __input_1: %SystemString, null\n   
-    __instance_7: %VRCUdonUdonBehaviour, this\n    __symbolName_1: %SystemString,
-    null\n    __String_3: %SystemString, null\n    __instance_8: %VRCUdonUdonBehaviour,
+    %SystemString, null\n    __parameter0_0: %SystemObject, null\n    __String_2:
+    %SystemString, null\n    __instance_7: %SystemString, null\n    __instance_8:
+    %TMProTMP_InputField, null\n    __instance_9: %VRCUdonUdonBehaviour, this\n   
+    __eventName_1: %SystemString, null\n    __String_3: %SystemString, null\n   
+    __instance_A: %TMProTMP_InputField, null\n    __input_1: %SystemString, null\n   
+    __instance_B: %VRCUdonUdonBehaviour, this\n    __symbolName_2: %SystemString,
+    null\n    __String_4: %SystemString, null\n    __instance_C: %VRCUdonUdonBehaviour,
     this\n    __eventName_2: %SystemString, null\n    centralGameScript: %VRCUdonUdonBehaviour,
     this\n    boardCodeInput: %TMProTMP_InputField, null\n    randomBoardStoreScript:
-    %VRCUdonUdonBehaviour, this\n\n.data_end\n\n.code_start\n\n    .export _refresh\n   
-    \n    _refresh:\n    \n        PUSH, boardCodeInput\n        PUSH, __instance_0\n       
+    %VRCUdonUdonBehaviour, this\n    goTallyArr: %TMProTMP_TextArray, null\n    tmpTallyVal:
+    %SystemInt32, null\n\n.data_end\n\n.code_start\n\n    .export _refresh\n    \n   
+    _refresh:\n    \n        PUSH, boardCodeInput\n        PUSH, __instance_0\n       
     COPY\n        PUSH, centralGameScript\n        PUSH, __instance_1\n        COPY\n       
     PUSH, __String_0\n        PUSH, __symbolName_0\n        COPY\n        PUSH, __instance_1\n       
     PUSH, __symbolName_0\n        PUSH, __value_0\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
     PUSH, __value_0\n        PUSH, __input_0\n        EXTERN, \"SystemString.__ctor__SystemCharArray__SystemString\"\n       
     PUSH, __instance_0\n        PUSH, __input_0\n        EXTERN, \"TMProTMP_InputField.__SetTextWithoutNotify__SystemString__SystemVoid\"\n       
-    JUMP, 0xFFFFFFFC\n    \n    .export _doLoadCode\n    \n    _doLoadCode:\n   
-    \n        PUSH, centralGameScript\n        PUSH, __instance_2\n        COPY\n       
-    PUSH, __String_1\n        PUSH, __eventName_0\n        COPY\n        PUSH, boardCodeInput\n       
-    PUSH, __instance_4\n        COPY\n        PUSH, __instance_4\n        PUSH, __instance_3\n       
-    EXTERN, \"TMProTMP_InputField.__get_text__SystemString\"\n        PUSH, __instance_3\n       
-    PUSH, __parameter0_0\n        EXTERN, \"SystemString.__ToCharArray__SystemCharArray\"\n       
-    PUSH, __instance_2\n        PUSH, __target_0\n        PUSH, __eventName_0\n       
+    PUSH, __start_0\n        PUSH, __index_0\n        COPY\n        PUSH, __index_0\n       
+    PUSH, __end_0\n        PUSH, __condition_0\n        EXTERN, \"SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean\"\n       
+    PUSH, __condition_0\n        JUMP_IF_FALSE, 0x00000258\n        PUSH, centralGameScript\n       
+    PUSH, __instance_3\n        COPY\n        PUSH, __String_1\n        PUSH, __symbolName_1\n       
+    COPY\n        PUSH, __instance_3\n        PUSH, __symbolName_1\n        PUSH,
+    __instance_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __index_0\n        PUSH, __Int32_0\n        COPY\n        PUSH, __instance_2\n       
+    PUSH, __Int32_0\n        PUSH, tmpTallyVal\n        EXTERN, \"SystemInt32Array.__Get__SystemInt32__SystemInt32\"\n       
+    PUSH, goTallyArr\n        PUSH, __instance_4\n        COPY\n        PUSH, __index_0\n       
+    PUSH, __Int32_1\n        COPY\n        PUSH, __instance_4\n        PUSH, __Int32_1\n       
+    PUSH, __object_0\n        EXTERN, \"TMProTMP_TextArray.__Get__SystemInt32__TMProTMP_Text\"\n       
+    PUSH, __object_0\n        PUSH, __result_0\n        EXTERN, \"VRCSDKBaseUtilities.__IsValid__SystemObject__SystemBoolean\"\n       
+    PUSH, __result_0\n        JUMP_IF_FALSE, 0x00000230\n        PUSH, goTallyArr\n       
+    PUSH, __instance_4\n        COPY\n        PUSH, __index_0\n        PUSH, __Int32_1\n       
+    COPY\n        PUSH, __object_0\n        PUSH, __instance_5\n        COPY\n       
+    PUSH, tmpTallyVal\n        PUSH, __value_1\n        EXTERN, \"SystemConvert.__ToString__SystemInt32__SystemString\"\n       
+    PUSH, __object_0\n        PUSH, __value_1\n        EXTERN, \"TMProTMP_Text.__set_text__SystemString__SystemVoid\"\n       
+    JUMP, 0x00000230\n        PUSH, __index_0\n        PUSH, __step_0\n        PUSH,
+    __index_0\n        EXTERN, \"SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32\"\n       
+    JUMP, 0x000000A0\n        JUMP, 0xFFFFFFFC\n    \n    .export _doLoadCode\n   
+    \n    _doLoadCode:\n    \n        PUSH, centralGameScript\n        PUSH, __instance_6\n       
+    COPY\n        PUSH, __String_2\n        PUSH, __eventName_0\n        COPY\n       
+    PUSH, boardCodeInput\n        PUSH, __instance_8\n        COPY\n        PUSH,
+    __instance_8\n        PUSH, __instance_7\n        EXTERN, \"TMProTMP_InputField.__get_text__SystemString\"\n       
+    PUSH, __instance_7\n        PUSH, __parameter0_0\n        EXTERN, \"SystemString.__ToCharArray__SystemCharArray\"\n       
+    PUSH, __instance_6\n        PUSH, __target_0\n        PUSH, __eventName_0\n       
     PUSH, __parameter0_0\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomNetworkEvent__VRCUdonCommonInterfacesNetworkEventTarget_SystemString_SystemObject__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n    .export _random\n    \n    _random:\n    \n       
-    PUSH, randomBoardStoreScript\n        PUSH, __instance_5\n        COPY\n       
-    PUSH, __String_2\n        PUSH, __eventName_1\n        COPY\n        PUSH, __instance_5\n       
+    PUSH, randomBoardStoreScript\n        PUSH, __instance_9\n        COPY\n       
+    PUSH, __String_3\n        PUSH, __eventName_1\n        COPY\n        PUSH, __instance_9\n       
     PUSH, __eventName_1\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
-    PUSH, boardCodeInput\n        PUSH, __instance_6\n        COPY\n        PUSH,
-    randomBoardStoreScript\n        PUSH, __instance_7\n        COPY\n        PUSH,
-    __String_3\n        PUSH, __symbolName_1\n        COPY\n        PUSH, __instance_7\n       
-    PUSH, __symbolName_1\n        PUSH, __input_1\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
-    PUSH, __instance_6\n        PUSH, __input_1\n        EXTERN, \"TMProTMP_InputField.__SetTextWithoutNotify__SystemString__SystemVoid\"\n       
-    PUSH, __instance_8\n        PUSH, __eventName_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
+    PUSH, boardCodeInput\n        PUSH, __instance_A\n        COPY\n        PUSH,
+    randomBoardStoreScript\n        PUSH, __instance_B\n        COPY\n        PUSH,
+    __String_4\n        PUSH, __symbolName_2\n        COPY\n        PUSH, __instance_B\n       
+    PUSH, __symbolName_2\n        PUSH, __input_1\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject\"\n       
+    PUSH, __instance_A\n        PUSH, __input_1\n        EXTERN, \"TMProTMP_InputField.__SetTextWithoutNotify__SystemString__SystemVoid\"\n       
+    PUSH, __instance_C\n        PUSH, __eventName_2\n        EXTERN, \"VRCUdonCommonInterfacesIUdonEventReceiver.__SendCustomEvent__SystemString__SystemVoid\"\n       
     JUMP, 0xFFFFFFFC\n    \n\n.code_end\n"
   assemblyError: 
   graphData:
@@ -136,7 +164,8 @@ MonoBehaviour:
       nodeUIDs:
       - 7f56f864-2e71-4aaf-b841-622c1c8e828d|0
       - d82540b3-8968-4101-8726-b7e5439ef39d|0
-      flowUIDs: []
+      flowUIDs:
+      - 27cc57b8-3020-4ff3-8a9e-14e558bc5fb3
       nodeValues:
       - unityObjectValue: {fileID: 0}
         stringValue: 
@@ -393,11 +422,188 @@ MonoBehaviour:
       nodeValues:
       - unityObjectValue: {fileID: 0}
         stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|result
+    - fullName: Variable_TMProTMP_TextArray
+      uid: 6aef834a-9b8b-482a-a491-21af5575cd62
+      position: {x: 0, y: 0}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      - 
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|goTallyArr
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|True
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
+    - fullName: For
+      uid: 27cc57b8-3020-4ff3-8a9e-14e558bc5fb3
+      position: {x: 1144.5566, y: -103.00001}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      flowUIDs:
+      - 478cd343-3c8a-4c81-a805-a237b494b02d
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|16
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|1
+    - fullName: Get_Variable
+      uid: fb6f5c0c-fd5b-409e-b9eb-834a1d2eae52
+      position: {x: 1603.1884, y: 85.50002}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|6aef834a-9b8b-482a-a491-21af5575cd62
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: VRCUdonCommonInterfacesIUdonEventReceiver.__GetProgramVariable__SystemString__SystemObject
+      uid: e9780f09-a526-4cce-808e-d8792a9f0bfd
+      position: {x: 1128.8031, y: 175.99997}
+      nodeUIDs:
+      - dbe76e71-0e94-4902-89e4-3d59413183d1|0
+      - 19f63b44-4388-486b-ac89-ab3a7ce1d64e|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: Const_SystemString
+      uid: 19f63b44-4388-486b-ac89-ab3a7ce1d64e
+      position: {x: 1145, y: 283}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|gcTally
+    - fullName: SystemInt32Array.__Get__SystemInt32__SystemInt32
+      uid: 83b114f9-0e98-4612-a1e3-de86573ec987
+      position: {x: 1409.3333, y: 19.5}
+      nodeUIDs:
+      - e9780f09-a526-4cce-808e-d8792a9f0bfd|0
+      - 27cc57b8-3020-4ff3-8a9e-14e558bc5fb3|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
+    - fullName: Variable_SystemInt32
+      uid: 0cd082b7-84e8-4670-af6b-5f875157987e
+      position: {x: 0, y: 0}
+      nodeUIDs:
+      - 
+      - 
+      - 
+      - 
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|tmpTallyVal
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|none
+    - fullName: Set_Variable
+      uid: 478cd343-3c8a-4c81-a805-a237b494b02d
+      position: {x: 1590.6667, y: -89.66669}
+      nodeUIDs:
+      - 
+      - 83b114f9-0e98-4612-a1e3-de86573ec987|0
+      - 
+      flowUIDs:
+      - 93910dda-42c8-43f1-b05e-acceb9576551
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0cd082b7-84e8-4670-af6b-5f875157987e
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089|False
+    - fullName: Is_Valid
+      uid: 93910dda-42c8-43f1-b05e-acceb9576551
+      position: {x: 1826.9834, y: -71.29999}
+      nodeUIDs:
+      - 9973bb8f-5032-41c8-b31f-85d1d196225c|0
+      flowUIDs:
+      - 6724a86e-7f98-4dcf-9285-108a0153d52b
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: TMProTMP_TextArray.__Get__SystemInt32__TMProTMP_Text
+      uid: 9973bb8f-5032-41c8-b31f-85d1d196225c
+      position: {x: 1619.2942, y: 168.99998}
+      nodeUIDs:
+      - fb6f5c0c-fd5b-409e-b9eb-834a1d2eae52|0
+      - 27cc57b8-3020-4ff3-8a9e-14e558bc5fb3|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
+    - fullName: TMProTMP_Text.__set_text__SystemString__SystemVoid
+      uid: 6724a86e-7f98-4dcf-9285-108a0153d52b
+      position: {x: 2018.6381, y: -69.99999}
+      nodeUIDs:
+      - 9973bb8f-5032-41c8-b31f-85d1d196225c|0
+      - 7ddc7e66-61e1-4957-af36-162b569eed68|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
+    - fullName: SystemConvert.__ToString__SystemInt32__SystemString
+      uid: 7ddc7e66-61e1-4957-af36-162b569eed68
+      position: {x: 2019.0001, y: 61.000015}
+      nodeUIDs:
+      - 38867831-2821-4d7c-a8da-5640ab2a7444|0
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0
+    - fullName: Get_Variable
+      uid: 38867831-2821-4d7c-a8da-5640ab2a7444
+      position: {x: 2028.8759, y: 181.0279}
+      nodeUIDs:
+      - 
+      flowUIDs: []
+      nodeValues:
+      - unityObjectValue: {fileID: 0}
+        stringValue: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|0cd082b7-84e8-4670-af6b-5f875157987e
+      - unityObjectValue: {fileID: 0}
+        stringValue: 
     updateOrder: 0
   graphElementData:
   - type: 2
     uid: ecc7ded2-4a38-43ee-adef-4d69b6b02b70
-    jsonData: '{"uid":"ecc7ded2-4a38-43ee-adef-4d69b6b02b70","layout":{"serializedVersion":"2","x":297.0,"y":-236.99996948242188,"width":790.0,"height":545.0},"containedElements":["d82540b3-8968-4101-8726-b7e5439ef39d","7737fb44-607a-416a-bf42-c6095206a83d","687ba786-7e38-4f6e-98ea-08e69a6f6a70","dbe76e71-0e94-4902-89e4-3d59413183d1","88dc226c-8f40-4115-b21e-4cb8d6987f6a","7f56f864-2e71-4aaf-b841-622c1c8e828d","63ac0cd9-80de-4a51-9252-a4b7b252a94a"],"title":"Display
+    jsonData: '{"uid":"ecc7ded2-4a38-43ee-adef-4d69b6b02b70","layout":{"serializedVersion":"2","x":296.9999694824219,"y":-237.0,"width":1938.0,"height":628.0},"containedElements":["d82540b3-8968-4101-8726-b7e5439ef39d","7737fb44-607a-416a-bf42-c6095206a83d","687ba786-7e38-4f6e-98ea-08e69a6f6a70","dbe76e71-0e94-4902-89e4-3d59413183d1","88dc226c-8f40-4115-b21e-4cb8d6987f6a","7f56f864-2e71-4aaf-b841-622c1c8e828d","63ac0cd9-80de-4a51-9252-a4b7b252a94a","27cc57b8-3020-4ff3-8a9e-14e558bc5fb3","fb6f5c0c-fd5b-409e-b9eb-834a1d2eae52","e9780f09-a526-4cce-808e-d8792a9f0bfd","19f63b44-4388-486b-ac89-ab3a7ce1d64e","83b114f9-0e98-4612-a1e3-de86573ec987","478cd343-3c8a-4c81-a805-a237b494b02d","93910dda-42c8-43f1-b05e-acceb9576551","9973bb8f-5032-41c8-b31f-85d1d196225c","6724a86e-7f98-4dcf-9285-108a0153d52b","7ddc7e66-61e1-4957-af36-162b569eed68","38867831-2821-4d7c-a8da-5640ab2a7444"],"title":"Display
       Refresh","layer":-1,"elementTypeColor":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}'
   - type: 2
     uid: 0158d7f8-98f9-44b6-a99a-9a66eeb50fd0
