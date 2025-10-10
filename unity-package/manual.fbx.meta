@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 28619eac43ef6825f96c9034a9f7ded6
+guid: 1a8c7ba2aed1cf4299803eef22b7e595
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BrightTextMaterial
+    second: {fileID: 2100000, guid: ae665f6003d9b8de5a708331db5855d5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
