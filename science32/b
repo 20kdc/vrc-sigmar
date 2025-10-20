@@ -1,0 +1,2 @@
+#!/bin/sh
+riscv64-unknown-elf-gcc -O3 -mabi=ilp32 -march=rv32i -nostartfiles -nolibc -ffreestanding science.c -o science.elf -T science.ld
