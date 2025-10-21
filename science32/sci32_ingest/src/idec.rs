@@ -142,6 +142,7 @@ impl Sci32Instr {
     /// Remaps an ALU instruction to clean up NOPS/etc.
     pub fn from_alu(op: Sci32ALUOp) -> Sci32Instr {
         // If no side-effects are possible from this ALU op, we can NOP it.
+        // Notably, the rationale for division by zero not trapping indicates that ALU ops are *never* supposed to have side-effects.
         if op.rd == 0 {
             return Sci32Instr::NOP;
         }
@@ -149,10 +150,6 @@ impl Sci32Instr {
             if let Sci32ALUSource::Immediate(i2) = op.s2 {
                 // (imm, imm)
                 if let Some(value) = op.kind.simulate(i1, i2) {
-                    // Special case: If a side-effect is possible, but cannot possibly occur, we can still NOP it.
-                    if op.rd == 0 {
-                        return Sci32Instr::NOP;
-                    }
                     // Fuse into an immediate set.
                     return Sci32Instr::SetRegister {
                         rd: op.rd,
