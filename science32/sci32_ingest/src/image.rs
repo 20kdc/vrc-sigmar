@@ -1,17 +1,17 @@
 use anyhow::*;
 use std::collections::HashMap;
 
-pub const STT_NOTYPE: u32 = 0;
-pub const STT_OBJECT: u32 = 1;
-pub const STT_FUNC: u32 = 2;
-pub const STT_SECTION: u32 = 3;
-pub const STT_FILE: u32 = 4;
+pub const STT_NOTYPE: u8 = 0;
+pub const STT_OBJECT: u8 = 1;
+pub const STT_FUNC: u8 = 2;
+pub const STT_SECTION: u8 = 3;
+pub const STT_FILE: u8 = 4;
 
 #[derive(Clone, Default)]
 pub struct Sci32SymInfo {
     pub st_name: String,
     pub st_addr: u32,
-    pub st_type: u32,
+    pub st_type: u8,
 }
 
 /// This contains the data read in from the ELF.
@@ -152,10 +152,12 @@ impl Sci32Image {
                     let base = (section.sh_offset as usize) + ((sym as usize) * 16);
                     let name = (strtab.sh_offset as usize) + (get_u32(bytes, base)? as usize);
                     let value = get_u32(bytes, base + 4)?;
-                    let info = get_u32(bytes, base + 8)?;
+                    // st_size between
+                    let info = get_u8(bytes, base + 12)?;
                     let st_bind = info >> 4;
                     let st_type = info & 0xF;
                     let name_str = get_string(bytes, name)?;
+                    // eprintln!("Symbol @ {:08X} : {}, {}", base, name_str, st_bind);
                     if name_str.eq("") || st_bind == 0 {
                         // This is an invisible symbol and thus not exported.
                     } else {

@@ -1,0 +1,8 @@
+.data_start
+	# This isn't valid!
+	# _c_i32_80000000: %SystemInt32, -2147483648
+	_c_i32_80000000: %SystemInt32, 0x80000000
+.data_end
+.code_start
+	NOP
+.code_end

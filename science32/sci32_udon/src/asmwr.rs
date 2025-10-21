@@ -33,20 +33,25 @@ impl UdonAsm {
         writeln!(self.data, "\t{}: %{}, {}", id, ut, ival).unwrap();
     }
     pub fn declare_heap_i32(&mut self, id: &str, ival: i32, export: bool) {
-        self.declare_heap(&id, "SystemInt32", &format!("{}", ival), export);
+        self.declare_heap(
+            &id,
+            "SystemInt32",
+            &format!("0x{:08x}", ival as u32),
+            export,
+        );
     }
     pub fn declare_heap_u32(&mut self, id: &str, ival: u32, export: bool) {
-        self.declare_heap(&id, "SystemUInt32", &format!("{}", ival), export);
+        self.declare_heap(&id, "SystemUInt32", &format!("0x{:08x}", ival), export);
     }
     pub fn ensure_i32(&mut self, x: i32) -> String {
-        let id = format!("_c_i32_{}", x);
+        let id = format!("_c_i32_{:08X}", x as u32);
         if self.consts_i32.insert(x) {
             self.declare_heap_i32(&id, x, false);
         }
         id
     }
     pub fn ensure_extern(&mut self, x: &str) -> String {
-        let id = format!("_c_extern_{}", x);
+        let id = format!("_c_extern_{}", x.replace(".", "_"));
         if self.externs.insert(x.to_string()) {
             self.declare_heap(&id, "SystemString", &format!("\"{}\"", x), false);
         }

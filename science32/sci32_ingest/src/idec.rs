@@ -47,11 +47,7 @@ impl Sci32ALUType {
             Self::SLL => Some(a.wrapping_shl(b)),
             Self::SLT(unsigned) => {
                 if *unsigned {
-                    if a < b {
-                        Some(1)
-                    } else {
-                        Some(0)
-                    }
+                    if a < b { Some(1) } else { Some(0) }
                 } else {
                     if (a as i32) < (b as i32) {
                         Some(1)
@@ -222,7 +218,7 @@ impl Sci32Instr {
             let value = pc.wrapping_add(ofs);
             Sci32Instr::JumpAndLink {
                 rd,
-                rd_value: pc,
+                rd_value: pc.wrapping_add(4),
                 value,
             }
         } else if opcode == 0x0F {
@@ -233,7 +229,7 @@ impl Sci32Instr {
             let tgt = ci >> 20;
             Sci32Instr::JumpAndLinkRegister {
                 rd,
-                rd_value: pc,
+                rd_value: pc.wrapping_add(4),
                 rs1,
                 offset: tgt,
             }
