@@ -1,0 +1,12 @@
+[package]
+name = "sci32_udon"
+publish.workspace = true
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow = "1.0.100"
+base64 = "0.22.1"
+sci32_ingest = { path = "../sci32_ingest" }

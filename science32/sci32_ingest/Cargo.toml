@@ -1,0 +1,10 @@
+[package]
+name = "sci32_ingest"
+publish.workspace = true
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow = "1.0.100"
