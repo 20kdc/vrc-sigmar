@@ -132,36 +132,25 @@ fn main() -> Result<()> {
         match arg {
             Short('?') | Short('h') | Long("help") => {
                 println!("rvelf2udon some.elf");
-                println!(
-                    " this is meant to be used with the kind of ELF GCC outputs for a microcontroller"
-                );
-                println!(
-                    " relocations are NOT processed, section headers are used rather than program headers for various reasons"
-                );
-                println!(
-                    " it is not a good idea to pass multiple ELF files, but it is 'supported' in a sense"
-                );
+                println!(" meant to be used with 'microcontroller'-like ELFs");
+                println!(" section headers are used, not program headers; but no relocations");
+                println!(" passing multiple ELF files is 'supported' but probably isn't helpful");
                 println!(" special ELF symbols:");
                 println!("  _stack_start: initial value of SP");
+                println!("                if not found, stack space will be auto-allocated");
                 println!("  Udon*: exposed as custom events w/ wrapping code to setup SP and RA");
                 println!(" additional options:");
                 println!(" --out/-o FILE: output .uasm file (default stdout)");
-                println!(
-                    " --inc FILE: splice this .uasm ; looks for .(data/code)_(start/end). code is added after the jump table"
-                );
-                println!(
-                    " --ecall SYMBOL: by default, ECALL instructions halt. you can instead make them do something else"
-                );
-                println!(
-                    "                 you can use this to implement logging, dynamic memory allocation, etc."
-                );
+                println!(" --inc FILE: splice this .uasm into the output");
+                println!("             looks for '.(data/code)_(start/end)' on lines to cut it up");
+                println!("             these directives must be the *sole* line content,");
+                println!("             or they won't be recognized");
+                println!("             data is added at the start, code after the vector table.");
+                println!(" --ecall SYMBOL: by default, ECALL halts; you can override this");
+                println!("                 you can use this to implement logging, sbrk(), etc.");
                 println!("                 run 'JUMP, _vm_indirect_jump' to return to VM");
-                println!(
-                    " --auto-stack WORDS: if _stack_start is not found, stack space is automatically appended, default 16KiB."
-                );
-                println!(
-                    "                    this changes the size of that stack (in 32-bit words)."
-                );
+                println!(" --auto-stack WORDS: size of the auto-allocated stack in 32-bit words");
+                println!("                     has no effect if _stack_start is found");
                 std::process::exit(0);
             }
             Short('o') | Long("out") => match arg_parser.next() {
