@@ -160,6 +160,10 @@ void UdonSetMarble(int marble, int value) {
 	game_state[marble] = value;
 }
 
+void UdonRecalculate() {
+	phyto_update_calc();
+}
+
 void UdonSelectMarble(int marble) {
 	// Just in case.
 	phyto_update_calc();

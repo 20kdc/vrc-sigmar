@@ -173,7 +173,7 @@ fn main() -> Result<()> {
             },
             Long("inc") => match arg_parser.next() {
                 Result::Ok(Some(Value(v))) => {
-                    let a = std::fs::read_to_string(&v)?;
+                    let a = std::fs::read_to_string(&v).expect(&format!("{:?} invalid", v));
                     let mut dump_code = false;
                     let mut dump_data = false;
                     for line in a.split("\n") {

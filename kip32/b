@@ -1,5 +1,5 @@
 #!/bin/sh
 cargo fmt
-riscv64-unknown-elf-gcc -O3 -mabi=ilp32 -march=rv32i -nostartfiles -nolibc -ffreestanding science.c -T sdk/kip32.ld -o science.elf
+riscv64-unknown-elf-gcc -O3 -mabi=ilp32 -march=rv32i -nostartfiles -nolibc -ffreestanding science.c -T sdk/kip32.ld -Wl,-M -o science.elf
 objdump -h -D science.elf > science.lst
 cargo run science.elf --inc sdk/log_syscall.uasm --ecall _ecall -o ../kvtools/Assets/science.uasm

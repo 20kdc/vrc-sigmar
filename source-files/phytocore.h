@@ -60,6 +60,8 @@ int UdonGetMarble(int marble);
 // This does NOT recalculate.
 void UdonSetMarble(int marble, int value);
 
+void UdonRecalculate();
+
 // Implements the actual process of selecting a marble and processing the response.
 // Called externally, so recalculates before and after just to be safe.
 void UdonSelectMarble(int marble);
