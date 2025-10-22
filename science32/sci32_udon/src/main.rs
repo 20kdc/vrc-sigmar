@@ -101,20 +101,22 @@ fn resolve_alur(asm: &UdonAsm, value: Sci32ALUSource) -> String {
 
 // WORKAROUND:
 // We're now at the point where the workarounds themselves have more workarounds.
-// Basically, forcing people to use System.Convert to change types around is known as 'cruel and unusual punishment'.
-// We can't just use SByte and backconvert because of... well, a shit-ton of reasons.
-// Basically anything smaller than a word has to be handled using unsigned.
-struct LoadPipe {
-    reader: String,
-    /// Converter. For values smaller than a word, we need to run it through System.Convert to get it into an int.
-    conv1: Option<(&'static str, String)>,
-    /// Source high bit. We mask this off (to act as a detector) and then multiply the result by -1.
-    /// For our purposes, we care about these three test cases:
-    /// For 00000000, this becomes 00000000.
-    /// For 00000080, this becomes FFFFFF80.
-    /// For 00008000, this becomes FFFF8000.
-    /// We can then OR the result with the original value, and we've just done an unsigned-signed conversion!
-    signed_conv_high_bit: Option<String>,
+// System.Buffer.BlockCopy unironically saved performance here, because it's the only way to *efficiently* force certain type conversions.
+// The project has been through a few different attempts at doing these, and this is the only decently okay one.
+// In any case, there are three kinds of load pipeline...
+enum LoadPipe {
+    /// 1 extern call; use BitConverter directly
+    Word,
+    /// 3 extern calls; set to 0, BlockCopy, get from word array
+    ZeroPad(i32),
+    /// 3 extern calls; BlockCopy, get from array, convert
+    Convert {
+        holding_cell: &'static str,
+        type_size: i32,
+        holding_cell_element: &'static str,
+        array_get: String,
+        converter: String,
+    },
 }
 
 fn main() -> Result<()> {
@@ -134,6 +136,8 @@ fn main() -> Result<()> {
     // WORKAROUND: Due to Udon Assembly bugs, we have to initialize some of these to null rather than 0.
     asm.declare_heap("_vm_tmp_u8", "SystemByte", "null", false);
     asm.declare_heap("_vm_tmp_u16", "SystemUInt16", "null", false);
+    asm.declare_heap("_vm_tmp_i8", "SystemSByte", "null", false);
+    asm.declare_heap("_vm_tmp_i16", "SystemInt16", "null", false);
     let highbit = asm.ensure_i32(0x80000000u32 as i32);
     asm.declare_heap(
         "_vm_initdata",
@@ -141,8 +145,12 @@ fn main() -> Result<()> {
         &format!("\"{}\"", data),
         false,
     );
-    // Scratch buffer for loads, stores, etc.
+
+    // Scratch buffers for loads, stores, etc.
     asm.declare_heap("_vm_bcopy_i32", "SystemInt32Array", "null", false);
+    asm.declare_heap("_vm_bcopy_i16", "SystemInt16Array", "null", false);
+    asm.declare_heap("_vm_bcopy_i8", "SystemSByteArray", "null", false);
+
     asm.declare_heap("_vm_initdata_dec", "SystemByteArray", "null", false);
     // WORKAROUND: Udon has a habit of deciding it's gonna initialize vm_memory ITSELF.
     // Obviously this is bad for us, so we hold a second, hidden field of type Object.
@@ -191,13 +199,15 @@ fn main() -> Result<()> {
     asm.copy_static(&const_initsp, "vm_initsp");
     asm.copy_static(&const_abort, "vm_abort");
     // create scratch buffers
-    ext.intarray_create(&asm, asm.ensure_i32(1), "_vm_bcopy_i32");
+    ext.i32array_create(&asm, &const1, "_vm_bcopy_i32");
+    ext.i16array_create(&asm, &const1, "_vm_bcopy_i16");
+    ext.i8array_create(&asm, &const1, "_vm_bcopy_i8");
     // setup like a thunk would. we're called by thunks when the machine hasn't been setup yet
     // and we can also be called by external code that won't know what the initsp/abort values are yet
     asm.copy_static("vm_initsp", "vm_sp");
     asm.copy_static("vm_abort", "vm_ra");
     // create the array & copy to check field so we don't do this twice
-    ext.bytearray_create(&asm, &const_initsp, "vm_memory");
+    ext.u8array_create(&asm, &const_initsp, "vm_memory");
     asm.copy_static("vm_memory", "_vm_memory_chk");
     // decode the data and copy it into the start of the memory array
     ext.base64_decode(&asm, "_vm_initdata", "_vm_initdata_dec");
@@ -331,64 +341,67 @@ fn main() -> Result<()> {
                     }
                 }
                 let pipe = match kind {
-                    Sci32LSType::Byte(unsigned) => {
-                        if unsigned {
-                            LoadPipe {
-                                reader: ext.read_byte.clone(),
-                                conv1: Some(("_vm_tmp_u8", ext.i32_fromu8.clone())),
-                                signed_conv_high_bit: None,
-                            }
-                        } else {
-                            LoadPipe {
-                                reader: ext.read_byte.clone(),
-                                conv1: Some(("_vm_tmp_u8", ext.i32_fromu8.clone())),
-                                signed_conv_high_bit: Some(asm.ensure_i32(0x80)),
-                            }
-                        }
-                    }
-                    Sci32LSType::Half(unsigned) => {
-                        if unsigned {
-                            LoadPipe {
-                                reader: ext.read_u16.clone(),
-                                conv1: Some(("_vm_tmp_u16", ext.i32_fromu16.clone())),
-                                signed_conv_high_bit: None,
-                            }
-                        } else {
-                            LoadPipe {
-                                reader: ext.read_u16.clone(),
-                                conv1: Some(("_vm_tmp_u16", ext.i32_fromu16.clone())),
-                                signed_conv_high_bit: Some(asm.ensure_i32(0x8000)),
-                            }
-                        }
-                    }
-                    Sci32LSType::Word => LoadPipe {
-                        reader: ext.read_i32.clone(),
-                        conv1: None,
-                        signed_conv_high_bit: None,
+                    Sci32LSType::Word => LoadPipe::Word,
+                    Sci32LSType::Byte(true) => LoadPipe::ZeroPad(1),
+                    Sci32LSType::Half(true) => LoadPipe::ZeroPad(2),
+                    Sci32LSType::Byte(false) => LoadPipe::Convert {
+                        holding_cell: "_vm_bcopy_i8",
+                        type_size: 1,
+                        holding_cell_element: "_vm_tmp_i8",
+                        array_get: ext.i8array_get.clone(),
+                        converter: ext.i32_fromi8.clone(),
+                    },
+                    Sci32LSType::Half(false) => LoadPipe::Convert {
+                        holding_cell: "_vm_bcopy_i16",
+                        type_size: 2,
+                        holding_cell_element: "_vm_tmp_i16",
+                        array_get: ext.i16array_get.clone(),
+                        converter: ext.i32_fromi16.clone(),
                     },
                 };
-                // Reader. Goes to destination or to conv1 temporary.
-                asm.push("vm_memory");
-                asm.push(s_addr);
-                if let Some(conv1) = &pipe.conv1 {
-                    asm.push(conv1.0);
-                    asm.ext(pipe.reader);
-                    // Handle conversion to i32.
-                    asm.push(conv1.0);
-                    asm.push(&dst);
-                    asm.ext(&conv1.1);
-                } else {
-                    asm.push(&dst);
-                    asm.ext(pipe.reader);
-                }
-                // Signed? well, System.Convert beat us up, so do things this way
-                if let Some(bit) = &pipe.signed_conv_high_bit {
-                    // tmp1 has served us well, use it again to store the AND result...
-                    ext.i32_and(&asm, bit, &dst, "_vm_tmp_r1");
-                    // multiply by -1 (this is a very carefully calculated trick, trust me)
-                    ext.i32_mul(&asm, "_vm_tmp_r1", &constn1, "_vm_tmp_r1");
-                    // and OR back into the destination. signed!
-                    ext.i32_or(&asm, "_vm_tmp_r1", &dst, &dst);
+                match pipe {
+                    LoadPipe::Word => ext.read_i32(&asm, "vm_memory", s_addr, dst),
+                    LoadPipe::ZeroPad(size) => {
+                        // Initialize the target to 0 (the zero-padding).
+                        ext.i32array_set(&asm, "_vm_bcopy_i32", &const0, &const0);
+                        // Copy in the starting bytes (which are also the low bytes aka what we want).
+                        ext.bcopy(
+                            &asm,
+                            "vm_memory",
+                            s_addr,
+                            "_vm_bcopy_i32",
+                            &const0,
+                            asm.ensure_i32(size),
+                        );
+                        // Retrieve the result, which has just been zero-padded.
+                        ext.i32array_get(&asm, "_vm_bcopy_i32", &const0, dst);
+                    }
+                    LoadPipe::Convert {
+                        holding_cell,
+                        type_size,
+                        holding_cell_element,
+                        array_get,
+                        converter,
+                    } => {
+                        // Copy in the target.
+                        ext.bcopy(
+                            &asm,
+                            "vm_memory",
+                            s_addr,
+                            holding_cell,
+                            &const0,
+                            asm.ensure_i32(type_size),
+                        );
+                        // Pull from array.
+                        asm.push(holding_cell);
+                        asm.push(&const0);
+                        asm.push(holding_cell_element);
+                        asm.ext(&array_get);
+                        // Convert.
+                        asm.push(holding_cell_element);
+                        asm.push(dst);
+                        asm.ext(&converter);
+                    }
                 }
             }
             Sci32Instr::Store {
@@ -417,7 +430,7 @@ fn main() -> Result<()> {
                     Sci32LSType::Half(_) => 2,
                     Sci32LSType::Word => 4,
                 };
-                ext.intarray_set(&asm, "_vm_bcopy_i32", &const0, s_value);
+                ext.i32array_set(&asm, "_vm_bcopy_i32", &const0, s_value);
                 ext.bcopy(
                     &asm,
                     "_vm_bcopy_i32",
