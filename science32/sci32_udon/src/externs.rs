@@ -1,81 +1,91 @@
+#![allow(dead_code)]
+
 use crate::UdonAsm;
 
 macro_rules! udon_ext {
-    ($($id:ident = $value:literal)*) => {
+    ($($id:ident ($($arg:ident)*) = $value:literal)*) => {
         pub struct UdonExterns {
             $(
                 pub $id: String,
             )*
         }
         impl UdonExterns {
-            pub fn new(asm: &mut UdonAsm) -> UdonExterns {
+            pub fn new(asm: &UdonAsm) -> UdonExterns {
                 UdonExterns {
                     $(
                         $id: asm.ensure_extern($value),
                     )*
                 }
             }
+            $(
+                pub fn $id(&self, asm: &UdonAsm$(, $arg: impl std::fmt::Display)*) {
+                    $(
+                        asm.push($arg);
+                    )*
+                    asm.ext(&self.$id);
+                }
+            )*
         }
     };
 }
 udon_ext!(
-    obj_equality =
+    obj_equality(a b r) =
         "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
-    bytearray_create =
+    bytearray_create(size r) =
         "SystemByteArray.__ctor__SystemInt32__SystemByteArray"
-    i32_eq =
+    i32_eq(a b r) =
         "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
-    i32_neq =
+    i32_neq(a b r) =
         "SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean"
-    i32_ge =
+    i32_ge(a b r) =
         "SystemInt32.__op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean"
 
-    i32_lt =
+    i32_lt(a b r) =
         "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
-    i32_add =
+    i32_add(a b r) =
         "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
-    i32_sub =
+    i32_sub(a b r) =
         "SystemInt32.__op_Subtraction__SystemInt32_SystemInt32__SystemInt32"
-    i32_xor =
+    i32_xor(a b r) =
         "SystemInt32.__op_LogicalXor__SystemInt32_SystemInt32__SystemInt32"
-    i32_or =
+    i32_or(a b r) =
         "SystemInt32.__op_LogicalOr__SystemInt32_SystemInt32__SystemInt32"
-    i32_and =
+    i32_and(a b r) =
         "SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32"
-    i32_shl =
+    i32_shl(a b r) =
         "SystemInt32.__op_LeftShift__SystemInt32_SystemInt32__SystemInt32"
-    i32_shr =
+    i32_shr(a b r) =
         "SystemInt32.__op_RightShift__SystemInt32_SystemInt32__SystemInt32"
-    i32_mul =
+    i32_mul(a b r) =
         "SystemInt32.__op_Multiplication__SystemInt32_SystemInt32__SystemInt32"
-    // Not a typo.
-    u32_fromi32 = "SystemConvert.__ToUInt32__SystemInt32__SystemUInt32"
-    i32_fromu32 = "SystemConvert.__ToInt32__SystemUInt32__SystemInt32"
-    u32_shr =
-        "SystemUInt32.__op_RightShift__SystemUInt32_SystemInt32__SystemUInt32"
-    u32_add =
+    // This extern is risky because it will error on negative numbers.
+    // For this reason, it's only used in the indirect jump code.
+    u32_fromi32(i r) = "SystemConvert.__ToUInt32__SystemInt32__SystemUInt32"
+    u32_add(a b r) =
         "SystemUInt32.__op_Addition__SystemUInt32_SystemUInt32__SystemUInt32"
     // init, etc.
-    base64_decode =
+    base64_decode(i r) =
         "SystemConvert.__FromBase64String__SystemString__SystemByteArray"
-    read_byte = "SystemByteArray.__Get__SystemInt32__SystemByte"
-    write_byte =
+    read_byte(i o r) = "SystemByteArray.__Get__SystemInt32__SystemByte"
+    write_byte(i o v) =
         "SystemByteArray.__Set__SystemInt32_SystemByte__SystemVoid"
-    bytearray_copy =
+    bytearray_copy(i a o) =
         "SystemByteArray.__CopyTo__SystemArray_SystemInt32__SystemVoid"
     // readers (byte-array, offset)
-    read_i32 =
+    read_i32(a o r) =
         "SystemBitConverter.__ToInt32__SystemByteArray_SystemInt32__SystemInt32"
-    read_u16 =
+    read_u16(a o r) =
         "SystemBitConverter.__ToUInt16__SystemByteArray_SystemInt32__SystemUInt16"
     // reader unsigned conversions
-    i32_fromu8 = "SystemConvert.__ToInt32__SystemByte__SystemInt32"
-    i32_fromu16 = "SystemConvert.__ToInt32__SystemUInt16__SystemInt32"
+    i32_fromu8(i r) = "SystemConvert.__ToInt32__SystemByte__SystemInt32"
+    i32_fromu16(i r) = "SystemConvert.__ToInt32__SystemUInt16__SystemInt32"
     // Writer is crazy code caused by SystemConvert getting way too stabby. You heard it here first...
-    tobytes_i32 =
+    tobytes_i32(i r) =
         "SystemBitConverter.__GetBytes__SystemInt32__SystemByteArray"
-    tobytes_u16 =
+    tobytes_u16(i r) =
         "SystemBitConverter.__GetBytes__SystemUInt16__SystemByteArray"
-    u8_fromi32 = "SystemConvert.__ToByte__SystemInt32__SystemByte"
-    u16_fromi32 = "SystemConvert.__ToUInt16__SystemInt32__SystemUInt16"
+    u8_fromi32(i r) = "SystemConvert.__ToByte__SystemInt32__SystemByte"
+    u16_fromi32(i r) = "SystemConvert.__ToUInt16__SystemInt32__SystemUInt16"
+    // This thing
+    i32_frombool(i r) = "SystemConvert.__ToInt32__SystemBoolean__SystemInt32"
 );

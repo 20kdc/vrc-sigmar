@@ -2,7 +2,6 @@ use anyhow::*;
 use base64::prelude::*;
 use sci32_ingest::*;
 use std::collections::HashMap;
-use std::fmt::Write;
 
 mod asmwr;
 use asmwr::*;
@@ -24,10 +23,14 @@ fn is_udon_safe(x: &str) -> bool {
     true
 }
 
+fn code_addr(pc: u32, sfx: &str) -> String {
+    format!("_code_{:08X}{}", pc, sfx)
+}
+
 /// Resolves a fixed jump.
 fn resolve_jump(img: &Sci32Image, to: u32) -> String {
     if img.is_instruction_at(to) {
-        format!("_code_{:08X}", to)
+        code_addr(to, "")
     } else {
         // to prevent assembly failure if this happens to come up, abort
         // this can happen if, say, data is in .text
@@ -89,7 +92,7 @@ const REGISTERS_R: [&'static str; 32] = [
     "_vm_s8", "_vm_s9", "_vm_s10", "_vm_s11", "_vm_t3", "_vm_t4", "_vm_t5", "_vm_t6",
 ];
 
-fn resolve_alur(asm: &mut UdonAsm, value: Sci32ALUSource) -> String {
+fn resolve_alur(asm: &UdonAsm, value: Sci32ALUSource) -> String {
     match value {
         Sci32ALUSource::Immediate(v) => asm.ensure_i32(v as i32),
         Sci32ALUSource::Register(rs) => REGISTERS_R[rs as usize].to_string(),
@@ -128,7 +131,6 @@ fn main() -> Result<()> {
     asm.declare_heap("_vm_tmp_bool", "SystemBoolean", "null", false);
     asm.declare_heap_i32("_vm_tmp_r1", 0, false);
     asm.declare_heap_i32("_vm_tmp_r2", 0, false);
-    asm.declare_heap_u32("_vm_tmp_u1", 0, false);
     // WORKAROUND: Due to Udon Assembly bugs, we have to initialize some of these to null rather than 0.
     asm.declare_heap("_vm_tmp_u8", "SystemByte", "null", false);
     asm.declare_heap("_vm_tmp_u16", "SystemUInt16", "null", false);
@@ -164,79 +166,56 @@ fn main() -> Result<()> {
     let const0 = asm.ensure_i32(0);
     let const1 = asm.ensure_i32(1);
 
-    writeln!(asm.code, "\t# -- JUMP TABLE --").unwrap();
+    asm.code("\t# -- JUMP TABLE (MUST BE AT START OF CODE) --");
     for i in 0..img.instructions {
-        writeln!(asm.code, "\tJUMP, _code_{:08X}", ((i * 4) as u32)).unwrap();
+        let pc = (i * 4) as u32;
+        asm.jump(code_addr(pc, ""));
     }
-    writeln!(asm.code, "\t# Thunk Abort ({:08X})", abort_vec).unwrap();
-    writeln!(asm.code, "\tJUMP, 0xFFFFFFFC").unwrap();
-    writeln!(asm.code).unwrap();
+    asm.code(format!("\t# Thunk Abort ({:08X})", abort_vec));
+    asm.stop();
+    asm.code("");
 
-    writeln!(asm.code, "\t# -- MEMORY INIT / RESET / INDIRECT JUMP --").unwrap();
+    asm.code("\t# -- MEMORY INIT / RESET / INDIRECT JUMP --");
 
-    writeln!(asm.code, ".export _vm_reset").unwrap();
-    writeln!(asm.code, "_vm_reset:").unwrap();
+    asm.code_label("_vm_reset", true);
     // The external reset just sets us up to indirect jump straight to abort.
     // This means you can just poke _vm_reset and get a nicely reset VM.
-    writeln!(asm.code, "\tPUSH, {}", const_abort).unwrap();
-    writeln!(asm.code, "\tPUSH, vm_indirect_jump_target").unwrap();
-    writeln!(asm.code, "\tEXTERN, {}", ext.u32_fromi32).unwrap();
+    ext.u32_fromi32(&asm, &const_abort, "vm_indirect_jump_target");
 
     // FALLTHROUGH: we've just setup the indirect jump to abort, so do a reset-and-jump
 
-    writeln!(asm.code, ".export _vm_reset_and_jump").unwrap();
-    writeln!(asm.code, "_vm_reset_and_jump:").unwrap();
+    asm.code_label("_vm_reset_and_jump", true);
     // set vm_initsp and vm_abort
-    writeln!(asm.code, "\tPUSH, {}", const_initsp).unwrap();
-    writeln!(asm.code, "\tPUSH, vm_initsp").unwrap();
-    writeln!(asm.code, "\tPUSH, {}", const_abort).unwrap();
-    writeln!(asm.code, "\tPUSH, vm_abort").unwrap();
-    writeln!(asm.code, "\tCOPY").unwrap();
-    writeln!(asm.code, "\tCOPY").unwrap();
+    asm.copy_static(&const_initsp, "vm_initsp");
+    asm.copy_static(&const_abort, "vm_abort");
     // setup like a thunk would. we're called by thunks when the machine hasn't been setup yet
     // and we can also be called by external code that won't know what the initsp/abort values are yet
-    writeln!(asm.code, "\tPUSH, vm_initsp").unwrap();
-    writeln!(asm.code, "\tPUSH, vm_sp").unwrap();
-    writeln!(asm.code, "\tPUSH, vm_abort").unwrap();
-    writeln!(asm.code, "\tPUSH, vm_ra").unwrap();
-    writeln!(asm.code, "\tCOPY").unwrap();
-    writeln!(asm.code, "\tCOPY").unwrap();
-    // create the array
-    writeln!(asm.code, "\tPUSH, {}", const_initsp).unwrap();
-    writeln!(asm.code, "\tPUSH, vm_memory").unwrap();
-    writeln!(asm.code, "\tEXTERN, {}", ext.bytearray_create).unwrap();
-    // copy to check field
-    writeln!(asm.code, "\tPUSH, vm_memory").unwrap();
-    writeln!(asm.code, "\tPUSH, _vm_memory_chk").unwrap();
-    writeln!(asm.code, "\tCOPY").unwrap();
-    // decode the data
-    writeln!(asm.code, "\tPUSH, _vm_initdata").unwrap();
-    writeln!(asm.code, "\tPUSH, _vm_initdata_dec").unwrap();
-    writeln!(asm.code, "\tEXTERN, {}", ext.base64_decode).unwrap();
-    // copy
-    writeln!(asm.code, "\tPUSH, _vm_initdata_dec").unwrap();
-    writeln!(asm.code, "\tPUSH, vm_memory").unwrap();
-    writeln!(asm.code, "\tPUSH, {}", const0).unwrap();
-    writeln!(asm.code, "\tEXTERN, {}", ext.bytearray_copy).unwrap();
+    asm.copy_static("vm_initsp", "vm_sp");
+    asm.copy_static("vm_abort", "vm_ra");
+    // create the array & copy to check field so we don't do this twice
+    ext.bytearray_create(&asm, &const_initsp, "vm_memory");
+    asm.copy_static("vm_memory", "_vm_memory_chk");
+    // decode the data and copy it into the start of the memory array
+    ext.base64_decode(&asm, "_vm_initdata", "_vm_initdata_dec");
+    ext.bytearray_copy(&asm, "_vm_initdata_dec", "vm_memory", const0);
     // clean up
-    writeln!(asm.code, "\tPUSH, _null").unwrap();
-    writeln!(asm.code, "\tPUSH, _vm_initdata_dec").unwrap();
-    writeln!(asm.code, "\tCOPY").unwrap();
+    asm.copy_static("_null", "_vm_initdata_dec");
 
     // FALLTHROUGH: we now move right on to performing an indirect jump
 
-    writeln!(asm.code, ".export _vm_indirect_jump").unwrap();
-    writeln!(asm.code, "_vm_indirect_jump:").unwrap();
-    // The jump table is laid out so that a simple multiplication will fix up the target.
-    writeln!(asm.code, "\tPUSH, vm_indirect_jump_target").unwrap();
-    writeln!(asm.code, "\tPUSH, vm_indirect_jump_target").unwrap();
-    writeln!(asm.code, "\tPUSH, vm_indirect_jump_target").unwrap();
-    writeln!(asm.code, "\tEXTERN, {}", ext.u32_add).unwrap();
-    writeln!(asm.code, "\tJUMP_INDIRECT, vm_indirect_jump_target").unwrap();
-    writeln!(asm.code).unwrap();
+    asm.code_label("_vm_indirect_jump", true);
+    // The jump table is laid out so that a simple multiplication by 2 will fix up the target.
+    ext.u32_add(
+        &asm,
+        "vm_indirect_jump_target",
+        "vm_indirect_jump_target",
+        "vm_indirect_jump_target",
+    );
+    asm.jump_indirect("vm_indirect_jump_target");
+    asm.code("");
 
     let mut symbol_marking: HashMap<u32, String> = HashMap::new();
-    writeln!(asm.code, "\t# -- THUNKS --").unwrap();
+    asm.code("\t# -- THUNKS --");
     for sym in img.symbols.values() {
         if !is_udon_safe(&sym.st_name) {
             continue;
@@ -245,69 +224,56 @@ fn main() -> Result<()> {
         // if the symbol starts with "Udon", assume this is code we want to be able to call from Udon.
         if sym.st_name.starts_with("Udon") {
             let cut_name = &sym.st_name[4..];
-            writeln!(asm.code, ".export {}", cut_name).unwrap();
-            writeln!(asm.code, "{}:", cut_name).unwrap();
+            let fastpath_name = format!("_thunk_{}_fastpath", cut_name);
+
+            asm.code_label(cut_name, true);
             // check if the VM has inited; if it has, we speedrun init
-            writeln!(asm.code, "\tPUSH, _vm_memory_chk").unwrap();
-            writeln!(asm.code, "\tPUSH, _null").unwrap();
-            writeln!(asm.code, "\tPUSH, _vm_tmp_bool").unwrap();
-            writeln!(asm.code, "\tEXTERN, {}", ext.obj_equality).unwrap();
-            writeln!(asm.code, "\tPUSH, _vm_tmp_bool").unwrap();
-            writeln!(asm.code, "\tJUMP_IF_FALSE, _thunk_{}_fastpath", cut_name).unwrap();
+            ext.obj_equality(&asm, "_vm_memory_chk", "_null", "_vm_tmp_bool");
+            asm.jump_if_false_static("_vm_tmp_bool", &fastpath_name);
+
             // Slowpath: The machine hasn't been setup yet!
             // Set indirect jump target and then run Reset-And-Jump.
-            let myconst = asm.ensure_i32(sym.st_addr as i32);
-            writeln!(asm.code, "\tPUSH, {}", myconst).unwrap();
-            writeln!(asm.code, "\tPUSH, vm_indirect_jump_target").unwrap();
-            writeln!(asm.code, "\tEXTERN, {}", ext.u32_fromi32).unwrap();
-            writeln!(asm.code, "\tJUMP, _vm_reset_and_jump").unwrap();
+            ext.u32_fromi32(
+                &asm,
+                asm.ensure_i32(sym.st_addr as i32),
+                "vm_indirect_jump_target",
+            );
+            asm.jump("_vm_reset_and_jump");
+
             // Fastpath: Machine is ready. Copy registers and directly jump into code.
-            writeln!(asm.code, "_thunk_{}_fastpath:", cut_name).unwrap();
+            asm.code_label(fastpath_name, false);
             // Setup registers...
-            writeln!(asm.code, "\tPUSH, vm_initsp").unwrap();
-            writeln!(asm.code, "\tPUSH, vm_sp").unwrap();
-            writeln!(asm.code, "\tPUSH, vm_abort").unwrap();
-            writeln!(asm.code, "\tPUSH, vm_ra").unwrap();
-            writeln!(asm.code, "\tCOPY").unwrap();
-            writeln!(asm.code, "\tCOPY").unwrap();
-            // Jump
-            writeln!(
-                asm.code,
-                "\tJUMP, {}",
-                resolve_jump(&img, sym.st_addr as u32)
-            )
-            .unwrap();
+            asm.copy_static("vm_initsp", "vm_sp");
+            asm.copy_static("vm_abort", "vm_ra");
+            // Jump directly into the code.
+            asm.jump(resolve_jump(&img, sym.st_addr as u32));
         }
     }
-    writeln!(asm.code).unwrap();
+    asm.code("");
 
     // ClientSim UI shows symbols in declaration order (presumably Udon preserves this somehow and we're seeing the results)
     // For this reason, make sure that symbol getters are written after the actual important stuff
-    writeln!(asm.code, "\t# -- SYMGET --").unwrap();
+    asm.code("\t# -- SYMGET --");
     for sym in img.symbols.values() {
         if !is_udon_safe(&sym.st_name) {
             continue;
         }
         // either way, export as a 'data symbol'
-        writeln!(asm.code, ".export _sym_{}", sym.st_name).unwrap();
-        writeln!(asm.code, "_sym_{}:", sym.st_name).unwrap();
-        let val = asm.ensure_i32(sym.st_addr as i32);
-        writeln!(asm.code, "\tPUSH, {}", val).unwrap();
-        writeln!(asm.code, "\tPUSH, a0").unwrap();
-        writeln!(asm.code, "\tCOPY").unwrap();
-        writeln!(asm.code, "\tJUMP, 0xFFFFFFFC").unwrap();
+        asm.code_label(format!("_sym_{}", sym.st_name), true);
+        asm.copy_static(asm.ensure_i32(sym.st_addr as i32), "a0");
+        asm.stop();
     }
-    writeln!(asm.code).unwrap();
+    asm.code("");
 
-    writeln!(asm.code, "\t# -- CODE --").unwrap();
+    asm.code("\t# -- CODE --");
     for i in 0..img.instructions {
         let pc = (i * 4) as u32;
         if let Some(sym) = symbol_marking.get(&pc) {
-            writeln!(asm.code).unwrap();
-            writeln!(asm.code, "# SYMBOL: {}", sym).unwrap();
+            asm.code("");
+            asm.code(format!("# SYMBOL: {}", sym));
         }
         let istr = Sci32Instr::decode(pc, img.data[i]);
-        writeln!(asm.code, "_code_{:08X}: # {:?}", pc, istr).unwrap();
+        asm.code(format!("_code_{:08X}: # {:?}", pc, istr));
         match istr {
             Sci32Instr::JumpAndLink {
                 rd,
@@ -315,12 +281,9 @@ fn main() -> Result<()> {
                 value,
             } => {
                 if rd != 0 {
-                    let si = asm.ensure_i32(rd_value as i32);
-                    writeln!(asm.code, "\tPUSH, {}", si).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", REGISTERS_W[rd as usize]).unwrap();
-                    writeln!(asm.code, "\tCOPY").unwrap();
+                    asm.copy_static(asm.ensure_i32(rd_value as i32), REGISTERS_W[rd as usize]);
                 }
-                writeln!(asm.code, "\tJUMP, {}", resolve_jump(&img, value)).unwrap();
+                asm.jump(resolve_jump(&img, value));
             }
             Sci32Instr::JumpAndLinkRegister {
                 rd,
@@ -330,35 +293,21 @@ fn main() -> Result<()> {
             } => {
                 let si = REGISTERS_R[rs1 as usize].to_string();
                 if offset == 0 {
-                    writeln!(asm.code, "\tPUSH, {}", si).unwrap();
-                    writeln!(asm.code, "\tPUSH, vm_indirect_jump_target").unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", ext.u32_fromi32).unwrap();
+                    ext.u32_fromi32(&asm, si, "vm_indirect_jump_target");
                 } else {
-                    let ov = asm.ensure_i32(offset as i32);
-                    writeln!(asm.code, "\tPUSH, {}", si).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", ov).unwrap();
-                    writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", ext.i32_add).unwrap();
-                    writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                    writeln!(asm.code, "\tPUSH, vm_indirect_jump_target").unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", ext.u32_fromi32).unwrap();
+                    ext.i32_add(&asm, si, asm.ensure_i32(offset as i32), "_vm_tmp_r1");
+                    ext.u32_fromi32(&asm, "_vm_tmp_r1", "vm_indirect_jump_target");
                 }
                 if rd != 0 {
-                    let si = asm.ensure_i32(rd_value as i32);
-                    writeln!(asm.code, "\tPUSH, {}", si).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", REGISTERS_W[rd as usize]).unwrap();
-                    writeln!(asm.code, "\tCOPY").unwrap();
+                    asm.copy_static(asm.ensure_i32(rd_value as i32), REGISTERS_W[rd as usize]);
                 }
-                writeln!(asm.code, "\tJUMP, _vm_indirect_jump").unwrap();
+                asm.jump("_vm_indirect_jump");
             }
             Sci32Instr::SetRegister { rd, value } => {
-                let si = resolve_alur(&mut asm, value);
-                writeln!(asm.code, "\tPUSH, {}", si).unwrap();
-                writeln!(asm.code, "\tPUSH, {}", REGISTERS_W[rd as usize]).unwrap();
-                writeln!(asm.code, "\tCOPY").unwrap();
+                asm.copy_static(resolve_alur(&asm, value), REGISTERS_W[rd as usize]);
             }
             Sci32Instr::NOP => {
-                writeln!(asm.code, "\tNOP").unwrap();
+                asm.nop();
             }
             Sci32Instr::Load {
                 rd,
@@ -374,10 +323,7 @@ fn main() -> Result<()> {
                     if rs1 == 0 {
                         s_addr = adj;
                     } else {
-                        writeln!(asm.code, "\tPUSH, {}", s_addr).unwrap();
-                        writeln!(asm.code, "\tPUSH, {}", adj).unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.i32_add).unwrap();
+                        ext.i32_add(&asm, s_addr, adj, "_vm_tmp_r1");
                         s_addr = "_vm_tmp_r1".to_string();
                     }
                 }
@@ -419,36 +365,27 @@ fn main() -> Result<()> {
                     },
                 };
                 // Reader. Goes to destination or to conv1 temporary.
-                writeln!(asm.code, "\tPUSH, vm_memory").unwrap();
-                writeln!(asm.code, "\tPUSH, {}", s_addr).unwrap();
+                asm.push("vm_memory");
+                asm.push(s_addr);
                 if let Some(conv1) = &pipe.conv1 {
-                    writeln!(asm.code, "\tPUSH, {}", conv1.0).unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", pipe.reader).unwrap();
+                    asm.push(conv1.0);
+                    asm.ext(pipe.reader);
                     // Handle conversion to i32.
-                    writeln!(asm.code, "\tPUSH, {}", conv1.0).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", dst).unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", conv1.1).unwrap();
+                    asm.push(conv1.0);
+                    asm.push(&dst);
+                    asm.ext(&conv1.1);
                 } else {
-                    writeln!(asm.code, "\tPUSH, {}", dst).unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", pipe.reader).unwrap();
+                    asm.push(&dst);
+                    asm.ext(pipe.reader);
                 }
                 // Signed? well, System.Convert beat us up, so do things this way
                 if let Some(bit) = &pipe.signed_conv_high_bit {
                     // tmp1 has served us well, use it again to store the AND result...
-                    writeln!(asm.code, "\tPUSH, {}", bit).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", dst).unwrap();
-                    writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", ext.i32_and).unwrap();
+                    ext.i32_and(&asm, bit, &dst, "_vm_tmp_r1");
                     // multiply by -1 (this is a very carefully calculated trick, trust me)
-                    writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", constn1).unwrap();
-                    writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", ext.i32_mul).unwrap();
+                    ext.i32_mul(&asm, "_vm_tmp_r1", &constn1, "_vm_tmp_r1");
                     // and OR back into the destination. signed!
-                    writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", dst).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", dst).unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", ext.i32_or).unwrap();
+                    ext.i32_or(&asm, "_vm_tmp_r1", &dst, &dst);
                 }
             }
             Sci32Instr::Store {
@@ -464,10 +401,7 @@ fn main() -> Result<()> {
                     if rs1 == 0 {
                         s_addr = adj;
                     } else {
-                        writeln!(asm.code, "\tPUSH, {}", s_addr).unwrap();
-                        writeln!(asm.code, "\tPUSH, {}", adj).unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.i32_add).unwrap();
+                        ext.i32_add(&asm, s_addr, adj, "_vm_tmp_r1");
                         s_addr = "_vm_tmp_r1".to_string();
                     }
                 }
@@ -478,19 +412,11 @@ fn main() -> Result<()> {
                         // this is about the same op-count as ToBytes,Get,Set and doesn't hurt GC as much
                         // mask so System.Convert doesn't stab us
                         let const_ff = asm.ensure_i32(0xFF);
-                        writeln!(asm.code, "\tPUSH, {}", s_value).unwrap();
-                        writeln!(asm.code, "\tPUSH, {}", const_ff).unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_r2").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.i32_and).unwrap();
+                        ext.i32_and(&asm, s_value, const_ff, "_vm_tmp_r2");
                         // convert to u8
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_r2").unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_u8").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.u8_fromi32).unwrap();
+                        ext.u8_fromi32(&asm, "_vm_tmp_r2", "_vm_tmp_u8");
                         // write to target address
-                        writeln!(asm.code, "\tPUSH, vm_memory").unwrap();
-                        writeln!(asm.code, "\tPUSH, {}", s_addr).unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_u8").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.write_byte).unwrap();
+                        ext.write_byte(&asm, "vm_memory", s_addr, "_vm_tmp_u8");
                     }
                     Sci32LSType::Half => {
                         // ok, so, we can either:
@@ -501,37 +427,23 @@ fn main() -> Result<()> {
                         //  *insert absurdly complicated shifting sequence*
                         // the middle option sounds best, tbh.
                         // mask so System.Convert doesn't stab us
+                        // TODO BlockCopy
                         let const_ffff = asm.ensure_i32(0xFFFF);
-                        writeln!(asm.code, "\tPUSH, {}", s_value).unwrap();
-                        writeln!(asm.code, "\tPUSH, {}", const_ffff).unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_r2").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.i32_and).unwrap();
+                        ext.i32_and(&asm, s_value, const_ffff, "_vm_tmp_r2");
                         // convert to u16
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_r2").unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_u16").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.u16_fromi32).unwrap();
+                        ext.u16_fromi32(&asm, "_vm_tmp_r2", "_vm_tmp_u16");
                         // convert to bytes
-                        writeln!(asm.code, "\tPUSH, _vm_tmp_u16").unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_initdata_dec").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.tobytes_u16).unwrap();
+                        ext.tobytes_u16(&asm, "_vm_tmp_u16", "_vm_initdata_dec");
                         // copy to target address
-                        writeln!(asm.code, "\tPUSH, _vm_initdata_dec").unwrap();
-                        writeln!(asm.code, "\tPUSH, vm_memory").unwrap();
-                        writeln!(asm.code, "\tPUSH, {}", s_addr).unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.bytearray_copy).unwrap();
+                        ext.bytearray_copy(&asm, "_vm_initdata_dec", "vm_memory", s_addr);
                     }
                     Sci32LSType::Word => {
                         // so Word really should NOT be one of our worst-case scenario situations.
                         // but, uh, it is.
                         // convert to bytes
-                        writeln!(asm.code, "\tPUSH, {}", s_value).unwrap();
-                        writeln!(asm.code, "\tPUSH, _vm_initdata_dec").unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.tobytes_i32).unwrap();
+                        ext.tobytes_i32(&asm, s_value, "_vm_initdata_dec");
                         // copy to target address
-                        writeln!(asm.code, "\tPUSH, _vm_initdata_dec").unwrap();
-                        writeln!(asm.code, "\tPUSH, vm_memory").unwrap();
-                        writeln!(asm.code, "\tPUSH, {}", s_addr).unwrap();
-                        writeln!(asm.code, "\tEXTERN, {}", ext.bytearray_copy).unwrap();
+                        ext.bytearray_copy(&asm, "_vm_initdata_dec", "vm_memory", s_addr);
                     }
                 }
             }
@@ -545,14 +457,8 @@ fn main() -> Result<()> {
                 let mut s2 = REGISTERS_R[rs2 as usize].to_string();
                 if kind == Sci32BranchType::BLTU || kind == Sci32BranchType::BGEU {
                     // was copy/pasted to SLTU code
-                    writeln!(asm.code, "\tPUSH, {}", s1).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", highbit).unwrap();
-                    writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", ext.i32_xor).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", s2).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", highbit).unwrap();
-                    writeln!(asm.code, "\tPUSH, _vm_tmp_r2").unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", ext.i32_xor).unwrap();
+                    ext.i32_xor(&asm, s1, &highbit, "_vm_tmp_r1");
+                    ext.i32_xor(&asm, s2, &highbit, "_vm_tmp_r2");
                     s1 = "_vm_tmp_r1".to_string();
                     s2 = "_vm_tmp_r2".to_string();
                 }
@@ -569,12 +475,11 @@ fn main() -> Result<()> {
                     Sci32BranchType::BLTU => &ext.i32_ge,
                     Sci32BranchType::BGEU => &ext.i32_lt,
                 };
-                writeln!(asm.code, "\tPUSH, {}", s1).unwrap();
-                writeln!(asm.code, "\tPUSH, {}", s2).unwrap();
-                writeln!(asm.code, "\tPUSH, _vm_tmp_bool").unwrap();
-                writeln!(asm.code, "\tEXTERN, {}", comptype).unwrap();
-                writeln!(asm.code, "\tPUSH, _vm_tmp_bool").unwrap();
-                writeln!(asm.code, "\tJUMP_IF_FALSE, {}", resolve_jump(&img, value)).unwrap();
+                asm.push(s1);
+                asm.push(s2);
+                asm.push("_vm_tmp_bool");
+                asm.ext(comptype);
+                asm.jump_if_false_static("_vm_tmp_bool", resolve_jump(&img, value));
             }
             Sci32Instr::ALU(alu) => {
                 let mut s1 = resolve_alur(&mut asm, alu.s1);
@@ -586,72 +491,87 @@ fn main() -> Result<()> {
                     Sci32ALUType::XOR => Some(&ext.i32_xor),
                     Sci32ALUType::OR => Some(&ext.i32_or),
                     Sci32ALUType::AND => Some(&ext.i32_and),
-                    Sci32ALUType::SLL => Some(&ext.i32_shl),
-                    Sci32ALUType::SRA => Some(&ext.i32_shr),
                     _ => None,
                 };
                 if let Some(trivial) = trivial {
-                    writeln!(asm.code, "\tPUSH, {}", s1).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", s2).unwrap();
-                    writeln!(asm.code, "\tPUSH, {}", rd).unwrap();
-                    writeln!(asm.code, "\tEXTERN, {}", trivial).unwrap();
+                    asm.push(s1);
+                    asm.push(s2);
+                    asm.push(rd);
+                    asm.ext(trivial);
                 } else {
                     match alu.kind {
-                        Sci32ALUType::SRL => {
-                            // This one's complicated; must do this unsigned, no cheating.
-                            writeln!(asm.code, "\tPUSH, {}", s1).unwrap();
-                            writeln!(asm.code, "\tPUSH, _vm_tmp_u1").unwrap();
-                            writeln!(asm.code, "\tEXTERN, {}", ext.u32_fromi32).unwrap();
-
-                            writeln!(asm.code, "\tPUSH, _vm_tmp_u1").unwrap();
-                            writeln!(asm.code, "\tPUSH, {}", s2).unwrap();
-                            writeln!(asm.code, "\tPUSH, _vm_tmp_u1").unwrap();
-                            writeln!(asm.code, "\tEXTERN, {}", ext.u32_shr).unwrap();
-
-                            writeln!(asm.code, "\tPUSH, _vm_tmp_u1").unwrap();
-                            writeln!(asm.code, "\tPUSH, {}", rd).unwrap();
-                            writeln!(asm.code, "\tEXTERN, {}", ext.i32_fromu32).unwrap();
+                        // PERFORMANCE TRICK: So to make this performant, we really have to push the envelope on how much we abuse quirks.
+                        // RISC-V wants us to AND off the upper bits of the shift amount.
+                        // Luckily, C# will also do this, as evidenced by entering `-2 >> 32` and `-2 << 32` into `csi`.
+                        // Therefore, for the simplest cases, SRA and SLL, we can consider those done trivially.
+                        // We implement them here for clear reference.
+                        Sci32ALUType::SRA => {
+                            ext.i32_shr(&asm, s1, s2, rd);
                         }
+                        Sci32ALUType::SLL => {
+                            ext.i32_shl(&asm, s1, s2, rd);
+                        }
+                        // WORKAROUND: SRL, however, is COMPLICATED.
+                        // Really, really complicated.
+                        // We can't just convert to unsigned U32 because System.Convert hates us, and we can't get it back cleanly either.
+                        // (We could use memory tricks not perfected yet at the time of writing, but I want to get rewrite 1 done first before I do rewrite 2.)
+                        // The good news is that for a constant shift, we can calculate a mask and simply apply it afterwards.
+                        // Two-extern job, even smaller than the U32 code actually.
+                        // The bad news is that for something that isn't a constant shift, we're now down one mask.
+                        // Looking over the options, the course is clear - we SRA down 0x80000000 by the same shift amount.
+                        // The maximum shift is 31, so that extra bit won't get lost; we have a clean set of 32 unique values from the original down to 0xFFFFFFFF.
+                        // We then shift it up by 1, taking the mask from 1-32 set upper bits to 0-31, covering solely the area that may have been sign-extended.
+                        // We can now proceed to invert the mask and use it.
+                        // (We also do this whole mess in immediate calcs.)
+                        Sci32ALUType::SRL => {
+                            ext.i32_shr(&asm, s1, &s2, "_vm_tmp_r1");
+                            let mask_src = if let Sci32ALUSource::Immediate(s2v) = alu.s2 {
+                                let mut mask: i32 = 0x80000000u32 as i32;
+                                mask >>= s2v & 0x1F;
+                                mask <<= 1;
+                                mask ^= -1;
+                                asm.ensure_i32(mask)
+                            } else {
+                                ext.i32_and(&asm, &s2, asm.ensure_i32(0x1F), "_vm_tmp_r2");
+                                ext.i32_shr(
+                                    &asm,
+                                    asm.ensure_i32(0x80000000u32 as i32),
+                                    "_vm_tmp_r2",
+                                    "_vm_tmp_r2",
+                                );
+                                ext.i32_shl(&asm, "_vm_tmp_r2", &const1, "_vm_tmp_r2");
+                                ext.i32_xor(&asm, "_vm_tmp_r2", &constn1, "_vm_tmp_r2");
+                                "_vm_tmp_r2".to_string()
+                            };
+                            ext.i32_and(&asm, "_vm_tmp_r1", mask_src, rd);
+                        }
+
+                        // SLT is messy. My guess is that it exists to implement certain C operations in a completely branchless manner.
+                        // (Consider `int something = a == b;`.)
+                        // For example, you can synthesize != as (0 SLTU (A ^ B)) without branching.
+                        // As it so happens, System.Convert has an operation which mirrors this, so it can be implemented relatively sanely.
                         Sci32ALUType::SLT(unsigned) => {
-                            // These are *obscenely* complicated. You know, as opposed to the other kinds.
+                            // These are *obscenely* complicated. You know, as opposed to the shifts...
                             if unsigned {
                                 // yup, copy/pasted from above
-                                writeln!(asm.code, "\tPUSH, {}", s1).unwrap();
-                                writeln!(asm.code, "\tPUSH, {}", highbit).unwrap();
-                                writeln!(asm.code, "\tPUSH, _vm_tmp_r1").unwrap();
-                                writeln!(asm.code, "\tEXTERN, {}", ext.i32_xor).unwrap();
-                                writeln!(asm.code, "\tPUSH, {}", s2).unwrap();
-                                writeln!(asm.code, "\tPUSH, {}", highbit).unwrap();
-                                writeln!(asm.code, "\tPUSH, _vm_tmp_r2").unwrap();
-                                writeln!(asm.code, "\tEXTERN, {}", ext.i32_xor).unwrap();
+                                ext.i32_xor(&asm, s1, &highbit, "_vm_tmp_r1");
+                                ext.i32_xor(&asm, s2, &highbit, "_vm_tmp_r2");
                                 s1 = "_vm_tmp_r1".to_string();
                                 s2 = "_vm_tmp_r2".to_string();
                             }
                             // alright, now actually evaluate
-                            writeln!(asm.code, "\tPUSH, {}", s1).unwrap();
-                            writeln!(asm.code, "\tPUSH, {}", s2).unwrap();
-                            writeln!(asm.code, "\tPUSH, _vm_tmp_bool").unwrap();
-                            writeln!(asm.code, "\tEXTERN, {}", ext.i32_lt).unwrap();
-                            writeln!(asm.code, "\tPUSH, _vm_tmp_bool").unwrap();
-                            writeln!(asm.code, "\tJUMP_IF_FALSE, _code_{:08X}_0", pc).unwrap();
-                            writeln!(asm.code, "_code_{:08X}_1:", pc).unwrap();
-                            writeln!(asm.code, "\tPUSH, {}", const1).unwrap();
-                            writeln!(asm.code, "\tJUMP, _code_{:08X}_end", pc).unwrap();
-                            writeln!(asm.code, "_code_{:08X}_0:", pc).unwrap();
-                            writeln!(asm.code, "\tPUSH, {}", const0).unwrap();
-                            writeln!(asm.code, "_code_{:08X}_end:", pc).unwrap();
-                            writeln!(asm.code, "\tPUSH, {}", rd).unwrap();
-                            writeln!(asm.code, "\tCOPY").unwrap();
+                            ext.i32_lt(&asm, s1, s2, "_vm_tmp_bool");
+                            ext.i32_frombool(&asm, "_vm_tmp_bool", rd);
                         }
                         _ => {
-                            writeln!(asm.code, "\tJUMP, 0xFFFFFFFC").unwrap();
+                            asm.stop();
                         }
                     }
                 }
             }
             // unrecognized, break, etc.
             _ => {
-                writeln!(asm.code, "\tJUMP, 0xFFFFFFFC").unwrap();
+                asm.stop();
             }
         }
     }
