@@ -1,0 +1,4 @@
+#!/bin/sh
+# Builds the 'phytocore' processor and test environment.
+./linker.lua c > board.h
+cc phytocore.c emulator.c -o phytolab
