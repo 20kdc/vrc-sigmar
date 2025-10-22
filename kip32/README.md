@@ -1,4 +1,4 @@
-# 'Science32' (name massively subject to change): RV32I to Udon transpiler
+# KIP32: RV32I to Udon transpiler
 
 Ok, so, basically, I remembered something I heard about static recompilation.
 
@@ -24,6 +24,27 @@ Meanwhile, RV32I has a clear minimal set of instructions a compiler can be told 
 
 * Large register count is good for performance of resulting Udon code.
 	* Since the compiler is managing spilling and saving registers in as optimal a way as possible, we don't have to try doing it ourselves (but worse).
+* ISA has good tooling support even in minimal configurations (soft-float, etc.)
+
+## How does it work from the behaviour programmer's view?
+
+1. Continue to write code that interacts with Unity in Udon Graph or UdonSharp.
+2. Write _complex_ code in C/Rust/etc.
+	* Write this code as if you're writing it for a microcontroller you don't happen to have on your desk. \
+	  In other words, you should have a clear method of testing as a native executable.
+3. Compile to what is essentially a RV32I microcontroller. Link with `sdk/kip32.ld` linker file and an appropriate 'stack file' such as `sdk/stack16k.S`.
+	* Symbols starting with `Udon` are exported as custom events (or regular events) with the prefix removed.
+		* The expected workflow for other behaviours is to set the `a0`-`a7` registers, execute a custom event, and retrieve results.
+		* Custom events called `_sym_` are created for any reasonably valid symbol. These events return the address of the symbol, for easy DMA.
+	* Other behaviours may directly access microcontroller memory, but there is no way to 'map' microcontroller memory to other devices.
+	* Microcontroller memory isn't synced; do your sync efficiently in another behaviour and then copy into VM memory on deserialization.
+	* No code is executed on behaviour start. The microcontroller is automatically initialized _on first use._
+	* If you want to make your own linker script (or linker):
+		* The transpiler expects an ELF file with _section headers_ (not program headers, which it will ignore).
+		* Section names are arbitrary.
+		* The symbol table is used for various tasks.
+		* Relocations are completely ignored.
+		* For efficiency reasons, the image should start at 0 to minimize the size of the indirect jump table.
 
 ## Future extensions?
 

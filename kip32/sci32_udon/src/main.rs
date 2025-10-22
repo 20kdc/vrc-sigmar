@@ -1,5 +1,6 @@
 use anyhow::*;
 use base64::prelude::*;
+use lexopt::prelude::*;
 use sci32_ingest::*;
 use std::collections::HashMap;
 
@@ -120,12 +121,23 @@ enum LoadPipe {
 }
 
 fn main() -> Result<()> {
+    // let arg_parser = lexopt::Parser::from_env();
     let a = std::fs::read("science.elf")?;
     let mut img = Sci32Image::default();
     img.from_elf(&a).unwrap();
-    let stack_words: u32 = 0x1000;
-    let initial_sp = ((img.data.len() as u32) + stack_words) * 4;
-    let abort_vec = (img.instructions as u32) * 4;
+    let initial_sp = img
+        .symbols
+        .get("_stack_start")
+        .expect("ELF must have _stack_start symbol (initial SP).")
+        .st_addr;
+    // So this is a pretty nonsensical value to have here, probably needs explaining.
+    // Basically, we calculate indirect jump addresses as vec * 2 to hit the appropriate points in the jump table.
+    // And the Udon abort vector is at 0xFFFFFFFC.
+    // Therefore, we can shift that to the right by 1 to get a value which both:
+    // 1. Doesn't trigger a not-really-a-bug we have with negative jump addresses
+    // 2. Conveniently converts into the Udon abort vector
+    // We then jump here and it's all AOK.
+    let abort_vec = 0x7FFFFFFE;
     let data = BASE64_STANDARD.encode(&img.initialized_bytes());
 
     let mut asm = UdonAsm::default();
@@ -181,8 +193,6 @@ fn main() -> Result<()> {
         let pc = (i * 4) as u32;
         asm.jump(code_addr(pc, ""));
     }
-    asm.code(format!("\t# Thunk Abort ({:08X})", abort_vec));
-    asm.stop();
     asm.code("");
 
     asm.code("\t# -- MEMORY INIT / RESET / INDIRECT JUMP --");
@@ -207,7 +217,11 @@ fn main() -> Result<()> {
     asm.copy_static("vm_initsp", "vm_sp");
     asm.copy_static("vm_abort", "vm_ra");
     // create the array & copy to check field so we don't do this twice
-    ext.u8array_create(&asm, &const_initsp, "vm_memory");
+    ext.u8array_create(
+        &asm,
+        asm.ensure_i32((img.data.len() * 4) as i32),
+        "vm_memory",
+    );
     asm.copy_static("vm_memory", "_vm_memory_chk");
     // decode the data and copy it into the start of the memory array
     ext.base64_decode(&asm, "_vm_initdata", "_vm_initdata_dec");
@@ -274,8 +288,15 @@ fn main() -> Result<()> {
         }
         // either way, export as a 'data symbol'
         asm.code_label(format!("_sym_{}", sym.st_name), true);
+        // just set this now
         asm.copy_static(asm.ensure_i32(sym.st_addr as i32), "a0");
-        asm.stop();
+
+        // if the VM hasn't inited, we should probably init it
+        ext.obj_equality(&asm, "_vm_memory_chk", "_null", "_vm_tmp_bool");
+        // if it's not null, the machine already inited and we can stop now.
+        asm.jump_if_false_static("_vm_tmp_bool", "0xFFFFFFFC");
+        // jump to _vm_reset, which sets the indirect jump target to the true abort vector.
+        asm.jump("_vm_reset");
     }
     asm.code("");
 
