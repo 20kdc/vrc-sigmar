@@ -313,7 +313,6 @@ fn main() -> Result<()> {
                 rd,
                 rs1,
                 kind,
-                unsigned,
                 offset,
             } => {
                 let mut s_addr = REGISTERS_R[rs1 as usize].to_string();
@@ -328,7 +327,7 @@ fn main() -> Result<()> {
                     }
                 }
                 let pipe = match kind {
-                    Sci32LSType::Byte => {
+                    Sci32LSType::Byte(unsigned) => {
                         if unsigned {
                             LoadPipe {
                                 reader: ext.read_byte.clone(),
@@ -343,7 +342,7 @@ fn main() -> Result<()> {
                             }
                         }
                     }
-                    Sci32LSType::Half => {
+                    Sci32LSType::Half(unsigned) => {
                         if unsigned {
                             LoadPipe {
                                 reader: ext.read_u16.clone(),
@@ -406,7 +405,7 @@ fn main() -> Result<()> {
                     }
                 }
                 match kind {
-                    Sci32LSType::Byte => {
+                    Sci32LSType::Byte(_) => {
                         // WORKAROUND (CRUEL AND UNUSUAL PUNISHMENT EDITION):
                         // AND with 0xFF into temp 2 to make Convert happy
                         // this is about the same op-count as ToBytes,Get,Set and doesn't hurt GC as much
@@ -418,7 +417,7 @@ fn main() -> Result<()> {
                         // write to target address
                         ext.write_byte(&asm, "vm_memory", s_addr, "_vm_tmp_u8");
                     }
-                    Sci32LSType::Half => {
+                    Sci32LSType::Half(_) => {
                         // ok, so, we can either:
                         //  ToBytes,Get,Set,Add,Get,Set
                         // or
@@ -466,9 +465,6 @@ fn main() -> Result<()> {
                 let comptype = match kind {
                     Sci32BranchType::BEQ => &ext.i32_neq,
                     Sci32BranchType::BNE => &ext.i32_eq,
-                    // We place dummy values here in case we're interpreting data as code.
-                    Sci32BranchType::B2 => &ext.i32_neq,
-                    Sci32BranchType::B3 => &ext.i32_eq,
                     Sci32BranchType::BLT => &ext.i32_ge,
                     Sci32BranchType::BGE => &ext.i32_lt,
                     // The above conversion will make this work correctly re: signedness.
