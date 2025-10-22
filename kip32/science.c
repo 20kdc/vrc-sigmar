@@ -1,6 +1,23 @@
+void putchar(int c) {
+	register int cx __asm__("a0") = c;
+	__asm__ volatile (
+		"ecall"
+		: "=r" (cx)
+		: "r" (cx)
+		:
+	);
+}
+
+void puts(const char * s) {
+	while (*s)
+		putchar(*(s++));
+	putchar(10);
+}
+
 int tmp = 0;
 
 int Udon_interact() {
+	puts("Hello, Udon World!");
 	tmp++;
 	return tmp * tmp;
 }

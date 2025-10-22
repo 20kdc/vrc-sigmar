@@ -45,6 +45,8 @@ Meanwhile, RV32I has a clear minimal set of instructions a compiler can be told 
 		* The symbol table is used for various tasks.
 		* Relocations are completely ignored.
 		* For efficiency reasons, the image should start at 0 to minimize the size of the indirect jump table.
+4. Tighter integration may be achieved using various flags, particularly `--inc` and `--ecall` ; see transpiler help for details.
+	* `sdk/log_syscall.uasm` is a simple example.
 
 ## Future extensions?
 

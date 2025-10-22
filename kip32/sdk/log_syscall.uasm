@@ -1,0 +1,50 @@
+# Simple syscalls file.
+
+.data_start
+	_ecall_c10: %SystemInt32, 10
+	_ecall_cFF: %SystemInt32, 255
+	_ecall_ext_log: %SystemString, "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+	_ecall_ext_tochar: %SystemString, "SystemConvert.__ToChar__SystemInt32__SystemChar"
+	_ecall_ext_char2str: %SystemString, "SystemConvert.__ToString__SystemChar__SystemString"
+	_ecall_ext_stradd: %SystemString, "SystemString.__op_Addition__SystemString_SystemString__SystemString"
+.export _ecall_logmsg
+	_ecall_logmsg: %SystemString, ""
+	_ecall_logmsg_empty: %SystemString, ""
+	_ecall_logchar: %SystemChar, null
+	_ecall_logcharstr: %SystemString, ""
+.data_end
+
+.code_start
+
+_ecall:
+	PUSH, a0
+	PUSH, _ecall_c10
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _ecall_not_newline
+	PUSH, _ecall_logmsg
+	EXTERN, _ecall_ext_log
+	PUSH, _ecall_logmsg_empty
+	PUSH, _ecall_logmsg
+	COPY
+	JUMP, _vm_indirect_jump
+
+_ecall_not_newline:
+	PUSH, a0
+	PUSH, _ecall_cFF
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+	PUSH, a0
+	PUSH, _ecall_logchar
+	EXTERN, _ecall_ext_tochar
+	PUSH, _ecall_logchar
+	PUSH, _ecall_logcharstr
+	EXTERN, _ecall_ext_char2str
+	PUSH, _ecall_logmsg
+	PUSH, _ecall_logcharstr
+	PUSH, _ecall_logmsg
+	EXTERN, _ecall_ext_stradd
+	JUMP, _vm_indirect_jump
+
+.code_end

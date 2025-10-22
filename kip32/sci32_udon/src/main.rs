@@ -121,15 +121,109 @@ enum LoadPipe {
 }
 
 fn main() -> Result<()> {
-    // let arg_parser = lexopt::Parser::from_env();
-    let a = std::fs::read("science.elf")?;
+    let mut arg_parser = lexopt::Parser::from_env();
+    let mut asm = UdonAsm::default();
     let mut img = Sci32Image::default();
-    img.from_elf(&a).unwrap();
-    let initial_sp = img
-        .symbols
-        .get("_stack_start")
-        .expect("ELF must have _stack_start symbol (initial SP).")
-        .st_addr;
+    let mut out_filename: Option<std::ffi::OsString> = None;
+    let mut inc_code: Vec<String> = Vec::new();
+    let mut ecall: String = "0xFFFFFFFC".to_string();
+    let mut auto_stack: usize = 0x1000;
+    while let Some(arg) = arg_parser.next()? {
+        match arg {
+            Short('?') | Short('h') | Long("help") => {
+                println!("rvelf2udon some.elf");
+                println!(
+                    " this is meant to be used with the kind of ELF GCC outputs for a microcontroller"
+                );
+                println!(
+                    " relocations are NOT processed, section headers are used rather than program headers for various reasons"
+                );
+                println!(
+                    " it is not a good idea to pass multiple ELF files, but it is 'supported' in a sense"
+                );
+                println!(" special ELF symbols:");
+                println!("  _stack_start: initial value of SP");
+                println!("  Udon*: exposed as custom events w/ wrapping code to setup SP and RA");
+                println!(" additional options:");
+                println!(" --out/-o FILE: output .uasm file (default stdout)");
+                println!(
+                    " --inc FILE: splice this .uasm ; looks for .(data/code)_(start/end). code is added after the jump table"
+                );
+                println!(
+                    " --ecall SYMBOL: by default, ECALL instructions halt. you can instead make them do something else"
+                );
+                println!(
+                    "                 you can use this to implement logging, dynamic memory allocation, etc."
+                );
+                println!("                 run 'JUMP, _vm_indirect_jump' to return to VM");
+                println!(
+                    " --auto-stack WORDS: if _stack_start is not found, stack space is automatically appended, default 16KiB."
+                );
+                println!(
+                    "                    this changes the size of that stack (in 32-bit words)."
+                );
+                std::process::exit(0);
+            }
+            Short('o') | Long("out") => match arg_parser.next() {
+                Result::Ok(Some(Value(v))) => out_filename = Some(v),
+                _ => return Err(anyhow!("-o/--out expects a filename value")),
+            },
+            Long("ecall") => match arg_parser.next() {
+                Result::Ok(Some(Value(v))) => {
+                    ecall = v
+                        .into_string()
+                        .expect("--ecall symbol should be reasonably sane")
+                }
+                _ => return Err(anyhow!("--ecall expects a symbol")),
+            },
+            Long("auto-stack") => match arg_parser.next() {
+                Result::Ok(Some(Value(v))) => {
+                    auto_stack = v.parse().expect("--auto-stack number should parse")
+                }
+                _ => return Err(anyhow!("--auto-stack expects a number")),
+            },
+            Long("inc") => match arg_parser.next() {
+                Result::Ok(Some(Value(v))) => {
+                    let a = std::fs::read_to_string(&v)?;
+                    let mut dump_code = false;
+                    let mut dump_data = false;
+                    for line in a.split("\n") {
+                        let line_strip_cr = line.strip_suffix("\r").unwrap_or(line);
+                        if line_strip_cr.eq(".data_start") {
+                            dump_data = true;
+                        } else if line_strip_cr.eq(".data_end") {
+                            dump_data = false;
+                        } else if line_strip_cr.eq(".code_start") {
+                            dump_code = true;
+                        } else if line_strip_cr.eq(".code_end") {
+                            dump_code = false;
+                        } else {
+                            if dump_data {
+                                asm.data(line_strip_cr);
+                            } else if dump_code {
+                                inc_code.push(line_strip_cr.to_string());
+                            }
+                        }
+                    }
+                }
+                _ => return Err(anyhow!("--udon-data expects a filename value")),
+            },
+            Value(v) => {
+                let a = std::fs::read(&v)?;
+                img.from_elf(&a).expect(&format!("{:?} parsing", v));
+            }
+            _ => return Err(arg.unexpected().into()),
+        }
+    }
+    let initial_sp = match img.symbols.get("_stack_start") {
+        Some(initial_sp_sym) => initial_sp_sym.st_addr as i32,
+        None => {
+            // auto stack
+            let new_size = img.data.len() + auto_stack;
+            img.data.resize(new_size, 0);
+            (new_size * 4) as i32
+        }
+    };
     // So this is a pretty nonsensical value to have here, probably needs explaining.
     // Basically, we calculate indirect jump addresses as vec * 2 to hit the appropriate points in the jump table.
     // And the Udon abort vector is at 0xFFFFFFFC.
@@ -140,7 +234,6 @@ fn main() -> Result<()> {
     let abort_vec = 0x7FFFFFFE;
     let data = BASE64_STANDARD.encode(&img.initialized_bytes());
 
-    let mut asm = UdonAsm::default();
     asm.declare_heap("_null", "SystemObject", "null", false);
     asm.declare_heap("_vm_tmp_bool", "SystemBoolean", "null", false);
     asm.declare_heap_i32("_vm_tmp_r1", 0, false);
@@ -171,8 +264,8 @@ fn main() -> Result<()> {
     asm.declare_heap("vm_memory", "SystemByteArray", "null", true);
     // Declared public, but only initialized with memory.
     asm.declare_heap_i32("vm_initsp", 0, true);
-    let const_initsp = asm.ensure_i32(initial_sp as i32);
-    asm.declare_heap_i32("vm_abort", 0, true);
+    let const_initsp = asm.ensure_i32(initial_sp);
+    asm.declare_heap_i32("vm_initra", 0, true);
     let const_abort = asm.ensure_i32(abort_vec as i32);
     asm.declare_heap_u32("vm_indirect_jump_target", 0, true);
 
@@ -195,6 +288,12 @@ fn main() -> Result<()> {
     }
     asm.code("");
 
+    asm.code("\t# -- USER --");
+    for line in inc_code {
+        asm.code(line);
+    }
+    asm.code("");
+
     asm.code("\t# -- MEMORY INIT / RESET / INDIRECT JUMP --");
 
     asm.code_label("_vm_reset", true);
@@ -207,7 +306,7 @@ fn main() -> Result<()> {
     asm.code_label("_vm_reset_and_jump", true);
     // setup VM settings to match the binary.
     asm.copy_static(&const_initsp, "vm_initsp");
-    asm.copy_static(&const_abort, "vm_abort");
+    asm.copy_static(&const_abort, "vm_initra");
     // create scratch buffers
     ext.i32array_create(&asm, &const1, "_vm_bcopy_i32");
     ext.i16array_create(&asm, &const1, "_vm_bcopy_i16");
@@ -215,7 +314,7 @@ fn main() -> Result<()> {
     // setup like a thunk would. we're called by thunks when the machine hasn't been setup yet
     // and we can also be called by external code that won't know what the initsp/abort values are yet
     asm.copy_static("vm_initsp", "vm_sp");
-    asm.copy_static("vm_abort", "vm_ra");
+    asm.copy_static("vm_initra", "vm_ra");
     // create the array & copy to check field so we don't do this twice
     ext.u8array_create(
         &asm,
@@ -272,7 +371,7 @@ fn main() -> Result<()> {
             asm.code_label(fastpath_name, false);
             // Setup registers...
             asm.copy_static("vm_initsp", "vm_sp");
-            asm.copy_static("vm_abort", "vm_ra");
+            asm.copy_static("vm_initra", "vm_ra");
             // Jump directly into the code.
             asm.jump(resolve_jump(&img, sym.st_addr as u32));
         }
@@ -580,6 +679,16 @@ fn main() -> Result<()> {
                     }
                 }
             }
+            Sci32Instr::ECALL => {
+                // This is for the sake of custom ECALL handlers.
+                // This allows them to return back to normal program execution just using _vm_indirect_jump.
+                ext.u32_fromi32(
+                    &asm,
+                    asm.ensure_i32((pc + 4) as i32),
+                    "vm_indirect_jump_target",
+                );
+                asm.jump(&ecall);
+            }
             // unrecognized, break, etc.
             _ => {
                 asm.stop();
@@ -587,6 +696,10 @@ fn main() -> Result<()> {
         }
     }
 
-    print!("{}", asm);
+    if let Some(out_filename) = out_filename {
+        std::fs::write(out_filename, asm.to_string())?;
+    } else {
+        print!("{}", asm);
+    }
     Ok(())
 }
