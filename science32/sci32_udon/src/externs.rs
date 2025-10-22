@@ -67,8 +67,6 @@ udon_ext!(
     base64_decode(i r) =
         "SystemConvert.__FromBase64String__SystemString__SystemByteArray"
     read_byte(i o r) = "SystemByteArray.__Get__SystemInt32__SystemByte"
-    write_byte(i o v) =
-        "SystemByteArray.__Set__SystemInt32_SystemByte__SystemVoid"
     bytearray_copy(i a o) =
         "SystemByteArray.__CopyTo__SystemArray_SystemInt32__SystemVoid"
     // readers (byte-array, offset)
@@ -79,13 +77,18 @@ udon_ext!(
     // reader unsigned conversions
     i32_fromu8(i r) = "SystemConvert.__ToInt32__SystemByte__SystemInt32"
     i32_fromu16(i r) = "SystemConvert.__ToInt32__SystemUInt16__SystemInt32"
-    // Writer is crazy code caused by SystemConvert getting way too stabby. You heard it here first...
-    tobytes_i32(i r) =
-        "SystemBitConverter.__GetBytes__SystemInt32__SystemByteArray"
-    tobytes_u16(i r) =
-        "SystemBitConverter.__GetBytes__SystemUInt16__SystemByteArray"
-    u8_fromi32(i r) = "SystemConvert.__ToByte__SystemInt32__SystemByte"
-    u16_fromi32(i r) = "SystemConvert.__ToUInt16__SystemInt32__SystemUInt16"
     // This thing
     i32_frombool(i r) = "SystemConvert.__ToInt32__SystemBoolean__SystemInt32"
+
+    intarray_create(size r) =
+        "SystemInt32Array.__ctor__SystemInt32__SystemInt32Array"
+    intarray_get(i o r) =
+        "SystemInt32Array.__Get__SystemInt32__SystemInt32"
+    intarray_set(i o v) =
+        "SystemInt32Array.__Set__SystemInt32_SystemInt32__SystemVoid"
+
+    // Reader and writer are crazy code caused by SystemConvert getting way too stabby. You heard it here first...
+    // BlockCopy kinda saved the project's performance.
+    bcopy(source source_ofs dest dest_ofs bytes) =
+        "SystemBuffer.__BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid"
 );

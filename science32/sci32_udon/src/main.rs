@@ -141,6 +141,8 @@ fn main() -> Result<()> {
         &format!("\"{}\"", data),
         false,
     );
+    // Scratch buffer for loads, stores, etc.
+    asm.declare_heap("_vm_bcopy_i32", "SystemInt32Array", "null", false);
     asm.declare_heap("_vm_initdata_dec", "SystemByteArray", "null", false);
     // WORKAROUND: Udon has a habit of deciding it's gonna initialize vm_memory ITSELF.
     // Obviously this is bad for us, so we hold a second, hidden field of type Object.
@@ -185,9 +187,11 @@ fn main() -> Result<()> {
     // FALLTHROUGH: we've just setup the indirect jump to abort, so do a reset-and-jump
 
     asm.code_label("_vm_reset_and_jump", true);
-    // set vm_initsp and vm_abort
+    // setup VM settings to match the binary.
     asm.copy_static(&const_initsp, "vm_initsp");
     asm.copy_static(&const_abort, "vm_abort");
+    // create scratch buffers
+    ext.intarray_create(&asm, asm.ensure_i32(1), "_vm_bcopy_i32");
     // setup like a thunk would. we're called by thunks when the machine hasn't been setup yet
     // and we can also be called by external code that won't know what the initsp/abort values are yet
     asm.copy_static("vm_initsp", "vm_sp");
@@ -197,7 +201,7 @@ fn main() -> Result<()> {
     asm.copy_static("vm_memory", "_vm_memory_chk");
     // decode the data and copy it into the start of the memory array
     ext.base64_decode(&asm, "_vm_initdata", "_vm_initdata_dec");
-    ext.bytearray_copy(&asm, "_vm_initdata_dec", "vm_memory", const0);
+    ext.bytearray_copy(&asm, "_vm_initdata_dec", "vm_memory", &const0);
     // clean up
     asm.copy_static("_null", "_vm_initdata_dec");
 
@@ -404,47 +408,24 @@ fn main() -> Result<()> {
                         s_addr = "_vm_tmp_r1".to_string();
                     }
                 }
-                match kind {
-                    Sci32LSType::Byte(_) => {
-                        // WORKAROUND (CRUEL AND UNUSUAL PUNISHMENT EDITION):
-                        // AND with 0xFF into temp 2 to make Convert happy
-                        // this is about the same op-count as ToBytes,Get,Set and doesn't hurt GC as much
-                        // mask so System.Convert doesn't stab us
-                        let const_ff = asm.ensure_i32(0xFF);
-                        ext.i32_and(&asm, s_value, const_ff, "_vm_tmp_r2");
-                        // convert to u8
-                        ext.u8_fromi32(&asm, "_vm_tmp_r2", "_vm_tmp_u8");
-                        // write to target address
-                        ext.write_byte(&asm, "vm_memory", s_addr, "_vm_tmp_u8");
-                    }
-                    Sci32LSType::Half(_) => {
-                        // ok, so, we can either:
-                        //  ToBytes,Get,Set,Add,Get,Set
-                        // or
-                        //  And,Conv,ToBytes,CopyTo
-                        // or
-                        //  *insert absurdly complicated shifting sequence*
-                        // the middle option sounds best, tbh.
-                        // mask so System.Convert doesn't stab us
-                        // TODO BlockCopy
-                        let const_ffff = asm.ensure_i32(0xFFFF);
-                        ext.i32_and(&asm, s_value, const_ffff, "_vm_tmp_r2");
-                        // convert to u16
-                        ext.u16_fromi32(&asm, "_vm_tmp_r2", "_vm_tmp_u16");
-                        // convert to bytes
-                        ext.tobytes_u16(&asm, "_vm_tmp_u16", "_vm_initdata_dec");
-                        // copy to target address
-                        ext.bytearray_copy(&asm, "_vm_initdata_dec", "vm_memory", s_addr);
-                    }
-                    Sci32LSType::Word => {
-                        // so Word really should NOT be one of our worst-case scenario situations.
-                        // but, uh, it is.
-                        // convert to bytes
-                        ext.tobytes_i32(&asm, s_value, "_vm_initdata_dec");
-                        // copy to target address
-                        ext.bytearray_copy(&asm, "_vm_initdata_dec", "vm_memory", s_addr);
-                    }
-                }
+                // New writer works like this:
+                // Register -> Scratch Buffer -> Destination
+                // This is a constant 2 externs, which was the best-case number before.
+                // Code is also obviously much cleaner.
+                let length = match kind {
+                    Sci32LSType::Byte(_) => 1,
+                    Sci32LSType::Half(_) => 2,
+                    Sci32LSType::Word => 4,
+                };
+                ext.intarray_set(&asm, "_vm_bcopy_i32", &const0, s_value);
+                ext.bcopy(
+                    &asm,
+                    "_vm_bcopy_i32",
+                    &const0,
+                    "vm_memory",
+                    &s_addr,
+                    asm.ensure_i32(length),
+                );
             }
             Sci32Instr::Branch {
                 rs1,

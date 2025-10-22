@@ -24,7 +24,7 @@ pub enum Sci32BranchType {
 pub enum Sci32MULHType {
     MULH,
     MULHSU,
-    MULHU
+    MULHU,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -71,7 +71,7 @@ impl Sci32ALUType {
             Self::SRA => Some((a as i32).wrapping_shr(b) as u32),
             Self::OR => Some(a | b),
             Self::AND => Some(a & b),
-            _ => None
+            _ => None,
         }
     }
 }
@@ -159,7 +159,7 @@ enum Funct3r {
     V100,
     V101,
     V110,
-    V111
+    V111,
 }
 
 impl Funct3r {
@@ -173,7 +173,7 @@ impl Funct3r {
             0b101 => Funct3r::V101,
             0b110 => Funct3r::V110,
             0b111 => Funct3r::V111,
-            _ => unreachable!()
+            _ => unreachable!(),
         }
     }
     fn to_ls(&self) -> Sci32LSType {
@@ -187,7 +187,7 @@ impl Funct3r {
             Funct3r::V100 => Sci32LSType::Byte(true),
             Funct3r::V101 => Sci32LSType::Half(true),
             Funct3r::V110 => Sci32LSType::Word,
-            Funct3r::V111 => Sci32LSType::Word
+            Funct3r::V111 => Sci32LSType::Word,
         }
     }
     fn to_branch_type(&self) -> Sci32BranchType {
@@ -202,7 +202,7 @@ impl Funct3r {
             Funct3r::V100 => Sci32BranchType::BLT,
             Funct3r::V101 => Sci32BranchType::BGE,
             Funct3r::V110 => Sci32BranchType::BLTU,
-            Funct3r::V111 => Sci32BranchType::BGEU
+            Funct3r::V111 => Sci32BranchType::BGEU,
         }
     }
 }
@@ -345,7 +345,7 @@ impl Sci32Instr {
                 (Funct3r::V101, 0x40000000) => (Sci32ALUType::SRA, rs2),
                 (Funct3r::V101, _) => (Sci32ALUType::SRL, rs2),
                 (Funct3r::V110, _) => (Sci32ALUType::OR, imm),
-                (Funct3r::V111, _) => (Sci32ALUType::AND, imm)
+                (Funct3r::V111, _) => (Sci32ALUType::AND, imm),
             };
             // Refine.
             Sci32Instr::from_alu(Sci32ALUOp {
@@ -375,7 +375,7 @@ impl Sci32Instr {
                 (Funct3r::V101, 0x40000000) => Sci32ALUType::SRA,
                 (Funct3r::V101, _) => Sci32ALUType::SRL,
                 (Funct3r::V110, _) => Sci32ALUType::OR,
-                (Funct3r::V111, _) => Sci32ALUType::AND
+                (Funct3r::V111, _) => Sci32ALUType::AND,
             };
             // Refine.
             let s1 = if rs1 == 0 {
