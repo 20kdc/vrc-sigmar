@@ -7,6 +7,11 @@ SECTIONS {
 		*(.shstrtab)
 		*(.riscv.attributes)
 	}
+	.kip32_export : {
+		. = ALIGN(4);
+		KEEP(*(.kip32_export))
+		KEEP(*(.kip32_export.*))
+	}
 	.text : {
 		. = ALIGN(4);
 		*(.text)

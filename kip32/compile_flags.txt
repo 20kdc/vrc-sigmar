@@ -1,0 +1,9 @@
+clang
+-target
+riscv32-unknown-elf
+-mabi=ilp32
+-march=rv32i
+-nostartfiles
+-nolibc
+-ffreestanding
+-Isdk/include

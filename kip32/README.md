@@ -41,12 +41,12 @@ Meanwhile, RV32I has a clear minimal set of instructions a compiler can be told 
 	* No code is executed on behaviour start. The microcontroller is automatically initialized _on first use._
 	* If you want to make your own linker script (or linker):
 		* The transpiler expects an ELF file with _section headers_ (it will ignore program headers).
-		* Section names are arbitrary.
+		* Section names are arbitrary, except for `.kip32_export` (all symbols here are assumed to be exports)
 		* The symbol table is used for various tasks.
 		* Relocations are completely ignored, so if you're relying on them you're going to have a bad time.
 		* For efficiency reasons, executable sections should should start at 0 and end as early as possible to minimize the size of the indirect jump table.
-4. Tighter integration may be achieved using various flags, particularly `--inc` and `--ecall` ; see transpiler help for details.
-	* `sdk/log_syscall.uasm` is a simple example.
+4. Tighter integration may be achieved using various flags, particularly `--inc`; see transpiler help for details.
+	* Also see `sdk/stdsyscall.uasm`.
 5. Udon Assembly doesn't play as well as it could with import on the no-auto-import configuration.
 	* For this reason, you may have to manually delete the SerializedUdonProgram file to get it to recompile.
 

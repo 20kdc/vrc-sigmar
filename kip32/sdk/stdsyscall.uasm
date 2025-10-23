@@ -1,6 +1,7 @@
 # Simple syscalls file.
 
 .data_start
+	# The transpiler creates _ecall_vector_table, a UInt32 pointing at the start of where code is --inc'd.
 	_ecall_c10: %SystemInt32, 10
 	_ecall_cFF: %SystemInt32, 255
 	_ecall_ext_log: %SystemString, "UnityEngineDebug.__Log__SystemObject__SystemVoid"
@@ -16,6 +17,7 @@
 
 .code_start
 
+# This really needs to be changed to be a better, proper example of how to implement syscalls.
 _ecall:
 	PUSH, a0
 	PUSH, _ecall_c10

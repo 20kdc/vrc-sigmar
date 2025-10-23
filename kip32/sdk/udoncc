@@ -1,0 +1,26 @@
+#!/bin/sh -e
+# ELF_OUT_PATH (OPTS...) -- (GCC flags...)
+# This script is kind of like emcc in spirit, though it is quite limited in execution.
+# Sets up a 'reasonably sensible' compile.
+# The ELF is written to the ELF_OUT_PATH. The uasm is written to that path + ".uasm" by default, but this can be changed with -o.
+
+WHERE_AM_I="`readlink -f "$0"`"
+export KIP32_SDK="`dirname "$WHERE_AM_I"`"
+TRANSPILER="$KIP32_SDK/../target/debug/sci32_udon"
+
+ELF_OUT_PATH="$1"
+shift
+
+TP_ARGS=""
+
+while true; do
+	ARG="$1"
+	shift
+	if [ "$ARG" = "--" ]; then
+		break
+	fi
+	TP_ARGS="$TP_ARGS $ARG"
+done
+
+riscv64-unknown-elf-gcc -mabi=ilp32 -march=rv32i -nostartfiles -nolibc -ffreestanding "$@" -T "$KIP32_SDK/kip32.ld" -I "$KIP32_SDK/include" -o "$ELF_OUT_PATH"
+"$TRANSPILER" -o "$ELF_OUT_PATH.uasm" "$ELF_OUT_PATH" $TP_ARGS

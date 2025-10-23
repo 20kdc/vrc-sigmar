@@ -7,11 +7,13 @@ pub const STT_FUNC: u8 = 2;
 pub const STT_SECTION: u8 = 3;
 pub const STT_FILE: u8 = 4;
 
-#[derive(Clone, Default)]
+#[derive(Clone)]
 pub struct Sci32SymInfo {
     pub st_name: String,
     pub st_addr: u32,
     pub st_type: u8,
+    /// If the symbol is in the .kip32export section (and thus is expected to be exported)
+    pub export_section: bool,
 }
 
 /// This contains the data read in from the ELF.
@@ -67,12 +69,14 @@ const SHF_ALLOC: u32 = 2;
 const SHF_EXECINSTR: u32 = 4;
 
 struct TmpSectionInfo {
-    pub sh_type: u32,
-    pub sh_flags: u32,
-    pub sh_addr: u32,
-    pub sh_offset: u32,
-    pub sh_size: u32,
-    pub sh_link: u32,
+    // This is a u32 because we need the section info to resolve section names
+    sh_name: u32,
+    sh_type: u32,
+    sh_flags: u32,
+    sh_addr: u32,
+    sh_offset: u32,
+    sh_size: u32,
+    sh_link: u32,
 }
 
 impl Sci32Image {
@@ -111,11 +115,16 @@ impl Sci32Image {
         // read header
         let shoff = get_u32(bytes, 0x20)?;
         let shnum = get_u16(bytes, 0x30)?;
+        let shstrndx = get_u16(bytes, 0x32)?;
+        if shstrndx >= shnum {
+            return Err(anyhow!("Out of range section string table"));
+        }
         // mine out useful info from the section headers
         let mut section_info: Vec<TmpSectionInfo> = Vec::new();
         for i in 0..shnum {
             let base = (shoff as usize) + ((i as usize) * 40);
             section_info.push(TmpSectionInfo {
+                sh_name: get_u32(bytes, base)?,
                 sh_type: get_u32(bytes, base + 4)?,
                 sh_flags: get_u32(bytes, base + 8)?,
                 sh_addr: get_u32(bytes, base + 12)?,
@@ -156,17 +165,28 @@ impl Sci32Image {
                     let info = get_u8(bytes, base + 12)?;
                     let st_bind = info >> 4;
                     let st_type = info & 0xF;
+                    let st_shndx = get_u16(bytes, base + 14)? as usize;
                     let name_str = get_string(bytes, name)?;
                     // eprintln!("Symbol @ {:08X} : {}, {}", base, name_str, st_bind);
                     if name_str.eq("") || st_bind == 0 {
                         // This is an invisible symbol and thus not exported.
                     } else {
+                        let mut export_section = false;
+                        if st_shndx < section_info.len() {
+                            let strofs = (section_info[st_shndx].sh_name
+                                + section_info[shstrndx as usize].sh_offset)
+                                as usize;
+                            if get_string(bytes, strofs)?.eq(".kip32_export") {
+                                export_section = true;
+                            }
+                        }
                         // Exported.
                         self.symbols.insert(
                             name_str.clone(),
                             Sci32SymInfo {
                                 st_name: name_str.clone(),
                                 st_addr: value,
+                                export_section,
                                 st_type,
                             },
                         );

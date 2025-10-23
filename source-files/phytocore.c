@@ -2,6 +2,7 @@
 #define PHYTO_IMPL
 #include "board.h"
 #include "phytocore.h"
+#include <kip32.h>
 
 int phyto_surrounded(int marble) {
 	int set = 0;
@@ -10,7 +11,7 @@ int phyto_surrounded(int marble) {
 	// In turn, logical NOT gives what we want (are all of these free).
 	for (int i = 0; i < 6; i++) {
 		int nid = board_layout[marble].n[i];
-		if ((nid != -1) && (game_state[nid] != ATOM_NONE)) {
+		if ((nid != -1) && (ATOM_TYPE(game_state[nid]) != ATOM_NONE)) {
 			set |= 1 << i;
 		}
 	}
@@ -142,29 +143,29 @@ int phyto_qstate_update_response(int qstate, int atom) {
 	return PHYTO_SELECT_MARBLE_RESPONSE_CLEAR_SELECTION;
 }
 
-void UdonClearBoard() {
+KIP32_EXPORT void ClearBoard() {
 	for (int i = 0; i < MARBLE_COUNT; i++)
 		game_state[i] = ATOM_NONE | ATOM_FLAG_CALC_DIMMED;
 	phyto_calc_qstate = 0;
 }
 
-int UdonGetMarble(int marble) {
+KIP32_EXPORT int GetMarble(int marble) {
 	if (marble < 0 || marble >= MARBLE_COUNT)
 		return 0;
 	return game_state[marble];
 }
 
-void UdonSetMarble(int marble, int value) {
+KIP32_EXPORT void SetMarble(int marble, int value) {
 	if (marble < 0 || marble >= MARBLE_COUNT)
 		return;
 	game_state[marble] = value;
 }
 
-void UdonRecalculate() {
+KIP32_EXPORT void Recalculate() {
 	phyto_update_calc();
 }
 
-void UdonSelectMarble(int marble) {
+KIP32_EXPORT void SelectMarble(int marble) {
 	// Just in case.
 	phyto_update_calc();
 	switch (phyto_select_marble_response(marble)) {

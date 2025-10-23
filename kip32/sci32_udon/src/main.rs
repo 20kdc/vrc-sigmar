@@ -125,10 +125,10 @@ fn main() -> Result<()> {
     let mut asm = UdonAsm::default();
     let mut img = Sci32Image::default();
     let mut out_filename: Option<std::ffi::OsString> = None;
-    let mut inc_code: Vec<String> = Vec::new();
-    let mut ecall: String = "0xFFFFFFFC".to_string();
+    let mut inc_files: Vec<String> = Vec::new();
     let mut auto_stack: usize = 0x1000;
-    while let Some(arg) = arg_parser.next()? {
+    let mut stdsyscall: bool = true;
+    while let Some(arg) = arg_parser.next().context("arg_parser")? {
         match arg {
             Short('?') | Short('h') | Long("help") => {
                 println!("rvelf2udon some.elf");
@@ -138,33 +138,33 @@ fn main() -> Result<()> {
                 println!(" special ELF symbols:");
                 println!("  _stack_start: initial value of SP");
                 println!("                if not found, stack space will be auto-allocated");
-                println!("  Udon*: exposed as custom events w/ wrapping code to setup SP and RA");
+                println!("  (any symbol in .kip32_export): Exports a 'thunk' for easy calling");
+                println!("                                 from other Udon code.");
                 println!(" additional options:");
                 println!(" --out/-o FILE: output .uasm file (default stdout)");
+                println!(" --no-stdsyscall: By default, stdsyscall.uasm is embedded. Remove it.");
                 println!(" --inc FILE: splice this .uasm into the output");
-                println!("             looks for '.(data/code)_(start/end)' on lines to cut it up");
+                println!("             looks for '(.data/.code/#syscall)_(start/end)' on lines");
                 println!("             these directives must be the *sole* line content,");
-                println!("             or they won't be recognized");
-                println!("             data is added at the start, code after the vector table.");
-                println!(" --ecall SYMBOL: by default, ECALL halts; you can override this");
-                println!("                 you can use this to implement logging, sbrk(), etc.");
-                println!("                 run 'JUMP, _vm_indirect_jump' to return to VM");
+                println!("             or they won't be recognized.");
+                println!("             data is added at the start.");
+                println!("             syscalls are appended to the syscall jump table.");
+                println!("             code is appended after the syscall jump table.");
+                println!("             syscall block takes precedence over code block.");
+                println!("             $KIP32_SDK/stdsyscall.uasm is --inc'd first.");
                 println!(" --auto-stack WORDS: size of the auto-allocated stack in 32-bit words");
                 println!("                     has no effect if _stack_start is found");
+                println!(" syscall mechanism notes:");
+                println!(" ECALL sets up so that 'JUMP,_vm_indirect_jump' will return to VM.");
+                println!(" It then jumps to _ecall. a0-a7 are available as Udon heap variables.");
+                println!(" _ecall_vector_table is a uint32 pointing to the syscall table.");
                 std::process::exit(0);
             }
             Short('o') | Long("out") => match arg_parser.next() {
                 Result::Ok(Some(Value(v))) => out_filename = Some(v),
                 _ => return Err(anyhow!("-o/--out expects a filename value")),
             },
-            Long("ecall") => match arg_parser.next() {
-                Result::Ok(Some(Value(v))) => {
-                    ecall = v
-                        .into_string()
-                        .expect("--ecall symbol should be reasonably sane")
-                }
-                _ => return Err(anyhow!("--ecall expects a symbol")),
-            },
+            Long("no-stdsyscall") => stdsyscall = false,
             Long("auto-stack") => match arg_parser.next() {
                 Result::Ok(Some(Value(v))) => {
                     auto_stack = v.parse().expect("--auto-stack number should parse")
@@ -173,35 +173,55 @@ fn main() -> Result<()> {
             },
             Long("inc") => match arg_parser.next() {
                 Result::Ok(Some(Value(v))) => {
-                    let a = std::fs::read_to_string(&v).expect(&format!("{:?} invalid", v));
-                    let mut dump_code = false;
-                    let mut dump_data = false;
-                    for line in a.split("\n") {
-                        let line_strip_cr = line.strip_suffix("\r").unwrap_or(line);
-                        if line_strip_cr.eq(".data_start") {
-                            dump_data = true;
-                        } else if line_strip_cr.eq(".data_end") {
-                            dump_data = false;
-                        } else if line_strip_cr.eq(".code_start") {
-                            dump_code = true;
-                        } else if line_strip_cr.eq(".code_end") {
-                            dump_code = false;
-                        } else {
-                            if dump_data {
-                                asm.data(line_strip_cr);
-                            } else if dump_code {
-                                inc_code.push(line_strip_cr.to_string());
-                            }
-                        }
-                    }
+                    inc_files.push(
+                        v.into_string()
+                            .expect("--inc arg should convert to string cleanly"),
+                    );
                 }
-                _ => return Err(anyhow!("--udon-data expects a filename value")),
+                _ => return Err(anyhow!("--inc expects a filename value")),
             },
             Value(v) => {
-                let a = std::fs::read(&v)?;
+                let a = std::fs::read(&v).expect(&format!("{:?} reading", v));
                 img.from_elf(&a).expect(&format!("{:?} parsing", v));
             }
             _ => return Err(arg.unexpected().into()),
+        }
+    }
+    if stdsyscall {
+        let var = std::env::var("KIP32_SDK")
+            .expect("if stdsyscall is in use, KIP32_SDK must be set to find it");
+        inc_files.insert(0, format!("{}/stdsyscall.uasm", var));
+    }
+    let mut inc_code: Vec<String> = Vec::new();
+    let mut inc_syscall: Vec<String> = Vec::new();
+    for v in inc_files {
+        let a = std::fs::read_to_string(&v).expect(&format!("{:?} invalid", v));
+        let mut dump_code = false;
+        let mut dump_syscall = false;
+        let mut dump_data = false;
+        for line in a.split("\n") {
+            let line_strip_cr = line.strip_suffix("\r").unwrap_or(line);
+            if line_strip_cr.eq(".data_start") {
+                dump_data = true;
+            } else if line_strip_cr.eq(".data_end") {
+                dump_data = false;
+            } else if line_strip_cr.eq(".code_start") {
+                dump_code = true;
+            } else if line_strip_cr.eq(".code_end") {
+                dump_code = false;
+            } else if line_strip_cr.eq("#syscall_start") {
+                dump_syscall = true;
+            } else if line_strip_cr.eq("#syscall_end") {
+                dump_syscall = false;
+            } else {
+                if dump_data {
+                    asm.data(line_strip_cr);
+                } else if dump_syscall {
+                    inc_syscall.push(line_strip_cr.to_string());
+                } else if dump_code {
+                    inc_code.push(line_strip_cr.to_string());
+                }
+            }
         }
     }
     let initial_sp = match img.symbols.get("_stack_start") {
@@ -227,6 +247,7 @@ fn main() -> Result<()> {
     asm.declare_heap("_vm_tmp_bool", "SystemBoolean", "null", false);
     asm.declare_heap_i32("_vm_tmp_r1", 0, false);
     asm.declare_heap_i32("_vm_tmp_r2", 0, false);
+    asm.declare_heap_u32("_ecall_vector_table", (img.instructions * 8) as u32, false);
     // WORKAROUND: Due to Udon Assembly bugs, we have to initialize some of these to null rather than 0.
     asm.declare_heap("_vm_tmp_u8", "SystemByte", "null", false);
     asm.declare_heap("_vm_tmp_u16", "SystemUInt16", "null", false);
@@ -277,7 +298,13 @@ fn main() -> Result<()> {
     }
     asm.code("");
 
-    asm.code("\t# -- USER --");
+    asm.code("\t# -- SYSCALL TABLE --");
+    for line in inc_syscall {
+        asm.code(line);
+    }
+    asm.code("");
+
+    asm.code("\t# -- SYSCALL CODE --");
     for line in inc_code {
         asm.code(line);
     }
@@ -337,9 +364,8 @@ fn main() -> Result<()> {
             continue;
         }
         symbol_marking.insert(sym.st_addr, sym.st_name.clone());
-        // if the symbol starts with "Udon", assume this is code we want to be able to call from Udon.
-        if sym.st_name.starts_with("Udon") {
-            let cut_name = &sym.st_name[4..];
+        if sym.export_section {
+            let cut_name = sym.st_name.clone();
             let fastpath_name = format!("_thunk_{}_fastpath", cut_name);
 
             asm.code_label(cut_name, true);
@@ -669,14 +695,14 @@ fn main() -> Result<()> {
                 }
             }
             Sci32Instr::ECALL => {
-                // This is for the sake of custom ECALL handlers.
-                // This allows them to return back to normal program execution just using _vm_indirect_jump.
+                // This is for the sake of the ECALL handler.
+                // This allows it to return back to normal program execution just using _vm_indirect_jump.
                 ext.u32_fromi32(
                     &asm,
                     asm.ensure_i32((pc + 4) as i32),
                     "vm_indirect_jump_target",
                 );
-                asm.jump(&ecall);
+                asm.jump("_ecall");
             }
             // unrecognized, break, etc.
             _ => {
