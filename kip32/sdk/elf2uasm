@@ -1,0 +1,9 @@
+#!/bin/sh -e
+# Placeholder for uncompiled SDK.
+
+# -- COPY-PASTED HEADER --
+WHERE_AM_I="`readlink -f "$0"`"
+export KIP32_SDK="`dirname "$WHERE_AM_I"`"
+# ------------------------
+
+exec cargo run --bin elf2uasm --manifest-path "$KIP32_SDK/../Cargo.toml" -- "$@"

@@ -1,0 +1,10 @@
+#!/bin/sh -e
+# This script is kind of like emcc in spirit, though it is quite limited in execution.
+# It adds the kip32 SDK linker script and include directory.
+
+# -- COPY-PASTED HEADER --
+WHERE_AM_I="`readlink -f "$0"`"
+export KIP32_SDK="`dirname "$WHERE_AM_I"`"
+# ------------------------
+
+exec riscv64-unknown-elf-gcc -mabi=ilp32 -march=rv32i -nostartfiles -nolibc -ffreestanding -T "$KIP32_SDK/kip32.ld" -I "$KIP32_SDK/include" "$@"

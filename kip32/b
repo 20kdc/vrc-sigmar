@@ -1,5 +1,5 @@
 #!/bin/sh
 cargo fmt
-cargo build
-sdk/udoncc science.elf -o ../kvtools/Assets/science.uasm -- -O3 science.c
+sdk/kip32cc -O3 science.c -o science.elf
+sdk/elf2uasm science.elf -o ../kvtools/Assets/science.uasm
 objdump -h -D science.elf > science.lst

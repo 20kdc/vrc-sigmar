@@ -1,7 +1,7 @@
 use anyhow::*;
 use base64::prelude::*;
+use kip32ingest::*;
 use lexopt::prelude::*;
-use sci32_ingest::*;
 use std::collections::HashMap;
 
 mod asmwr;
@@ -131,7 +131,7 @@ fn main() -> Result<()> {
     while let Some(arg) = arg_parser.next().context("arg_parser")? {
         match arg {
             Short('?') | Short('h') | Long("help") => {
-                println!("rvelf2udon some.elf");
+                println!("elf2uasm some.elf");
                 println!(" meant to be used with 'microcontroller'-like ELFs");
                 println!(" section headers are used, not program headers; but no relocations");
                 println!(" passing multiple ELF files is 'supported' but probably isn't helpful");

@@ -2,4 +2,5 @@
 # Builds the 'phytocore' processor and test environment.
 ./linker.lua c > board.h
 cc -DPHYTOLAB phytocore.c emulator.c -I "$KIP32_SDK/include_host" -o phytolab
-"$KIP32_SDK/udoncc" ../unity-package/phytocore.uasm.elf -o ../unity-package/phytocore.uasm -- -Os phytocore.c
+"$KIP32_SDK/kip32cc" -Os phytocore.c -o phytocore.elf
+"$KIP32_SDK/elf2uasm" phytocore.elf -o ../unity-package/phytocore.uasm
