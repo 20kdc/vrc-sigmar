@@ -53,20 +53,20 @@ int phyto_qstate_update_response(int qstate, int atom);
 // -- Udon Interface --
 
 // Clears the board. "Effectively" recalculates.
-KIP32_EXPORT void ClearBoard();
+KIP32_EXPORT void _ClearBoard();
 
 // Gets marble data for the given marble.
-KIP32_EXPORT int GetMarble(int marble);
+KIP32_EXPORT int _GetMarble(int marble);
 
 // Sets marble data for the given marble.
 // This does NOT recalculate.
-KIP32_EXPORT void SetMarble(int marble, int value);
+KIP32_EXPORT void _SetMarble(int marble, int value);
 
-KIP32_EXPORT void Recalculate();
+KIP32_EXPORT void _Recalculate();
 
 // Implements the actual process of selecting a marble and processing the response.
 // Called externally, so recalculates before and after just to be safe.
-KIP32_EXPORT void SelectMarble(int marble);
+KIP32_EXPORT void _SelectMarble(int marble);
 
 enum {
 	// Not allowed.

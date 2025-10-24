@@ -143,29 +143,29 @@ int phyto_qstate_update_response(int qstate, int atom) {
 	return PHYTO_SELECT_MARBLE_RESPONSE_CLEAR_SELECTION;
 }
 
-KIP32_EXPORT void ClearBoard() {
+KIP32_EXPORT void _ClearBoard() {
 	for (int i = 0; i < MARBLE_COUNT; i++)
 		game_state[i] = ATOM_NONE | ATOM_FLAG_CALC_DIMMED;
 	phyto_calc_qstate = 0;
 }
 
-KIP32_EXPORT int GetMarble(int marble) {
+KIP32_EXPORT int _GetMarble(int marble) {
 	if (marble < 0 || marble >= MARBLE_COUNT)
 		return 0;
 	return game_state[marble];
 }
 
-KIP32_EXPORT void SetMarble(int marble, int value) {
+KIP32_EXPORT void _SetMarble(int marble, int value) {
 	if (marble < 0 || marble >= MARBLE_COUNT)
 		return;
 	game_state[marble] = value;
 }
 
-KIP32_EXPORT void Recalculate() {
+KIP32_EXPORT void _Recalculate() {
 	phyto_update_calc();
 }
 
-KIP32_EXPORT void SelectMarble(int marble) {
+KIP32_EXPORT void _SelectMarble(int marble) {
 	// Just in case.
 	phyto_update_calc();
 	switch (phyto_select_marble_response(marble)) {

@@ -2,6 +2,8 @@
 //!
 //! Decodes instructions and determines NOPs.
 
+use crate::Kip32Reg;
+
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Sci32LSType {
     // Unsigned flag.
@@ -80,14 +82,14 @@ impl Sci32ALUType {
 pub enum Sci32ALUSource {
     Immediate(u32),
     /// This will never point to x0; that is read as Immediate.
-    Register(u32),
+    Register(Kip32Reg),
 }
 
 /// ALU operation.
 /// These get a special layer of simplification applied to them.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub struct Sci32ALUOp {
-    pub rd: u32,
+    pub rd: Kip32Reg,
     pub s1: Sci32ALUSource,
     pub s2: Sci32ALUSource,
     pub kind: Sci32ALUType,
@@ -110,38 +112,38 @@ pub enum Sci32Instr {
     NOP,
     /// This is used to implement AUIPC, LUI, certain kinds of 'MOV-likes', etc.
     SetRegister {
-        rd: u32,
+        rd: Kip32Reg,
         value: Sci32ALUSource,
     },
     JumpAndLink {
-        rd: u32,
+        rd: Kip32Reg,
         rd_value: u32,
         value: u32,
     },
     JumpAndLinkRegister {
-        rd: u32,
+        rd: Kip32Reg,
         rd_value: u32,
-        rs1: u32,
+        rs1: Kip32Reg,
         offset: u32,
     },
     Load {
         /// Beware: rd = 0 is possible
-        rd: u32,
-        rs1: u32,
+        rd: Kip32Reg,
+        rs1: Kip32Reg,
         kind: Sci32LSType,
         offset: u32,
     },
     Store {
         /// Address
-        rs1: u32,
+        rs1: Kip32Reg,
         /// Data
-        rs2: u32,
+        rs2: Kip32Reg,
         kind: Sci32LSType,
         offset: u32,
     },
     Branch {
-        rs1: u32,
-        rs2: u32,
+        rs1: Kip32Reg,
+        rs2: Kip32Reg,
         kind: Sci32BranchType,
         value: u32,
     },
@@ -212,7 +214,7 @@ impl Sci32Instr {
     pub fn from_alu(op: Sci32ALUOp) -> Sci32Instr {
         // If no side-effects are possible from this ALU op, we can NOP it.
         // Notably, the rationale for division by zero not trapping indicates that ALU ops are *never* supposed to have side-effects.
-        if op.rd == 0 {
+        if op.rd == Kip32Reg::Zero {
             return Sci32Instr::NOP;
         }
         if let Sci32ALUSource::Immediate(i1) = op.s1 {
@@ -260,7 +262,7 @@ impl Sci32Instr {
                 Sci32Instr::NOP
             } else {
                 Sci32Instr::SetRegister {
-                    rd,
+                    rd: rd.into(),
                     value: Sci32ALUSource::Immediate(value),
                 }
             }
@@ -271,7 +273,7 @@ impl Sci32Instr {
                 Sci32Instr::NOP
             } else {
                 Sci32Instr::SetRegister {
-                    rd,
+                    rd: rd.into(),
                     value: Sci32ALUSource::Immediate(value),
                 }
             }
@@ -280,10 +282,10 @@ impl Sci32Instr {
             let ofs = ((ci >> 20) & 0x000007FE) | // [10:1]
                 ((ci >> 9)        & 0x00000800) | // [11]
                 (ci               & 0x000FF000) | // [19:12]
-                ((ci >> 11)       & 0xFFF00000); // [20]
+                ((((ci as i32) >> 11) as u32) & 0xFFF00000); // [20]
             let value = pc.wrapping_add(ofs);
             Sci32Instr::JumpAndLink {
-                rd,
+                rd: rd.into(),
                 rd_value: pc.wrapping_add(4),
                 value,
             }
@@ -294,24 +296,24 @@ impl Sci32Instr {
             // JALR
             let tgt = ci >> 20;
             Sci32Instr::JumpAndLinkRegister {
-                rd,
+                rd: rd.into(),
                 rd_value: pc.wrapping_add(4),
-                rs1,
+                rs1: rs1.into(),
                 offset: tgt,
             }
         } else if opcode == 0x03 {
-            let addr_ofs = ci >> 20;
+            let addr_ofs = ((ci as i32) >> 20) as u32;
             Sci32Instr::Load {
-                rd,
-                rs1,
+                rd: rd.into(),
+                rs1: rs1.into(),
                 kind: funct3r.to_ls(),
                 offset: addr_ofs,
             }
         } else if opcode == 0x23 {
-            let addr_ofs = (funct7r >> 20) | rd;
+            let addr_ofs = (((funct7r as i32) >> 20) as u32) | rd;
             Sci32Instr::Store {
-                rs1,
-                rs2,
+                rs1: rs1.into(),
+                rs2: rs2.into(),
                 kind: funct3r.to_ls(),
                 offset: addr_ofs,
             }
@@ -322,8 +324,8 @@ impl Sci32Instr {
                 ((funct7r >> 20) & 0x000007E0); // [10:5]
             let value = pc.wrapping_add(ofs);
             Sci32Instr::Branch {
-                rs1,
-                rs2,
+                rs1: rs1.into(),
+                rs2: rs2.into(),
                 kind: funct3r.to_branch_type(),
                 value,
             }
@@ -331,7 +333,7 @@ impl Sci32Instr {
             let s1 = if rs1 == 0 {
                 Sci32ALUSource::Immediate(0)
             } else {
-                Sci32ALUSource::Register(rs1)
+                Sci32ALUSource::Register(rs1.into())
             };
             let imm = ((ci as i32) >> 20) as u32;
             let (kind, imm_override) = match (funct3r, funct7r) {
@@ -350,7 +352,7 @@ impl Sci32Instr {
             // Refine.
             Sci32Instr::from_alu(Sci32ALUOp {
                 kind,
-                rd,
+                rd: rd.into(),
                 s1,
                 s2: Sci32ALUSource::Immediate(imm_override),
             })
@@ -381,14 +383,19 @@ impl Sci32Instr {
             let s1 = if rs1 == 0 {
                 Sci32ALUSource::Immediate(0)
             } else {
-                Sci32ALUSource::Register(rs1)
+                Sci32ALUSource::Register(rs1.into())
             };
             let s2 = if rs2 == 0 {
                 Sci32ALUSource::Immediate(0)
             } else {
-                Sci32ALUSource::Register(rs2)
+                Sci32ALUSource::Register(rs2.into())
             };
-            Sci32Instr::from_alu(Sci32ALUOp { rd, s1, s2, kind })
+            Sci32Instr::from_alu(Sci32ALUOp {
+                rd: rd.into(),
+                s1,
+                s2,
+                kind,
+            })
         } else if ci == 0x00000073 {
             Sci32Instr::ECALL
         } else if ci == 0x00100073 {

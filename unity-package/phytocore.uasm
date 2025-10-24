@@ -1,0 +1,2358 @@
+.data_start
+
+	# The transpiler creates _ecall_vector_table, a UInt32 pointing at the start of where code is --inc'd.
+	_ecall_c10: %SystemInt32, 10
+	_ecall_cFF: %SystemInt32, 255
+	_ecall_ext_log: %SystemString, "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+	_ecall_ext_tochar: %SystemString, "SystemConvert.__ToChar__SystemInt32__SystemChar"
+	_ecall_ext_char2str: %SystemString, "SystemConvert.__ToString__SystemChar__SystemString"
+	_ecall_ext_stradd: %SystemString, "SystemString.__op_Addition__SystemString_SystemString__SystemString"
+.export _ecall_logmsg
+	_ecall_logmsg: %SystemString, ""
+	_ecall_logmsg_empty: %SystemString, ""
+	_ecall_logchar: %SystemChar, null
+	_ecall_logcharstr: %SystemString, ""
+	_null: %SystemObject, null
+	_vm_tmp_bool: %SystemBoolean, null
+	_vm_tmp_r1: %SystemInt32, 0x00000000
+	_vm_tmp_r2: %SystemInt32, 0x00000000
+	_ecall_vector_table: %SystemUInt32, 0x000007e0
+	_vm_tmp_u8: %SystemByte, null
+	_vm_tmp_u16: %SystemUInt16, null
+	_vm_tmp_i8: %SystemSByte, null
+	_vm_tmp_i16: %SystemInt16, null
+	_c_i32_80000000: %SystemInt32, 0x80000000
+	_vm_initdata: %SystemString, "kweAYhOHxxaTBgAgI6DXAJOHRwDjnOf+IyoAeGeAAACTB6AFY+ynABMVJQCTB4Bis4enAAOlBwBngAAAEwUAAGeAAACTB6AFY+qnABMVJQCTB4Bis4enACOgtwBngAAAbwDAFRMBAf8jJhEAIySBABMEBQDvAIAUEwUEAO8AwDSTByAAYwL1ApMHMABjAvUEkwcQAGMO9QSDIMEAAySBABMBAQFngAAAExQkAJMHgGKzh4cAA6cHABNnBxAjoOcAAySBAIMgwQATAQEBbwAAD5MHgGKThscWA6cHAJOHRwATd/fvI67n/uOY1/5v8F/9EweAYhMUJACTBgAgMweHAJMHgGIjINcAEwYAIJOGxxYDpwcAE3cHEGMEBwAjoMcAk4dHAOOW1/5v8J/5kxcVALOHpwATlRcAkwYAAJMHAAATBgA/kwjw/5MFgGITAxAAEwhgADOHpgAzB+YAAwcHAGMAFwMTFycAM4flAAMnBwATd/cAYwYHADMX0wCz5+cAk4YWAOOYBv0T9YcDYwYFAhP1xwFjAgUCE/XnAGMOBQAT9XcAYwoFABP1NwJjBgUAk/cXAzM18ABngAAAEwEB/SMgIQMjKlEBEwmAYiMsQQEjJhECIySBAiMikQIjLjEBIyhhASMmcQEjJIEBIyoAeJMGyRaTB4BiEwoAABMGEAADpwcAk4dHABN39wAzF+YAM2rqAOOW1/6TCQAAkwsQABMMQAATC7AFgyQJAJP3BBAT9PQAY4oHAAMnQHmzl4sAs+fnACMq8HhjBAQCE4UJAO/w3+1jHgUAkwdk/2Ns/AQTBPT/M1SKQBN0FABjBAQEk+QEICMgmQCTiRkAEwlJAOOUafuDIMECAySBAoMkQQIDKQECgynBAQMqgQGDKkEBAysBAYMrwQADLIEAEwEBA2eAAACT9PTfb/Df+xMHBQAT9fUAYwgFDpP3BSBjlgcOk/UFEGOeBQxjGgcAkwfgAGMA9Q4TBSAAZ4AAAJMHAD+ThkcikwUQAJOHhyMDpgYAM5jFAGMU6ABjDMUKk4ZGAOOW1/6zV6dAk/cXAGOaBwiTBxAAs5enALPn5wCThuf9k/bW/xMFEABjjgYGk4aH/ZP2dv9jiAYGkwYAGGOE1waThgfck/b232OOBgS39v//k4YGfDf2//+zhtcAEwb2f7P2xgBjgAYEtyYAAJOGBgRjitcCkxYHARMFMABj1AYCN4cAABMH5wETBRAAY4znAJP3F/43hwAAEwUgAGOE5wATBTAAZ4AAABMFAABngAAAEwUQAGeAAACTB6AFY+6nABMVJQCTB4Bis4enAIOlBwADJUB5b/Cf7RMFAABngAAA//8BBwb///8CCAcA//8DCQgB//8ECgkC//8FCwoD////DAsE/wAHDg3/AAEIDw4GAQIJEA8HAgMKERAIAwQLEhEJBAUMExIKBf//FBML/wYOFhX/BgcPFxYNBwgQGBcOCAkRGRgPCQoSGhkQCgsTGxoRCwwUHBsSDP//HRwT/w0WHx7/DQ4XIB8VDg8YISAWDxAZIiEXEBEaIyIYERIbJCMZEhMcJSQaExQdJiUbFP//JyYc/xUfKSj/FRYgKikeFhchKyofFxgiLCsgGBkjLSwhGRokLi0iGhslLy4jGxwmMC8kHB0nMTAlHf//MjEm/x4pM///Hh8qNDMoHyArNTQpICEsNjUqISItNzYrIiMuODcsIyQvOTgtJCUwOjkuJSYxOzovJicyPDswJ////zwxKCk0Pf//KSo1Pj0zKis2Pz40Kyw3QD81LC04QUA2LS45QkE3Li86Q0I4LzA7REM5MDE8RUQ6MTL//0U7MzQ+Rv//NDU/R0Y9NTZASEc+NjdBSUg/NzhCSklAODlDS0pBOTpETEtCOjtFTUxDOzz//01EPT5HTv//Pj9IT05GP0BJUE9HQEFKUVBIQUJLUlFJQkNMU1JKQ0RNVFNLREX//1RMRkdPVf//R0hQVlVOSElRV1ZPSUpSWFdQSktTWVhRS0xUWllSTE3//1pTTk9W////T1BX//9VUFFY//9WUVJZ//9XUlNa//9YU1T///9ZAAABAAAAAgAAAAMAAAAEAAAABQ=="
+	_vm_bcopy_i32: %SystemInt32Array, null
+	_vm_bcopy_i16: %SystemInt16Array, null
+	_vm_bcopy_i8: %SystemSByteArray, null
+	_vm_initdata_dec: %SystemByteArray, null
+	_vm_memory_chk: %SystemObject, null
+	.export vm_memory
+	vm_memory: %SystemByteArray, null
+	.export vm_initsp
+	vm_initsp: %SystemInt32, 0x00000000
+	_c_i32_00004798: %SystemInt32, 0x00004798
+	.export vm_initra
+	vm_initra: %SystemInt32, 0x00000000
+	_c_i32_7FFFFFFE: %SystemInt32, 0x7ffffffe
+	.export vm_indirect_jump_target
+	vm_indirect_jump_target: %SystemUInt32, 0x00000000
+	_vm_zero_nopwriteshadow: %SystemInt32, 0x00000000
+	.export vm_ra
+	vm_ra: %SystemInt32, 0x00000000
+	.export vm_sp
+	vm_sp: %SystemInt32, 0x00000000
+	_vm_x3: %SystemInt32, 0x00000000
+	_vm_x4: %SystemInt32, 0x00000000
+	_vm_t0: %SystemInt32, 0x00000000
+	_vm_t1: %SystemInt32, 0x00000000
+	_vm_t2: %SystemInt32, 0x00000000
+	_fp: %SystemInt32, 0x00000000
+	_s1: %SystemInt32, 0x00000000
+	.export a0
+	a0: %SystemInt32, 0x00000000
+	.export a1
+	a1: %SystemInt32, 0x00000000
+	.export a2
+	a2: %SystemInt32, 0x00000000
+	.export a3
+	a3: %SystemInt32, 0x00000000
+	.export a4
+	a4: %SystemInt32, 0x00000000
+	.export a5
+	a5: %SystemInt32, 0x00000000
+	.export a6
+	a6: %SystemInt32, 0x00000000
+	.export a7
+	a7: %SystemInt32, 0x00000000
+	_vm_s2: %SystemInt32, 0x00000000
+	_vm_s3: %SystemInt32, 0x00000000
+	_vm_s4: %SystemInt32, 0x00000000
+	_vm_s5: %SystemInt32, 0x00000000
+	_vm_s6: %SystemInt32, 0x00000000
+	_vm_s7: %SystemInt32, 0x00000000
+	_vm_s8: %SystemInt32, 0x00000000
+	_vm_s9: %SystemInt32, 0x00000000
+	_vm_s10: %SystemInt32, 0x00000000
+	_vm_s11: %SystemInt32, 0x00000000
+	_vm_t3: %SystemInt32, 0x00000000
+	_vm_t4: %SystemInt32, 0x00000000
+	_vm_t5: %SystemInt32, 0x00000000
+	_vm_t6: %SystemInt32, 0x00000000
+	_vm_zero: %SystemInt32, 0x00000000
+	_c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean: %SystemString, "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
+	_c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean: %SystemString, "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+	_c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean: %SystemString, "SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean"
+	_c_extern_SystemInt32___op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean: %SystemString, "SystemInt32.__op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean"
+	_c_extern_SystemInt32___op_LessThan__SystemInt32_SystemInt32__SystemBoolean: %SystemString, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+	_c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32: %SystemString, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+	_c_extern_SystemInt32___op_Subtraction__SystemInt32_SystemInt32__SystemInt32: %SystemString, "SystemInt32.__op_Subtraction__SystemInt32_SystemInt32__SystemInt32"
+	_c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32: %SystemString, "SystemInt32.__op_LogicalXor__SystemInt32_SystemInt32__SystemInt32"
+	_c_extern_SystemInt32___op_LogicalOr__SystemInt32_SystemInt32__SystemInt32: %SystemString, "SystemInt32.__op_LogicalOr__SystemInt32_SystemInt32__SystemInt32"
+	_c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32: %SystemString, "SystemInt32.__op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32"
+	_c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32: %SystemString, "SystemInt32.__op_LeftShift__SystemInt32_SystemInt32__SystemInt32"
+	_c_extern_SystemInt32___op_RightShift__SystemInt32_SystemInt32__SystemInt32: %SystemString, "SystemInt32.__op_RightShift__SystemInt32_SystemInt32__SystemInt32"
+	_c_extern_SystemInt32___op_Multiplication__SystemInt32_SystemInt32__SystemInt32: %SystemString, "SystemInt32.__op_Multiplication__SystemInt32_SystemInt32__SystemInt32"
+	_c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32: %SystemString, "SystemConvert.__ToUInt32__SystemInt32__SystemUInt32"
+	_c_extern_SystemUInt32___op_Addition__SystemUInt32_SystemUInt32__SystemUInt32: %SystemString, "SystemUInt32.__op_Addition__SystemUInt32_SystemUInt32__SystemUInt32"
+	_c_extern_SystemConvert___FromBase64String__SystemString__SystemByteArray: %SystemString, "SystemConvert.__FromBase64String__SystemString__SystemByteArray"
+	_c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32: %SystemString, "SystemBitConverter.__ToInt32__SystemByteArray_SystemInt32__SystemInt32"
+	_c_extern_SystemConvert___ToInt32__SystemSByte__SystemInt32: %SystemString, "SystemConvert.__ToInt32__SystemSByte__SystemInt32"
+	_c_extern_SystemConvert___ToInt32__SystemInt16__SystemInt32: %SystemString, "SystemConvert.__ToInt32__SystemInt16__SystemInt32"
+	_c_extern_SystemConvert___ToInt32__SystemBoolean__SystemInt32: %SystemString, "SystemConvert.__ToInt32__SystemBoolean__SystemInt32"
+	_c_extern_SystemInt32Array___ctor__SystemInt32__SystemInt32Array: %SystemString, "SystemInt32Array.__ctor__SystemInt32__SystemInt32Array"
+	_c_extern_SystemInt32Array___Get__SystemInt32__SystemInt32: %SystemString, "SystemInt32Array.__Get__SystemInt32__SystemInt32"
+	_c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid: %SystemString, "SystemInt32Array.__Set__SystemInt32_SystemInt32__SystemVoid"
+	_c_extern_SystemInt16Array___ctor__SystemInt32__SystemInt16Array: %SystemString, "SystemInt16Array.__ctor__SystemInt32__SystemInt16Array"
+	_c_extern_SystemInt16Array___Get__SystemInt32__SystemInt16: %SystemString, "SystemInt16Array.__Get__SystemInt32__SystemInt16"
+	_c_extern_SystemSByteArray___ctor__SystemInt32__SystemSByteArray: %SystemString, "SystemSByteArray.__ctor__SystemInt32__SystemSByteArray"
+	_c_extern_SystemSByteArray___Get__SystemInt32__SystemSByte: %SystemString, "SystemSByteArray.__Get__SystemInt32__SystemSByte"
+	_c_extern_SystemByteArray___ctor__SystemInt32__SystemByteArray: %SystemString, "SystemByteArray.__ctor__SystemInt32__SystemByteArray"
+	_c_extern_SystemByteArray___CopyTo__SystemArray_SystemInt32__SystemVoid: %SystemString, "SystemByteArray.__CopyTo__SystemArray_SystemInt32__SystemVoid"
+	_c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid: %SystemString, "SystemBuffer.__BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid"
+	_c_i32_FFFFFFFF: %SystemInt32, 0xffffffff
+	_c_i32_00000000: %SystemInt32, 0x00000000
+	_c_i32_00000001: %SystemInt32, 0x00000001
+	_c_i32_00000060: %SystemInt32, 0x00000060
+	_c_i32_00000020: %SystemInt32, 0x00000020
+	_c_i32_00000064: %SystemInt32, 0x00000064
+	_c_i32_00000044: %SystemInt32, 0x00000044
+	_c_i32_00000794: %SystemInt32, 0x00000794
+	_c_i32_0000012C: %SystemInt32, 0x0000012c
+	_c_i32_000003C8: %SystemInt32, 0x000003c8
+	_c_i32_00000628: %SystemInt32, 0x00000628
+	_c_i32_000002BC: %SystemInt32, 0x000002bc
+	_c_i32_000003F0: %SystemInt32, 0x000003f0
+	_c_i32_000001BC: %SystemInt32, 0x000001bc
+	_c_i32_0000016C: %SystemInt32, 0x0000016c
+	_c_i32_00000200: %SystemInt32, 0x00000200
+	_c_i32_00000004: %SystemInt32, 0x00000004
+	_c_i32_0000005A: %SystemInt32, 0x0000005a
+	_c_i32_00000002: %SystemInt32, 0x00000002
+	_c_i32_FFFFFFF0: %SystemInt32, 0xfffffff0
+	_c_i32_0000000C: %SystemInt32, 0x0000000c
+	_c_i32_00000008: %SystemInt32, 0x00000008
+	_c_i32_00000078: %SystemInt32, 0x00000078
+	_c_i32_00000080: %SystemInt32, 0x00000080
+	_c_i32_00000003: %SystemInt32, 0x00000003
+	_c_i32_00000010: %SystemInt32, 0x00000010
+	_c_i32_00000100: %SystemInt32, 0x00000100
+	_c_i32_FFFFFEFF: %SystemInt32, 0xfffffeff
+	_c_i32_FFFFFFFC: %SystemInt32, 0xfffffffc
+	_c_i32_00000006: %SystemInt32, 0x00000006
+	_c_i32_0000000F: %SystemInt32, 0x0000000f
+	_c_i32_00000038: %SystemInt32, 0x00000038
+	_c_i32_0000001C: %SystemInt32, 0x0000001c
+	_c_i32_0000000E: %SystemInt32, 0x0000000e
+	_c_i32_00000007: %SystemInt32, 0x00000007
+	_c_i32_00000023: %SystemInt32, 0x00000023
+	_c_i32_00000031: %SystemInt32, 0x00000031
+	_c_i32_FFFFFFD0: %SystemInt32, 0xffffffd0
+	_c_i32_00000014: %SystemInt32, 0x00000014
+	_c_i32_00000018: %SystemInt32, 0x00000018
+	_c_i32_0000002C: %SystemInt32, 0x0000002c
+	_c_i32_00000028: %SystemInt32, 0x00000028
+	_c_i32_00000024: %SystemInt32, 0x00000024
+	_c_i32_0000005B: %SystemInt32, 0x0000005b
+	_c_i32_00000254: %SystemInt32, 0x00000254
+	_c_i32_FFFFFFF6: %SystemInt32, 0xfffffff6
+	_c_i32_00000030: %SystemInt32, 0x00000030
+	_c_i32_FFFFFDFF: %SystemInt32, 0xfffffdff
+	_c_i32_00000224: %SystemInt32, 0x00000224
+	_c_i32_00000238: %SystemInt32, 0x00000238
+	_c_i32_FFFFFFDE: %SystemInt32, 0xffffffde
+	_c_i32_FFFFFFFD: %SystemInt32, 0xfffffffd
+	_c_i32_FFFFFFD8: %SystemInt32, 0xffffffd8
+	_c_i32_FFFFFFF7: %SystemInt32, 0xfffffff7
+	_c_i32_00000180: %SystemInt32, 0x00000180
+	_c_i32_FFFFFDC0: %SystemInt32, 0xfffffdc0
+	_c_i32_FFFFF000: %SystemInt32, 0xfffff000
+	_c_i32_000007C0: %SystemInt32, 0x000007c0
+	_c_i32_000007FF: %SystemInt32, 0x000007ff
+	_c_i32_00002000: %SystemInt32, 0x00002000
+	_c_i32_00000040: %SystemInt32, 0x00000040
+	_c_i32_00008000: %SystemInt32, 0x00008000
+	_c_i32_0000001E: %SystemInt32, 0x0000001e
+	_c_i32_FFFFFFE1: %SystemInt32, 0xffffffe1
+
+.data_end
+.code_start
+
+	# -- JUMP TABLE (MUST BE AT START OF CODE) --
+	JUMP, _code_00000000
+	JUMP, _code_00000004
+	JUMP, _code_00000008
+	JUMP, _code_0000000C
+	JUMP, _code_00000010
+	JUMP, _code_00000014
+	JUMP, _code_00000018
+	JUMP, _code_0000001C
+	JUMP, _code_00000020
+	JUMP, _code_00000024
+	JUMP, _code_00000028
+	JUMP, _code_0000002C
+	JUMP, _code_00000030
+	JUMP, _code_00000034
+	JUMP, _code_00000038
+	JUMP, _code_0000003C
+	JUMP, _code_00000040
+	JUMP, _code_00000044
+	JUMP, _code_00000048
+	JUMP, _code_0000004C
+	JUMP, _code_00000050
+	JUMP, _code_00000054
+	JUMP, _code_00000058
+	JUMP, _code_0000005C
+	JUMP, _code_00000060
+	JUMP, _code_00000064
+	JUMP, _code_00000068
+	JUMP, _code_0000006C
+	JUMP, _code_00000070
+	JUMP, _code_00000074
+	JUMP, _code_00000078
+	JUMP, _code_0000007C
+	JUMP, _code_00000080
+	JUMP, _code_00000084
+	JUMP, _code_00000088
+	JUMP, _code_0000008C
+	JUMP, _code_00000090
+	JUMP, _code_00000094
+	JUMP, _code_00000098
+	JUMP, _code_0000009C
+	JUMP, _code_000000A0
+	JUMP, _code_000000A4
+	JUMP, _code_000000A8
+	JUMP, _code_000000AC
+	JUMP, _code_000000B0
+	JUMP, _code_000000B4
+	JUMP, _code_000000B8
+	JUMP, _code_000000BC
+	JUMP, _code_000000C0
+	JUMP, _code_000000C4
+	JUMP, _code_000000C8
+	JUMP, _code_000000CC
+	JUMP, _code_000000D0
+	JUMP, _code_000000D4
+	JUMP, _code_000000D8
+	JUMP, _code_000000DC
+	JUMP, _code_000000E0
+	JUMP, _code_000000E4
+	JUMP, _code_000000E8
+	JUMP, _code_000000EC
+	JUMP, _code_000000F0
+	JUMP, _code_000000F4
+	JUMP, _code_000000F8
+	JUMP, _code_000000FC
+	JUMP, _code_00000100
+	JUMP, _code_00000104
+	JUMP, _code_00000108
+	JUMP, _code_0000010C
+	JUMP, _code_00000110
+	JUMP, _code_00000114
+	JUMP, _code_00000118
+	JUMP, _code_0000011C
+	JUMP, _code_00000120
+	JUMP, _code_00000124
+	JUMP, _code_00000128
+	JUMP, _code_0000012C
+	JUMP, _code_00000130
+	JUMP, _code_00000134
+	JUMP, _code_00000138
+	JUMP, _code_0000013C
+	JUMP, _code_00000140
+	JUMP, _code_00000144
+	JUMP, _code_00000148
+	JUMP, _code_0000014C
+	JUMP, _code_00000150
+	JUMP, _code_00000154
+	JUMP, _code_00000158
+	JUMP, _code_0000015C
+	JUMP, _code_00000160
+	JUMP, _code_00000164
+	JUMP, _code_00000168
+	JUMP, _code_0000016C
+	JUMP, _code_00000170
+	JUMP, _code_00000174
+	JUMP, _code_00000178
+	JUMP, _code_0000017C
+	JUMP, _code_00000180
+	JUMP, _code_00000184
+	JUMP, _code_00000188
+	JUMP, _code_0000018C
+	JUMP, _code_00000190
+	JUMP, _code_00000194
+	JUMP, _code_00000198
+	JUMP, _code_0000019C
+	JUMP, _code_000001A0
+	JUMP, _code_000001A4
+	JUMP, _code_000001A8
+	JUMP, _code_000001AC
+	JUMP, _code_000001B0
+	JUMP, _code_000001B4
+	JUMP, _code_000001B8
+	JUMP, _code_000001BC
+	JUMP, _code_000001C0
+	JUMP, _code_000001C4
+	JUMP, _code_000001C8
+	JUMP, _code_000001CC
+	JUMP, _code_000001D0
+	JUMP, _code_000001D4
+	JUMP, _code_000001D8
+	JUMP, _code_000001DC
+	JUMP, _code_000001E0
+	JUMP, _code_000001E4
+	JUMP, _code_000001E8
+	JUMP, _code_000001EC
+	JUMP, _code_000001F0
+	JUMP, _code_000001F4
+	JUMP, _code_000001F8
+	JUMP, _code_000001FC
+	JUMP, _code_00000200
+	JUMP, _code_00000204
+	JUMP, _code_00000208
+	JUMP, _code_0000020C
+	JUMP, _code_00000210
+	JUMP, _code_00000214
+	JUMP, _code_00000218
+	JUMP, _code_0000021C
+	JUMP, _code_00000220
+	JUMP, _code_00000224
+	JUMP, _code_00000228
+	JUMP, _code_0000022C
+	JUMP, _code_00000230
+	JUMP, _code_00000234
+	JUMP, _code_00000238
+	JUMP, _code_0000023C
+	JUMP, _code_00000240
+	JUMP, _code_00000244
+	JUMP, _code_00000248
+	JUMP, _code_0000024C
+	JUMP, _code_00000250
+	JUMP, _code_00000254
+	JUMP, _code_00000258
+	JUMP, _code_0000025C
+	JUMP, _code_00000260
+	JUMP, _code_00000264
+	JUMP, _code_00000268
+	JUMP, _code_0000026C
+	JUMP, _code_00000270
+	JUMP, _code_00000274
+	JUMP, _code_00000278
+	JUMP, _code_0000027C
+	JUMP, _code_00000280
+	JUMP, _code_00000284
+	JUMP, _code_00000288
+	JUMP, _code_0000028C
+	JUMP, _code_00000290
+	JUMP, _code_00000294
+	JUMP, _code_00000298
+	JUMP, _code_0000029C
+	JUMP, _code_000002A0
+	JUMP, _code_000002A4
+	JUMP, _code_000002A8
+	JUMP, _code_000002AC
+	JUMP, _code_000002B0
+	JUMP, _code_000002B4
+	JUMP, _code_000002B8
+	JUMP, _code_000002BC
+	JUMP, _code_000002C0
+	JUMP, _code_000002C4
+	JUMP, _code_000002C8
+	JUMP, _code_000002CC
+	JUMP, _code_000002D0
+	JUMP, _code_000002D4
+	JUMP, _code_000002D8
+	JUMP, _code_000002DC
+	JUMP, _code_000002E0
+	JUMP, _code_000002E4
+	JUMP, _code_000002E8
+	JUMP, _code_000002EC
+	JUMP, _code_000002F0
+	JUMP, _code_000002F4
+	JUMP, _code_000002F8
+	JUMP, _code_000002FC
+	JUMP, _code_00000300
+	JUMP, _code_00000304
+	JUMP, _code_00000308
+	JUMP, _code_0000030C
+	JUMP, _code_00000310
+	JUMP, _code_00000314
+	JUMP, _code_00000318
+	JUMP, _code_0000031C
+	JUMP, _code_00000320
+	JUMP, _code_00000324
+	JUMP, _code_00000328
+	JUMP, _code_0000032C
+	JUMP, _code_00000330
+	JUMP, _code_00000334
+	JUMP, _code_00000338
+	JUMP, _code_0000033C
+	JUMP, _code_00000340
+	JUMP, _code_00000344
+	JUMP, _code_00000348
+	JUMP, _code_0000034C
+	JUMP, _code_00000350
+	JUMP, _code_00000354
+	JUMP, _code_00000358
+	JUMP, _code_0000035C
+	JUMP, _code_00000360
+	JUMP, _code_00000364
+	JUMP, _code_00000368
+	JUMP, _code_0000036C
+	JUMP, _code_00000370
+	JUMP, _code_00000374
+	JUMP, _code_00000378
+	JUMP, _code_0000037C
+	JUMP, _code_00000380
+	JUMP, _code_00000384
+	JUMP, _code_00000388
+	JUMP, _code_0000038C
+	JUMP, _code_00000390
+	JUMP, _code_00000394
+	JUMP, _code_00000398
+	JUMP, _code_0000039C
+	JUMP, _code_000003A0
+	JUMP, _code_000003A4
+	JUMP, _code_000003A8
+	JUMP, _code_000003AC
+	JUMP, _code_000003B0
+	JUMP, _code_000003B4
+	JUMP, _code_000003B8
+	JUMP, _code_000003BC
+	JUMP, _code_000003C0
+	JUMP, _code_000003C4
+	JUMP, _code_000003C8
+	JUMP, _code_000003CC
+	JUMP, _code_000003D0
+	JUMP, _code_000003D4
+	JUMP, _code_000003D8
+	JUMP, _code_000003DC
+	JUMP, _code_000003E0
+	JUMP, _code_000003E4
+	JUMP, _code_000003E8
+	JUMP, _code_000003EC
+
+	# -- SYSCALL TABLE --
+
+	# -- SYSCALL CODE --
+
+# This really needs to be changed to be a better, proper example of how to implement syscalls.
+_ecall:
+	PUSH, a0
+	PUSH, _ecall_c10
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _ecall_not_newline
+	PUSH, _ecall_logmsg
+	EXTERN, _ecall_ext_log
+	PUSH, _ecall_logmsg_empty
+	PUSH, _ecall_logmsg
+	COPY
+	JUMP, _vm_indirect_jump
+
+_ecall_not_newline:
+	PUSH, a0
+	PUSH, _ecall_cFF
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+	PUSH, a0
+	PUSH, _ecall_logchar
+	EXTERN, _ecall_ext_tochar
+	PUSH, _ecall_logchar
+	PUSH, _ecall_logcharstr
+	EXTERN, _ecall_ext_char2str
+	PUSH, _ecall_logmsg
+	PUSH, _ecall_logcharstr
+	PUSH, _ecall_logmsg
+	EXTERN, _ecall_ext_stradd
+	JUMP, _vm_indirect_jump
+
+
+	# -- MEMORY INIT / RESET / INDIRECT JUMP --
+.export _vm_reset
+_vm_reset:
+	PUSH, _c_i32_7FFFFFFE
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+.export _vm_reset_and_jump
+_vm_reset_and_jump:
+	PUSH, _c_i32_00004798
+	PUSH, vm_initsp
+	COPY
+	PUSH, _c_i32_7FFFFFFE
+	PUSH, vm_initra
+	COPY
+	PUSH, _c_i32_00000001
+	PUSH, _vm_bcopy_i32
+	EXTERN, _c_extern_SystemInt32Array___ctor__SystemInt32__SystemInt32Array
+	PUSH, _c_i32_00000001
+	PUSH, _vm_bcopy_i16
+	EXTERN, _c_extern_SystemInt16Array___ctor__SystemInt32__SystemInt16Array
+	PUSH, _c_i32_00000001
+	PUSH, _vm_bcopy_i8
+	EXTERN, _c_extern_SystemSByteArray___ctor__SystemInt32__SystemSByteArray
+	PUSH, vm_initsp
+	PUSH, vm_sp
+	COPY
+	PUSH, vm_initra
+	PUSH, vm_ra
+	COPY
+	PUSH, _c_i32_00004798
+	PUSH, vm_memory
+	EXTERN, _c_extern_SystemByteArray___ctor__SystemInt32__SystemByteArray
+	PUSH, vm_memory
+	PUSH, _vm_memory_chk
+	COPY
+	PUSH, _vm_initdata
+	PUSH, _vm_initdata_dec
+	EXTERN, _c_extern_SystemConvert___FromBase64String__SystemString__SystemByteArray
+	PUSH, _vm_initdata_dec
+	PUSH, vm_memory
+	PUSH, _c_i32_00000000
+	EXTERN, _c_extern_SystemByteArray___CopyTo__SystemArray_SystemInt32__SystemVoid
+	PUSH, _null
+	PUSH, _vm_initdata_dec
+	COPY
+.export _vm_indirect_jump
+_vm_indirect_jump:
+	PUSH, vm_indirect_jump_target
+	PUSH, vm_indirect_jump_target
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemUInt32___op_Addition__SystemUInt32_SystemUInt32__SystemUInt32
+	JUMP_INDIRECT, vm_indirect_jump_target
+
+	# -- THUNKS --
+.export _Recalculate
+_Recalculate:
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _thunk__Recalculate_fastpath
+	PUSH, _c_i32_00000060
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_reset_and_jump
+_thunk__Recalculate_fastpath:
+	PUSH, vm_initsp
+	PUSH, vm_sp
+	COPY
+	PUSH, vm_initra
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_00000060
+.export _GetMarble
+_GetMarble:
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _thunk__GetMarble_fastpath
+	PUSH, _c_i32_00000020
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_reset_and_jump
+_thunk__GetMarble_fastpath:
+	PUSH, vm_initsp
+	PUSH, vm_sp
+	COPY
+	PUSH, vm_initra
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_00000020
+.export _ClearBoard
+_ClearBoard:
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _thunk__ClearBoard_fastpath
+	PUSH, _c_i32_00000000
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_reset_and_jump
+_thunk__ClearBoard_fastpath:
+	PUSH, vm_initsp
+	PUSH, vm_sp
+	COPY
+	PUSH, vm_initra
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_00000000
+.export _SelectMarble
+_SelectMarble:
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _thunk__SelectMarble_fastpath
+	PUSH, _c_i32_00000064
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_reset_and_jump
+_thunk__SelectMarble_fastpath:
+	PUSH, vm_initsp
+	PUSH, vm_sp
+	COPY
+	PUSH, vm_initra
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_00000064
+.export _SetMarble
+_SetMarble:
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _thunk__SetMarble_fastpath
+	PUSH, _c_i32_00000044
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_reset_and_jump
+_thunk__SetMarble_fastpath:
+	PUSH, vm_initsp
+	PUSH, vm_sp
+	COPY
+	PUSH, vm_initra
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_00000044
+
+	# -- SYMGET --
+.export _sym__Recalculate
+_sym__Recalculate:
+	PUSH, _c_i32_00000060
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_phyto_calc_qstate
+_sym_phyto_calc_qstate:
+	PUSH, _c_i32_00000794
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_phyto_surrounded
+_sym_phyto_surrounded:
+	PUSH, _c_i32_0000012C
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym__GetMarble
+_sym__GetMarble:
+	PUSH, _c_i32_00000020
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_phyto_select_marble_response
+_sym_phyto_select_marble_response:
+	PUSH, _c_i32_000003C8
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_game_state
+_sym_game_state:
+	PUSH, _c_i32_00000628
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym__ClearBoard
+_sym__ClearBoard:
+	PUSH, _c_i32_00000000
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym__SelectMarble
+_sym__SelectMarble:
+	PUSH, _c_i32_00000064
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym__SetMarble
+_sym__SetMarble:
+	PUSH, _c_i32_00000044
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_phyto_qstate_update_response
+_sym_phyto_qstate_update_response:
+	PUSH, _c_i32_000002BC
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_board_layout
+_sym_board_layout:
+	PUSH, _c_i32_000003F0
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_phyto_update_calc
+_sym_phyto_update_calc:
+	PUSH, _c_i32_000001BC
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+
+	# -- CODE --
+
+# SYMBOL: _ClearBoard
+_code_00000000: # SetRegister { rd: A5, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a5
+	COPY
+_code_00000004: # ALU(Sci32ALUOp { rd: A4, s1: Register(A5), s2: Immediate(364), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_0000016C
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000008: # SetRegister { rd: A3, value: Immediate(512) }
+	PUSH, _c_i32_00000200
+	PUSH, a3
+	COPY
+_code_0000000C: # Store { rs1: A5, rs2: A3, kind: Word, offset: 0 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_00000010: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Immediate(4), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_00000004
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000014: # Branch { rs1: A5, rs2: A4, kind: BNE, value: 12 }
+	PUSH, a5
+	PUSH, a4
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_0000000C
+_code_00000018: # Store { rs1: Zero, rs2: Zero, kind: Word, offset: 1940 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_zero
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _c_i32_00000794
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_0000001C: # JumpAndLinkRegister { rd: Zero, rd_value: 32, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+
+# SYMBOL: _GetMarble
+_code_00000020: # SetRegister { rd: A5, value: Immediate(90) }
+	PUSH, _c_i32_0000005A
+	PUSH, a5
+	COPY
+_code_00000024: # Branch { rs1: A5, rs2: A0, kind: BLTU, value: 60 }
+	PUSH, a5
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, a0
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r2
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_tmp_r2
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_0000003C
+_code_00000028: # ALU(Sci32ALUOp { rd: A0, s1: Register(A0), s2: Immediate(2), kind: SLL })
+	PUSH, a0
+	PUSH, _c_i32_00000002
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_0000002C: # SetRegister { rd: A5, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a5
+	COPY
+_code_00000030: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(A0), kind: ADD })
+	PUSH, a5
+	PUSH, a0
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000034: # Load { rd: A0, rs1: A5, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, a0
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000038: # JumpAndLinkRegister { rd: Zero, rd_value: 60, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+_code_0000003C: # SetRegister { rd: A0, value: Immediate(0) }
+	PUSH, _c_i32_00000000
+	PUSH, a0
+	COPY
+_code_00000040: # JumpAndLinkRegister { rd: Zero, rd_value: 68, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+
+# SYMBOL: _SetMarble
+_code_00000044: # SetRegister { rd: A5, value: Immediate(90) }
+	PUSH, _c_i32_0000005A
+	PUSH, a5
+	COPY
+_code_00000048: # Branch { rs1: A5, rs2: A0, kind: BLTU, value: 92 }
+	PUSH, a5
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, a0
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r2
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_tmp_r2
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_0000005C
+_code_0000004C: # ALU(Sci32ALUOp { rd: A0, s1: Register(A0), s2: Immediate(2), kind: SLL })
+	PUSH, a0
+	PUSH, _c_i32_00000002
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000050: # SetRegister { rd: A5, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a5
+	COPY
+_code_00000054: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(A0), kind: ADD })
+	PUSH, a5
+	PUSH, a0
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000058: # Store { rs1: A5, rs2: A1, kind: Word, offset: 0 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, a1
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_0000005C: # JumpAndLinkRegister { rd: Zero, rd_value: 96, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+
+# SYMBOL: _Recalculate
+_code_00000060: # JumpAndLink { rd: Zero, rd_value: 100, value: 444 }
+	JUMP, _code_000001BC
+
+# SYMBOL: _SelectMarble
+_code_00000064: # ALU(Sci32ALUOp { rd: SP, s1: Register(SP), s2: Immediate(4294967280), kind: ADD })
+	PUSH, vm_sp
+	PUSH, _c_i32_FFFFFFF0
+	PUSH, vm_sp
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000068: # Store { rs1: SP, rs2: RA, kind: Word, offset: 12 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000000C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_ra
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_0000006C: # Store { rs1: SP, rs2: FP, kind: Word, offset: 8 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000008
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _fp
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_00000070: # SetRegister { rd: FP, value: Register(A0) }
+	PUSH, a0
+	PUSH, _fp
+	COPY
+_code_00000074: # JumpAndLink { rd: RA, rd_value: 120, value: 444 }
+	PUSH, _c_i32_00000078
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_000001BC
+_code_00000078: # SetRegister { rd: A0, value: Register(FP) }
+	PUSH, _fp
+	PUSH, a0
+	COPY
+_code_0000007C: # JumpAndLink { rd: RA, rd_value: 128, value: 968 }
+	PUSH, _c_i32_00000080
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_000003C8
+_code_00000080: # SetRegister { rd: A5, value: Immediate(2) }
+	PUSH, _c_i32_00000002
+	PUSH, a5
+	COPY
+_code_00000084: # Branch { rs1: A0, rs2: A5, kind: BEQ, value: 168 }
+	PUSH, a0
+	PUSH, a5
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000000A8
+_code_00000088: # SetRegister { rd: A5, value: Immediate(3) }
+	PUSH, _c_i32_00000003
+	PUSH, a5
+	COPY
+_code_0000008C: # Branch { rs1: A0, rs2: A5, kind: BEQ, value: 208 }
+	PUSH, a0
+	PUSH, a5
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000000D0
+_code_00000090: # SetRegister { rd: A5, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, a5
+	COPY
+_code_00000094: # Branch { rs1: A0, rs2: A5, kind: BEQ, value: 240 }
+	PUSH, a0
+	PUSH, a5
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000000F0
+_code_00000098: # Load { rd: RA, rs1: SP, kind: Word, offset: 12 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000000C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, vm_ra
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_0000009C: # Load { rd: FP, rs1: SP, kind: Word, offset: 8 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000008
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _fp
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000000A0: # ALU(Sci32ALUOp { rd: SP, s1: Register(SP), s2: Immediate(16), kind: ADD })
+	PUSH, vm_sp
+	PUSH, _c_i32_00000010
+	PUSH, vm_sp
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000000A4: # JumpAndLinkRegister { rd: Zero, rd_value: 168, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+_code_000000A8: # ALU(Sci32ALUOp { rd: FP, s1: Register(FP), s2: Immediate(2), kind: SLL })
+	PUSH, _fp
+	PUSH, _c_i32_00000002
+	PUSH, _fp
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_000000AC: # SetRegister { rd: A5, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a5
+	COPY
+_code_000000B0: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(FP), kind: ADD })
+	PUSH, a5
+	PUSH, _fp
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000000B4: # Load { rd: A4, rs1: A5, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, a4
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000000B8: # ALU(Sci32ALUOp { rd: A4, s1: Register(A4), s2: Immediate(256), kind: OR })
+	PUSH, a4
+	PUSH, _c_i32_00000100
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_LogicalOr__SystemInt32_SystemInt32__SystemInt32
+_code_000000BC: # Store { rs1: A5, rs2: A4, kind: Word, offset: 0 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000000C0: # Load { rd: FP, rs1: SP, kind: Word, offset: 8 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000008
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _fp
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000000C4: # Load { rd: RA, rs1: SP, kind: Word, offset: 12 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000000C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, vm_ra
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000000C8: # ALU(Sci32ALUOp { rd: SP, s1: Register(SP), s2: Immediate(16), kind: ADD })
+	PUSH, vm_sp
+	PUSH, _c_i32_00000010
+	PUSH, vm_sp
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000000CC: # JumpAndLink { rd: Zero, rd_value: 208, value: 444 }
+	JUMP, _code_000001BC
+_code_000000D0: # SetRegister { rd: A5, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a5
+	COPY
+_code_000000D4: # ALU(Sci32ALUOp { rd: A3, s1: Register(A5), s2: Immediate(364), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_0000016C
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000000D8: # Load { rd: A4, rs1: A5, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, a4
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000000DC: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Immediate(4), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_00000004
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000000E0: # ALU(Sci32ALUOp { rd: A4, s1: Register(A4), s2: Immediate(4294967039), kind: AND })
+	PUSH, a4
+	PUSH, _c_i32_FFFFFEFF
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000000E4: # Store { rs1: A5, rs2: A4, kind: Word, offset: 4294967292 }
+	PUSH, a5
+	PUSH, _c_i32_FFFFFFFC
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000000E8: # Branch { rs1: A5, rs2: A3, kind: BNE, value: 216 }
+	PUSH, a5
+	PUSH, a3
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000000D8
+_code_000000EC: # JumpAndLink { rd: Zero, rd_value: 240, value: 192 }
+	JUMP, _code_000000C0
+_code_000000F0: # SetRegister { rd: A4, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a4
+	COPY
+_code_000000F4: # ALU(Sci32ALUOp { rd: FP, s1: Register(FP), s2: Immediate(2), kind: SLL })
+	PUSH, _fp
+	PUSH, _c_i32_00000002
+	PUSH, _fp
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_000000F8: # SetRegister { rd: A3, value: Immediate(512) }
+	PUSH, _c_i32_00000200
+	PUSH, a3
+	COPY
+_code_000000FC: # ALU(Sci32ALUOp { rd: A4, s1: Register(A4), s2: Register(FP), kind: ADD })
+	PUSH, a4
+	PUSH, _fp
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000100: # SetRegister { rd: A5, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a5
+	COPY
+_code_00000104: # Store { rs1: A4, rs2: A3, kind: Word, offset: 0 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, a4
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_00000108: # SetRegister { rd: A2, value: Immediate(512) }
+	PUSH, _c_i32_00000200
+	PUSH, a2
+	COPY
+_code_0000010C: # ALU(Sci32ALUOp { rd: A3, s1: Register(A5), s2: Immediate(364), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_0000016C
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000110: # Load { rd: A4, rs1: A5, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, a4
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000114: # ALU(Sci32ALUOp { rd: A4, s1: Register(A4), s2: Immediate(256), kind: AND })
+	PUSH, a4
+	PUSH, _c_i32_00000100
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000118: # Branch { rs1: A4, rs2: Zero, kind: BEQ, value: 288 }
+	PUSH, a4
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000120
+_code_0000011C: # Store { rs1: A5, rs2: A2, kind: Word, offset: 0 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, a2
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_00000120: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Immediate(4), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_00000004
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000124: # Branch { rs1: A5, rs2: A3, kind: BNE, value: 272 }
+	PUSH, a5
+	PUSH, a3
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000110
+_code_00000128: # JumpAndLink { rd: Zero, rd_value: 300, value: 192 }
+	JUMP, _code_000000C0
+
+# SYMBOL: phyto_surrounded
+_code_0000012C: # ALU(Sci32ALUOp { rd: A5, s1: Register(A0), s2: Immediate(1), kind: SLL })
+	PUSH, a0
+	PUSH, _c_i32_00000001
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000130: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(A0), kind: ADD })
+	PUSH, a5
+	PUSH, a0
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000134: # ALU(Sci32ALUOp { rd: A0, s1: Register(A5), s2: Immediate(1), kind: SLL })
+	PUSH, a5
+	PUSH, _c_i32_00000001
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000138: # SetRegister { rd: A3, value: Immediate(0) }
+	PUSH, _c_i32_00000000
+	PUSH, a3
+	COPY
+_code_0000013C: # SetRegister { rd: A5, value: Immediate(0) }
+	PUSH, _c_i32_00000000
+	PUSH, a5
+	COPY
+_code_00000140: # SetRegister { rd: A2, value: Immediate(1008) }
+	PUSH, _c_i32_000003F0
+	PUSH, a2
+	COPY
+_code_00000144: # SetRegister { rd: A7, value: Immediate(4294967295) }
+	PUSH, _c_i32_FFFFFFFF
+	PUSH, a7
+	COPY
+_code_00000148: # SetRegister { rd: A1, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a1
+	COPY
+_code_0000014C: # SetRegister { rd: T1, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, _vm_t1
+	COPY
+_code_00000150: # SetRegister { rd: A6, value: Immediate(6) }
+	PUSH, _c_i32_00000006
+	PUSH, a6
+	COPY
+_code_00000154: # ALU(Sci32ALUOp { rd: A4, s1: Register(A3), s2: Register(A0), kind: ADD })
+	PUSH, a3
+	PUSH, a0
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000158: # ALU(Sci32ALUOp { rd: A4, s1: Register(A2), s2: Register(A4), kind: ADD })
+	PUSH, a2
+	PUSH, a4
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_0000015C: # Load { rd: A4, rs1: A4, kind: Byte(false), offset: 0 }
+	PUSH, vm_memory
+	PUSH, a4
+	PUSH, _vm_bcopy_i8
+	PUSH, _c_i32_00000000
+	PUSH, _c_i32_00000001
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i8
+	PUSH, _c_i32_00000000
+	PUSH, _vm_tmp_i8
+	EXTERN, _c_extern_SystemSByteArray___Get__SystemInt32__SystemSByte
+	PUSH, _vm_tmp_i8
+	PUSH, a4
+	EXTERN, _c_extern_SystemConvert___ToInt32__SystemSByte__SystemInt32
+_code_00000160: # Branch { rs1: A4, rs2: A7, kind: BEQ, value: 384 }
+	PUSH, a4
+	PUSH, a7
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000180
+_code_00000164: # ALU(Sci32ALUOp { rd: A4, s1: Register(A4), s2: Immediate(2), kind: SLL })
+	PUSH, a4
+	PUSH, _c_i32_00000002
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000168: # ALU(Sci32ALUOp { rd: A4, s1: Register(A1), s2: Register(A4), kind: ADD })
+	PUSH, a1
+	PUSH, a4
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_0000016C: # Load { rd: A4, rs1: A4, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, a4
+	PUSH, a4
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000170: # ALU(Sci32ALUOp { rd: A4, s1: Register(A4), s2: Immediate(15), kind: AND })
+	PUSH, a4
+	PUSH, _c_i32_0000000F
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000174: # Branch { rs1: A4, rs2: Zero, kind: BEQ, value: 384 }
+	PUSH, a4
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000180
+_code_00000178: # ALU(Sci32ALUOp { rd: A4, s1: Register(T1), s2: Register(A3), kind: SLL })
+	PUSH, _vm_t1
+	PUSH, a3
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_0000017C: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(A4), kind: OR })
+	PUSH, a5
+	PUSH, a4
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LogicalOr__SystemInt32_SystemInt32__SystemInt32
+_code_00000180: # ALU(Sci32ALUOp { rd: A3, s1: Register(A3), s2: Immediate(1), kind: ADD })
+	PUSH, a3
+	PUSH, _c_i32_00000001
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000184: # Branch { rs1: A3, rs2: A6, kind: BNE, value: 340 }
+	PUSH, a3
+	PUSH, a6
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000154
+_code_00000188: # ALU(Sci32ALUOp { rd: A0, s1: Register(A5), s2: Immediate(56), kind: AND })
+	PUSH, a5
+	PUSH, _c_i32_00000038
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_0000018C: # Branch { rs1: A0, rs2: Zero, kind: BEQ, value: 440 }
+	PUSH, a0
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000001B8
+_code_00000190: # ALU(Sci32ALUOp { rd: A0, s1: Register(A5), s2: Immediate(28), kind: AND })
+	PUSH, a5
+	PUSH, _c_i32_0000001C
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000194: # Branch { rs1: A0, rs2: Zero, kind: BEQ, value: 440 }
+	PUSH, a0
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000001B8
+_code_00000198: # ALU(Sci32ALUOp { rd: A0, s1: Register(A5), s2: Immediate(14), kind: AND })
+	PUSH, a5
+	PUSH, _c_i32_0000000E
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_0000019C: # Branch { rs1: A0, rs2: Zero, kind: BEQ, value: 440 }
+	PUSH, a0
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000001B8
+_code_000001A0: # ALU(Sci32ALUOp { rd: A0, s1: Register(A5), s2: Immediate(7), kind: AND })
+	PUSH, a5
+	PUSH, _c_i32_00000007
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000001A4: # Branch { rs1: A0, rs2: Zero, kind: BEQ, value: 440 }
+	PUSH, a0
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000001B8
+_code_000001A8: # ALU(Sci32ALUOp { rd: A0, s1: Register(A5), s2: Immediate(35), kind: AND })
+	PUSH, a5
+	PUSH, _c_i32_00000023
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000001AC: # Branch { rs1: A0, rs2: Zero, kind: BEQ, value: 440 }
+	PUSH, a0
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000001B8
+_code_000001B0: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Immediate(49), kind: AND })
+	PUSH, a5
+	PUSH, _c_i32_00000031
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000001B4: # ALU(Sci32ALUOp { rd: A0, s1: Immediate(0), s2: Register(A5), kind: SLT(true) })
+	PUSH, _c_i32_00000000
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, a5
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r2
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_tmp_r2
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_LessThan__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	PUSH, a0
+	EXTERN, _c_extern_SystemConvert___ToInt32__SystemBoolean__SystemInt32
+_code_000001B8: # JumpAndLinkRegister { rd: Zero, rd_value: 444, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+
+# SYMBOL: phyto_update_calc
+_code_000001BC: # ALU(Sci32ALUOp { rd: SP, s1: Register(SP), s2: Immediate(4294967248), kind: ADD })
+	PUSH, vm_sp
+	PUSH, _c_i32_FFFFFFD0
+	PUSH, vm_sp
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000001C0: # Store { rs1: SP, rs2: S2, kind: Word, offset: 32 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000020
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s2
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001C4: # Store { rs1: SP, rs2: S5, kind: Word, offset: 20 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000014
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s5
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001C8: # SetRegister { rd: S2, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, _vm_s2
+	COPY
+_code_000001CC: # Store { rs1: SP, rs2: S4, kind: Word, offset: 24 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000018
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s4
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001D0: # Store { rs1: SP, rs2: RA, kind: Word, offset: 44 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000002C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_ra
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001D4: # Store { rs1: SP, rs2: FP, kind: Word, offset: 40 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000028
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _fp
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001D8: # Store { rs1: SP, rs2: S1, kind: Word, offset: 36 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000024
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _s1
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001DC: # Store { rs1: SP, rs2: S3, kind: Word, offset: 28 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000001C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s3
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001E0: # Store { rs1: SP, rs2: S6, kind: Word, offset: 16 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000010
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s6
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001E4: # Store { rs1: SP, rs2: S7, kind: Word, offset: 12 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000000C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s7
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001E8: # Store { rs1: SP, rs2: S8, kind: Word, offset: 8 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000008
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s8
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001EC: # Store { rs1: Zero, rs2: Zero, kind: Word, offset: 1940 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _vm_zero
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _c_i32_00000794
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_000001F0: # ALU(Sci32ALUOp { rd: A3, s1: Register(S2), s2: Immediate(364), kind: ADD })
+	PUSH, _vm_s2
+	PUSH, _c_i32_0000016C
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000001F4: # SetRegister { rd: A5, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a5
+	COPY
+_code_000001F8: # SetRegister { rd: S4, value: Immediate(0) }
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s4
+	COPY
+_code_000001FC: # SetRegister { rd: A2, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, a2
+	COPY
+_code_00000200: # Load { rd: A4, rs1: A5, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, a4
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000204: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Immediate(4), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_00000004
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000208: # ALU(Sci32ALUOp { rd: A4, s1: Register(A4), s2: Immediate(15), kind: AND })
+	PUSH, a4
+	PUSH, _c_i32_0000000F
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_0000020C: # ALU(Sci32ALUOp { rd: A4, s1: Register(A2), s2: Register(A4), kind: SLL })
+	PUSH, a2
+	PUSH, a4
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000210: # ALU(Sci32ALUOp { rd: S4, s1: Register(S4), s2: Register(A4), kind: OR })
+	PUSH, _vm_s4
+	PUSH, a4
+	PUSH, _vm_s4
+	EXTERN, _c_extern_SystemInt32___op_LogicalOr__SystemInt32_SystemInt32__SystemInt32
+_code_00000214: # Branch { rs1: A5, rs2: A3, kind: BNE, value: 512 }
+	PUSH, a5
+	PUSH, a3
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000200
+_code_00000218: # SetRegister { rd: S3, value: Immediate(0) }
+	PUSH, _c_i32_00000000
+	PUSH, _vm_s3
+	COPY
+_code_0000021C: # SetRegister { rd: S7, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, _vm_s7
+	COPY
+_code_00000220: # SetRegister { rd: S8, value: Immediate(4) }
+	PUSH, _c_i32_00000004
+	PUSH, _vm_s8
+	COPY
+_code_00000224: # SetRegister { rd: S6, value: Immediate(91) }
+	PUSH, _c_i32_0000005B
+	PUSH, _vm_s6
+	COPY
+_code_00000228: # Load { rd: S1, rs1: S2, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, _vm_s2
+	PUSH, _s1
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_0000022C: # ALU(Sci32ALUOp { rd: A5, s1: Register(S1), s2: Immediate(256), kind: AND })
+	PUSH, _s1
+	PUSH, _c_i32_00000100
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000230: # ALU(Sci32ALUOp { rd: FP, s1: Register(S1), s2: Immediate(15), kind: AND })
+	PUSH, _s1
+	PUSH, _c_i32_0000000F
+	PUSH, _fp
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000234: # Branch { rs1: A5, rs2: Zero, kind: BEQ, value: 584 }
+	PUSH, a5
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000248
+_code_00000238: # Load { rd: A4, rs1: Zero, kind: Word, offset: 1940 }
+	PUSH, vm_memory
+	PUSH, _c_i32_00000794
+	PUSH, a4
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_0000023C: # ALU(Sci32ALUOp { rd: A5, s1: Register(S7), s2: Register(FP), kind: SLL })
+	PUSH, _vm_s7
+	PUSH, _fp
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000240: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(A4), kind: OR })
+	PUSH, a5
+	PUSH, a4
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LogicalOr__SystemInt32_SystemInt32__SystemInt32
+_code_00000244: # Store { rs1: Zero, rs2: A5, kind: Word, offset: 1940 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _c_i32_00000794
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_00000248: # Branch { rs1: FP, rs2: Zero, kind: BEQ, value: 624 }
+	PUSH, _fp
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000270
+_code_0000024C: # SetRegister { rd: A0, value: Register(S3) }
+	PUSH, _vm_s3
+	PUSH, a0
+	COPY
+_code_00000250: # JumpAndLink { rd: RA, rd_value: 596, value: 300 }
+	PUSH, _c_i32_00000254
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_0000012C
+_code_00000254: # Branch { rs1: A0, rs2: Zero, kind: BNE, value: 624 }
+	PUSH, a0
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000270
+_code_00000258: # ALU(Sci32ALUOp { rd: A5, s1: Register(FP), s2: Immediate(4294967286), kind: ADD })
+	PUSH, _fp
+	PUSH, _c_i32_FFFFFFF6
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_0000025C: # Branch { rs1: S8, rs2: A5, kind: BLTU, value: 692 }
+	PUSH, _vm_s8
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, a5
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r2
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_tmp_r2
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000002B4
+_code_00000260: # ALU(Sci32ALUOp { rd: FP, s1: Register(FP), s2: Immediate(4294967295), kind: ADD })
+	PUSH, _fp
+	PUSH, _c_i32_FFFFFFFF
+	PUSH, _fp
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000264: # ALU(Sci32ALUOp { rd: FP, s1: Register(S4), s2: Register(FP), kind: SRA })
+	PUSH, _vm_s4
+	PUSH, _fp
+	PUSH, _fp
+	EXTERN, _c_extern_SystemInt32___op_RightShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000268: # ALU(Sci32ALUOp { rd: FP, s1: Register(FP), s2: Immediate(1), kind: AND })
+	PUSH, _fp
+	PUSH, _c_i32_00000001
+	PUSH, _fp
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_0000026C: # Branch { rs1: FP, rs2: Zero, kind: BEQ, value: 692 }
+	PUSH, _fp
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000002B4
+_code_00000270: # ALU(Sci32ALUOp { rd: S1, s1: Register(S1), s2: Immediate(512), kind: OR })
+	PUSH, _s1
+	PUSH, _c_i32_00000200
+	PUSH, _s1
+	EXTERN, _c_extern_SystemInt32___op_LogicalOr__SystemInt32_SystemInt32__SystemInt32
+_code_00000274: # Store { rs1: S2, rs2: S1, kind: Word, offset: 0 }
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, _s1
+	EXTERN, _c_extern_SystemInt32Array___Set__SystemInt32_SystemInt32__SystemVoid
+	PUSH, _vm_bcopy_i32
+	PUSH, _c_i32_00000000
+	PUSH, vm_memory
+	PUSH, _vm_s2
+	PUSH, _c_i32_00000004
+	EXTERN, _c_extern_SystemBuffer___BlockCopy__SystemArray_SystemInt32_SystemArray_SystemInt32_SystemInt32__SystemVoid
+_code_00000278: # ALU(Sci32ALUOp { rd: S3, s1: Register(S3), s2: Immediate(1), kind: ADD })
+	PUSH, _vm_s3
+	PUSH, _c_i32_00000001
+	PUSH, _vm_s3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_0000027C: # ALU(Sci32ALUOp { rd: S2, s1: Register(S2), s2: Immediate(4), kind: ADD })
+	PUSH, _vm_s2
+	PUSH, _c_i32_00000004
+	PUSH, _vm_s2
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000280: # Branch { rs1: S3, rs2: S6, kind: BNE, value: 552 }
+	PUSH, _vm_s3
+	PUSH, _vm_s6
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_00000228
+_code_00000284: # Load { rd: RA, rs1: SP, kind: Word, offset: 44 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000002C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, vm_ra
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000288: # Load { rd: FP, rs1: SP, kind: Word, offset: 40 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000028
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _fp
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_0000028C: # Load { rd: S1, rs1: SP, kind: Word, offset: 36 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000024
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _s1
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000290: # Load { rd: S2, rs1: SP, kind: Word, offset: 32 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000020
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_s2
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000294: # Load { rd: S3, rs1: SP, kind: Word, offset: 28 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000001C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_s3
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000298: # Load { rd: S4, rs1: SP, kind: Word, offset: 24 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000018
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_s4
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_0000029C: # Load { rd: S5, rs1: SP, kind: Word, offset: 20 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000014
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_s5
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000002A0: # Load { rd: S6, rs1: SP, kind: Word, offset: 16 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000010
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_s6
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000002A4: # Load { rd: S7, rs1: SP, kind: Word, offset: 12 }
+	PUSH, vm_sp
+	PUSH, _c_i32_0000000C
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_s7
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000002A8: # Load { rd: S8, rs1: SP, kind: Word, offset: 8 }
+	PUSH, vm_sp
+	PUSH, _c_i32_00000008
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+	PUSH, vm_memory
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_s8
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000002AC: # ALU(Sci32ALUOp { rd: SP, s1: Register(SP), s2: Immediate(48), kind: ADD })
+	PUSH, vm_sp
+	PUSH, _c_i32_00000030
+	PUSH, vm_sp
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000002B0: # JumpAndLinkRegister { rd: Zero, rd_value: 692, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+_code_000002B4: # ALU(Sci32ALUOp { rd: S1, s1: Register(S1), s2: Immediate(4294966783), kind: AND })
+	PUSH, _s1
+	PUSH, _c_i32_FFFFFDFF
+	PUSH, _s1
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000002B8: # JumpAndLink { rd: Zero, rd_value: 700, value: 628 }
+	JUMP, _code_00000274
+
+# SYMBOL: phyto_qstate_update_response
+_code_000002BC: # SetRegister { rd: A4, value: Register(A0) }
+	PUSH, a0
+	PUSH, a4
+	COPY
+_code_000002C0: # ALU(Sci32ALUOp { rd: A0, s1: Register(A1), s2: Immediate(15), kind: AND })
+	PUSH, a1
+	PUSH, _c_i32_0000000F
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000002C4: # Branch { rs1: A0, rs2: Zero, kind: BEQ, value: 948 }
+	PUSH, a0
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_000002C8: # ALU(Sci32ALUOp { rd: A5, s1: Register(A1), s2: Immediate(512), kind: AND })
+	PUSH, a1
+	PUSH, _c_i32_00000200
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000002CC: # Branch { rs1: A5, rs2: Zero, kind: BNE, value: 952 }
+	PUSH, a5
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B8
+_code_000002D0: # ALU(Sci32ALUOp { rd: A1, s1: Register(A1), s2: Immediate(256), kind: AND })
+	PUSH, a1
+	PUSH, _c_i32_00000100
+	PUSH, a1
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000002D4: # Branch { rs1: A1, rs2: Zero, kind: BNE, value: 944 }
+	PUSH, a1
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B0
+_code_000002D8: # Branch { rs1: A4, rs2: Zero, kind: BNE, value: 748 }
+	PUSH, a4
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000002EC
+_code_000002DC: # SetRegister { rd: A5, value: Immediate(14) }
+	PUSH, _c_i32_0000000E
+	PUSH, a5
+	COPY
+_code_000002E0: # Branch { rs1: A0, rs2: A5, kind: BEQ, value: 960 }
+	PUSH, a0
+	PUSH, a5
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003C0
+_code_000002E4: # SetRegister { rd: A0, value: Immediate(2) }
+	PUSH, _c_i32_00000002
+	PUSH, a0
+	COPY
+_code_000002E8: # JumpAndLinkRegister { rd: Zero, rd_value: 748, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+_code_000002EC: # SetRegister { rd: A5, value: Immediate(1008) }
+	PUSH, _c_i32_000003F0
+	PUSH, a5
+	COPY
+_code_000002F0: # ALU(Sci32ALUOp { rd: A3, s1: Register(A5), s2: Immediate(548), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_00000224
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000002F4: # SetRegister { rd: A1, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, a1
+	COPY
+_code_000002F8: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Immediate(568), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_00000238
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000002FC: # Load { rd: A2, rs1: A3, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, a3
+	PUSH, a2
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_00000300: # ALU(Sci32ALUOp { rd: A6, s1: Register(A1), s2: Register(A2), kind: SLL })
+	PUSH, a1
+	PUSH, a2
+	PUSH, a6
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000304: # Branch { rs1: A6, rs2: A4, kind: BNE, value: 780 }
+	PUSH, a6
+	PUSH, a4
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_0000030C
+_code_00000308: # Branch { rs1: A0, rs2: A2, kind: BEQ, value: 960 }
+	PUSH, a0
+	PUSH, a2
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003C0
+_code_0000030C: # ALU(Sci32ALUOp { rd: A3, s1: Register(A3), s2: Immediate(4), kind: ADD })
+	PUSH, a3
+	PUSH, _c_i32_00000004
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000310: # Branch { rs1: A5, rs2: A3, kind: BNE, value: 764 }
+	PUSH, a5
+	PUSH, a3
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000002FC
+_code_00000314: # ALU(Sci32ALUOp { rd: A5, s1: Register(A4), s2: Register(A0), kind: SRA })
+	PUSH, a4
+	PUSH, a0
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_RightShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000318: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Immediate(1), kind: AND })
+	PUSH, a5
+	PUSH, _c_i32_00000001
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_0000031C: # Branch { rs1: A5, rs2: Zero, kind: BNE, value: 944 }
+	PUSH, a5
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Equality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B0
+_code_00000320: # SetRegister { rd: A5, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, a5
+	COPY
+_code_00000324: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(A0), kind: SLL })
+	PUSH, a5
+	PUSH, a0
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000328: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(A4), kind: OR })
+	PUSH, a5
+	PUSH, a4
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LogicalOr__SystemInt32_SystemInt32__SystemInt32
+_code_0000032C: # ALU(Sci32ALUOp { rd: A3, s1: Register(A5), s2: Immediate(4294967262), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_FFFFFFDE
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000330: # ALU(Sci32ALUOp { rd: A3, s1: Register(A3), s2: Immediate(4294967293), kind: AND })
+	PUSH, a3
+	PUSH, _c_i32_FFFFFFFD
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000334: # SetRegister { rd: A0, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, a0
+	COPY
+_code_00000338: # Branch { rs1: A3, rs2: Zero, kind: BEQ, value: 948 }
+	PUSH, a3
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_0000033C: # ALU(Sci32ALUOp { rd: A3, s1: Register(A5), s2: Immediate(4294967256), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_FFFFFFD8
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000340: # ALU(Sci32ALUOp { rd: A3, s1: Register(A3), s2: Immediate(4294967287), kind: AND })
+	PUSH, a3
+	PUSH, _c_i32_FFFFFFF7
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000344: # Branch { rs1: A3, rs2: Zero, kind: BEQ, value: 948 }
+	PUSH, a3
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_00000348: # SetRegister { rd: A3, value: Immediate(384) }
+	PUSH, _c_i32_00000180
+	PUSH, a3
+	COPY
+_code_0000034C: # Branch { rs1: A5, rs2: A3, kind: BEQ, value: 948 }
+	PUSH, a5
+	PUSH, a3
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_00000350: # ALU(Sci32ALUOp { rd: A3, s1: Register(A5), s2: Immediate(4294966720), kind: ADD })
+	PUSH, a5
+	PUSH, _c_i32_FFFFFDC0
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000354: # ALU(Sci32ALUOp { rd: A3, s1: Register(A3), s2: Immediate(4294966783), kind: AND })
+	PUSH, a3
+	PUSH, _c_i32_FFFFFDFF
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000358: # Branch { rs1: A3, rs2: Zero, kind: BEQ, value: 948 }
+	PUSH, a3
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_0000035C: # SetRegister { rd: A3, value: Immediate(4294963200) }
+	PUSH, _c_i32_FFFFF000
+	PUSH, a3
+	COPY
+_code_00000360: # ALU(Sci32ALUOp { rd: A3, s1: Register(A3), s2: Immediate(1984), kind: ADD })
+	PUSH, a3
+	PUSH, _c_i32_000007C0
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000364: # SetRegister { rd: A2, value: Immediate(4294963200) }
+	PUSH, _c_i32_FFFFF000
+	PUSH, a2
+	COPY
+_code_00000368: # ALU(Sci32ALUOp { rd: A3, s1: Register(A5), s2: Register(A3), kind: ADD })
+	PUSH, a5
+	PUSH, a3
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_0000036C: # ALU(Sci32ALUOp { rd: A2, s1: Register(A2), s2: Immediate(2047), kind: ADD })
+	PUSH, a2
+	PUSH, _c_i32_000007FF
+	PUSH, a2
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000370: # ALU(Sci32ALUOp { rd: A3, s1: Register(A3), s2: Register(A2), kind: AND })
+	PUSH, a3
+	PUSH, a2
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_00000374: # Branch { rs1: A3, rs2: Zero, kind: BEQ, value: 948 }
+	PUSH, a3
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_00000378: # SetRegister { rd: A3, value: Immediate(8192) }
+	PUSH, _c_i32_00002000
+	PUSH, a3
+	COPY
+_code_0000037C: # ALU(Sci32ALUOp { rd: A3, s1: Register(A3), s2: Immediate(64), kind: ADD })
+	PUSH, a3
+	PUSH, _c_i32_00000040
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000380: # Branch { rs1: A5, rs2: A3, kind: BEQ, value: 948 }
+	PUSH, a5
+	PUSH, a3
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_00000384: # ALU(Sci32ALUOp { rd: A3, s1: Register(A4), s2: Immediate(16), kind: SLL })
+	PUSH, a4
+	PUSH, _c_i32_00000010
+	PUSH, a3
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_00000388: # SetRegister { rd: A0, value: Immediate(3) }
+	PUSH, _c_i32_00000003
+	PUSH, a0
+	COPY
+_code_0000038C: # Branch { rs1: A3, rs2: Zero, kind: BGE, value: 948 }
+	PUSH, a3
+	PUSH, _vm_zero
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_LessThan__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_00000390: # SetRegister { rd: A4, value: Immediate(32768) }
+	PUSH, _c_i32_00008000
+	PUSH, a4
+	COPY
+_code_00000394: # ALU(Sci32ALUOp { rd: A4, s1: Register(A4), s2: Immediate(30), kind: ADD })
+	PUSH, a4
+	PUSH, _c_i32_0000001E
+	PUSH, a4
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_00000398: # SetRegister { rd: A0, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, a0
+	COPY
+_code_0000039C: # Branch { rs1: A5, rs2: A4, kind: BEQ, value: 948 }
+	PUSH, a5
+	PUSH, a4
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_000003A0: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Immediate(4294967265), kind: AND })
+	PUSH, a5
+	PUSH, _c_i32_FFFFFFE1
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_LogicalAnd__SystemInt32_SystemInt32__SystemInt32
+_code_000003A4: # SetRegister { rd: A4, value: Immediate(32768) }
+	PUSH, _c_i32_00008000
+	PUSH, a4
+	COPY
+_code_000003A8: # SetRegister { rd: A0, value: Immediate(2) }
+	PUSH, _c_i32_00000002
+	PUSH, a0
+	COPY
+_code_000003AC: # Branch { rs1: A5, rs2: A4, kind: BEQ, value: 948 }
+	PUSH, a5
+	PUSH, a4
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_Inequality__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003B4
+_code_000003B0: # SetRegister { rd: A0, value: Immediate(3) }
+	PUSH, _c_i32_00000003
+	PUSH, a0
+	COPY
+_code_000003B4: # JumpAndLinkRegister { rd: Zero, rd_value: 952, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+_code_000003B8: # SetRegister { rd: A0, value: Immediate(0) }
+	PUSH, _c_i32_00000000
+	PUSH, a0
+	COPY
+_code_000003BC: # JumpAndLinkRegister { rd: Zero, rd_value: 960, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+_code_000003C0: # SetRegister { rd: A0, value: Immediate(1) }
+	PUSH, _c_i32_00000001
+	PUSH, a0
+	COPY
+_code_000003C4: # JumpAndLinkRegister { rd: Zero, rd_value: 968, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+
+# SYMBOL: phyto_select_marble_response
+_code_000003C8: # SetRegister { rd: A5, value: Immediate(90) }
+	PUSH, _c_i32_0000005A
+	PUSH, a5
+	COPY
+_code_000003CC: # Branch { rs1: A5, rs2: A0, kind: BLTU, value: 1000 }
+	PUSH, a5
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r1
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, a0
+	PUSH, _c_i32_80000000
+	PUSH, _vm_tmp_r2
+	EXTERN, _c_extern_SystemInt32___op_LogicalXor__SystemInt32_SystemInt32__SystemInt32
+	PUSH, _vm_tmp_r1
+	PUSH, _vm_tmp_r2
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemInt32___op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _code_000003E8
+_code_000003D0: # ALU(Sci32ALUOp { rd: A0, s1: Register(A0), s2: Immediate(2), kind: SLL })
+	PUSH, a0
+	PUSH, _c_i32_00000002
+	PUSH, a0
+	EXTERN, _c_extern_SystemInt32___op_LeftShift__SystemInt32_SystemInt32__SystemInt32
+_code_000003D4: # SetRegister { rd: A5, value: Immediate(1576) }
+	PUSH, _c_i32_00000628
+	PUSH, a5
+	COPY
+_code_000003D8: # ALU(Sci32ALUOp { rd: A5, s1: Register(A5), s2: Register(A0), kind: ADD })
+	PUSH, a5
+	PUSH, a0
+	PUSH, a5
+	EXTERN, _c_extern_SystemInt32___op_Addition__SystemInt32_SystemInt32__SystemInt32
+_code_000003DC: # Load { rd: A1, rs1: A5, kind: Word, offset: 0 }
+	PUSH, vm_memory
+	PUSH, a5
+	PUSH, a1
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000003E0: # Load { rd: A0, rs1: Zero, kind: Word, offset: 1940 }
+	PUSH, vm_memory
+	PUSH, _c_i32_00000794
+	PUSH, a0
+	EXTERN, _c_extern_SystemBitConverter___ToInt32__SystemByteArray_SystemInt32__SystemInt32
+_code_000003E4: # JumpAndLink { rd: Zero, rd_value: 1000, value: 700 }
+	JUMP, _code_000002BC
+_code_000003E8: # SetRegister { rd: A0, value: Immediate(0) }
+	PUSH, _c_i32_00000000
+	PUSH, a0
+	COPY
+_code_000003EC: # JumpAndLinkRegister { rd: Zero, rd_value: 1008, rs1: RA, offset: 0 }
+	PUSH, vm_ra
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_indirect_jump
+
+.code_end

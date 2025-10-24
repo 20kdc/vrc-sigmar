@@ -115,7 +115,7 @@ static void travel(int dir) {
 int main() {
 	// reinit the board
 	memcpy(game_state, boardinit, MARBLE_COUNT * sizeof(int));
-	Recalculate();
+	_Recalculate();
 	while (1) {
 		display_board();
 		int chr = getchar();
@@ -142,14 +142,14 @@ int main() {
 			travel(DIR_W);
 		// gameplay
 		if (chr == 's')
-			SelectMarble(cursor);
+			_SelectMarble(cursor);
 		if (chr == '9') {
 			memcpy(game_state, boardinit, MARBLE_COUNT * sizeof(int));
-			Recalculate();
+			_Recalculate();
 		}
 		if (chr == '0') {
 			memcpy(game_state, boardQ, MARBLE_COUNT * sizeof(int));
-			Recalculate();
+			_Recalculate();
 		}
 	}
 	return 0;

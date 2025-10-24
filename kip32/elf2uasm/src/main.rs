@@ -429,7 +429,7 @@ fn main() -> Result<()> {
                 rd_value,
                 value,
             } => {
-                if rd != 0 {
+                if rd != Kip32Reg::Zero {
                     asm.copy_static(asm.ensure_i32(rd_value as i32), REGISTERS_W[rd as usize]);
                 }
                 asm.jump(resolve_jump(&img, value));
@@ -447,7 +447,7 @@ fn main() -> Result<()> {
                     ext.i32_add(&asm, si, asm.ensure_i32(offset as i32), "_vm_tmp_r1");
                     ext.u32_fromi32(&asm, "_vm_tmp_r1", "vm_indirect_jump_target");
                 }
-                if rd != 0 {
+                if rd != Kip32Reg::Zero {
                     asm.copy_static(asm.ensure_i32(rd_value as i32), REGISTERS_W[rd as usize]);
                 }
                 asm.jump("_vm_indirect_jump");
@@ -468,7 +468,7 @@ fn main() -> Result<()> {
                 let dst = REGISTERS_W[rd as usize].to_string();
                 if offset != 0 {
                     let adj = asm.ensure_i32(offset as i32);
-                    if rs1 == 0 {
+                    if rs1 == Kip32Reg::Zero {
                         s_addr = adj;
                     } else {
                         ext.i32_add(&asm, s_addr, adj, "_vm_tmp_r1");
@@ -549,7 +549,7 @@ fn main() -> Result<()> {
                 let s_value = REGISTERS_R[rs2 as usize].to_string();
                 if offset != 0 {
                     let adj = asm.ensure_i32(offset as i32);
-                    if rs1 == 0 {
+                    if rs1 == Kip32Reg::Zero {
                         s_addr = adj;
                     } else {
                         ext.i32_add(&asm, s_addr, adj, "_vm_tmp_r1");
