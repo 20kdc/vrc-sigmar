@@ -2,7 +2,7 @@
 //!
 //! Decodes instructions and determines NOPs.
 
-use crate::Kip32Reg;
+use crate::{Kip32Reg, Kip32Split};
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Sci32LSType {
@@ -247,17 +247,19 @@ impl Sci32Instr {
     }
     /// Decodes a RISC-V instruction.
     pub fn decode(pc: u32, ci: u32) -> Sci32Instr {
+        let split = Kip32Split::from(ci);
         // more work than it's worth to not fully decode this field
-        let opcode = ci & 0x7F;
+        let opcode = split.opcode;
         // all decoded opcodes at least require the rd *slot*
-        let rd = (ci >> 7) & 0x1F;
-        let rs1 = (ci >> 15) & 0x1F;
-        let rs2 = (ci >> 20) & 0x1F;
+        let rd = split.rd;
+        let rs1 = split.rs1;
+        let rs2 = split.rs2;
+        // this is *not* downshifted
         let funct7r = ci & 0xFE000000;
-        let funct3r: Funct3r = Funct3r::from_num((ci & 0x00007000) >> 12);
+        let funct3r: Funct3r = Funct3r::from_num(split.funct3);
         if opcode == 0x17 {
             // AUIPC
-            let value = pc.wrapping_add(ci & 0xFFFFF000);
+            let value = pc.wrapping_add(split.imm_u);
             if rd == 0 {
                 Sci32Instr::NOP
             } else {
@@ -268,22 +270,17 @@ impl Sci32Instr {
             }
         } else if opcode == 0x37 {
             // LUI
-            let value = ci & 0xFFFFF000;
             if rd == 0 {
                 Sci32Instr::NOP
             } else {
                 Sci32Instr::SetRegister {
                     rd: rd.into(),
-                    value: Sci32ALUSource::Immediate(value),
+                    value: Sci32ALUSource::Immediate(split.imm_u),
                 }
             }
         } else if opcode == 0x6F {
             // JAL
-            let ofs = ((ci >> 20) & 0x000007FE) | // [10:1]
-                ((ci >> 9)        & 0x00000800) | // [11]
-                (ci               & 0x000FF000) | // [19:12]
-                ((((ci as i32) >> 11) as u32) & 0xFFF00000); // [20]
-            let value = pc.wrapping_add(ofs);
+            let value = pc.wrapping_add(split.imm_j);
             Sci32Instr::JumpAndLink {
                 rd: rd.into(),
                 rd_value: pc.wrapping_add(4),
@@ -294,35 +291,28 @@ impl Sci32Instr {
             return Sci32Instr::NOP;
         } else if opcode == 0x67 {
             // JALR
-            let tgt = ci >> 20;
             Sci32Instr::JumpAndLinkRegister {
                 rd: rd.into(),
                 rd_value: pc.wrapping_add(4),
                 rs1: rs1.into(),
-                offset: tgt,
+                offset: split.imm_i,
             }
         } else if opcode == 0x03 {
-            let addr_ofs = ((ci as i32) >> 20) as u32;
             Sci32Instr::Load {
                 rd: rd.into(),
                 rs1: rs1.into(),
                 kind: funct3r.to_ls(),
-                offset: addr_ofs,
+                offset: split.imm_i,
             }
         } else if opcode == 0x23 {
-            let addr_ofs = (((funct7r as i32) >> 20) as u32) | rd;
             Sci32Instr::Store {
                 rs1: rs1.into(),
                 rs2: rs2.into(),
                 kind: funct3r.to_ls(),
-                offset: addr_ofs,
+                offset: split.imm_s,
             }
         } else if opcode == 0x63 {
-            let ofs = (rd & 0x1E) | // [4:1]
-                ((rd & 1) << 11) | // [11]
-                ((((funct7r as i32) >> 19) as u32) & 0xFFFFF000) | // [31:12]
-                ((funct7r >> 20) & 0x000007E0); // [10:5]
-            let value = pc.wrapping_add(ofs);
+            let value = pc.wrapping_add(split.imm_b);
             Sci32Instr::Branch {
                 rs1: rs1.into(),
                 rs2: rs2.into(),

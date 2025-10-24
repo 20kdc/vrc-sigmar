@@ -8,3 +8,6 @@ license.workspace = true
 
 [dependencies]
 anyhow = "1.0.100"
+
+[dev-dependencies]
+capstone = "0.13.0"

@@ -1,5 +1,5 @@
 use anyhow::*;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 pub const STT_NOTYPE: u8 = 0;
 pub const STT_OBJECT: u8 = 1;
@@ -25,7 +25,8 @@ pub struct Sci32Image {
     /// This is to reduce the amount of redundant compilation, but it can also act as a sort of memory permissions system.
     pub instructions: usize,
     /// Symbol table.
-    pub symbols: HashMap<String, Sci32SymInfo>,
+    /// A BTreeMap is used due to determinism issues with HashMap.
+    pub symbols: BTreeMap<String, Sci32SymInfo>,
 }
 
 fn get<const LEN: usize>(bytes: &[u8], at: usize) -> Result<[u8; LEN]> {

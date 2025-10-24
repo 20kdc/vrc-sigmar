@@ -114,16 +114,16 @@
 	_c_i32_FFFFFFFF: %SystemInt32, 0xffffffff
 	_c_i32_00000000: %SystemInt32, 0x00000000
 	_c_i32_00000001: %SystemInt32, 0x00000001
-	_c_i32_00000060: %SystemInt32, 0x00000060
 	_c_i32_00000020: %SystemInt32, 0x00000020
+	_c_i32_00000060: %SystemInt32, 0x00000060
 	_c_i32_00000064: %SystemInt32, 0x00000064
 	_c_i32_00000044: %SystemInt32, 0x00000044
-	_c_i32_00000794: %SystemInt32, 0x00000794
-	_c_i32_0000012C: %SystemInt32, 0x0000012c
-	_c_i32_000003C8: %SystemInt32, 0x000003c8
-	_c_i32_00000628: %SystemInt32, 0x00000628
-	_c_i32_000002BC: %SystemInt32, 0x000002bc
 	_c_i32_000003F0: %SystemInt32, 0x000003f0
+	_c_i32_00000628: %SystemInt32, 0x00000628
+	_c_i32_00000794: %SystemInt32, 0x00000794
+	_c_i32_000002BC: %SystemInt32, 0x000002bc
+	_c_i32_000003C8: %SystemInt32, 0x000003c8
+	_c_i32_0000012C: %SystemInt32, 0x0000012c
 	_c_i32_000001BC: %SystemInt32, 0x000001bc
 	_c_i32_0000016C: %SystemInt32, 0x0000016c
 	_c_i32_00000200: %SystemInt32, 0x00000200
@@ -524,46 +524,6 @@ _vm_indirect_jump:
 	JUMP_INDIRECT, vm_indirect_jump_target
 
 	# -- THUNKS --
-.export _Recalculate
-_Recalculate:
-	PUSH, _vm_memory_chk
-	PUSH, _null
-	PUSH, _vm_tmp_bool
-	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
-	PUSH, _vm_tmp_bool
-	JUMP_IF_FALSE, _thunk__Recalculate_fastpath
-	PUSH, _c_i32_00000060
-	PUSH, vm_indirect_jump_target
-	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
-	JUMP, _vm_reset_and_jump
-_thunk__Recalculate_fastpath:
-	PUSH, vm_initsp
-	PUSH, vm_sp
-	COPY
-	PUSH, vm_initra
-	PUSH, vm_ra
-	COPY
-	JUMP, _code_00000060
-.export _GetMarble
-_GetMarble:
-	PUSH, _vm_memory_chk
-	PUSH, _null
-	PUSH, _vm_tmp_bool
-	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
-	PUSH, _vm_tmp_bool
-	JUMP_IF_FALSE, _thunk__GetMarble_fastpath
-	PUSH, _c_i32_00000020
-	PUSH, vm_indirect_jump_target
-	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
-	JUMP, _vm_reset_and_jump
-_thunk__GetMarble_fastpath:
-	PUSH, vm_initsp
-	PUSH, vm_sp
-	COPY
-	PUSH, vm_initra
-	PUSH, vm_ra
-	COPY
-	JUMP, _code_00000020
 .export _ClearBoard
 _ClearBoard:
 	PUSH, _vm_memory_chk
@@ -584,6 +544,46 @@ _thunk__ClearBoard_fastpath:
 	PUSH, vm_ra
 	COPY
 	JUMP, _code_00000000
+.export _GetMarble
+_GetMarble:
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _thunk__GetMarble_fastpath
+	PUSH, _c_i32_00000020
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_reset_and_jump
+_thunk__GetMarble_fastpath:
+	PUSH, vm_initsp
+	PUSH, vm_sp
+	COPY
+	PUSH, vm_initra
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_00000020
+.export _Recalculate
+_Recalculate:
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, _thunk__Recalculate_fastpath
+	PUSH, _c_i32_00000060
+	PUSH, vm_indirect_jump_target
+	EXTERN, _c_extern_SystemConvert___ToUInt32__SystemInt32__SystemUInt32
+	JUMP, _vm_reset_and_jump
+_thunk__Recalculate_fastpath:
+	PUSH, vm_initsp
+	PUSH, vm_sp
+	COPY
+	PUSH, vm_initra
+	PUSH, vm_ra
+	COPY
+	JUMP, _code_00000060
 .export _SelectMarble
 _SelectMarble:
 	PUSH, _vm_memory_chk
@@ -626,33 +626,9 @@ _thunk__SetMarble_fastpath:
 	JUMP, _code_00000044
 
 	# -- SYMGET --
-.export _sym__Recalculate
-_sym__Recalculate:
-	PUSH, _c_i32_00000060
-	PUSH, a0
-	COPY
-	PUSH, _vm_memory_chk
-	PUSH, _null
-	PUSH, _vm_tmp_bool
-	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
-	PUSH, _vm_tmp_bool
-	JUMP_IF_FALSE, 0xFFFFFFFC
-	JUMP, _vm_reset
-.export _sym_phyto_calc_qstate
-_sym_phyto_calc_qstate:
-	PUSH, _c_i32_00000794
-	PUSH, a0
-	COPY
-	PUSH, _vm_memory_chk
-	PUSH, _null
-	PUSH, _vm_tmp_bool
-	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
-	PUSH, _vm_tmp_bool
-	JUMP_IF_FALSE, 0xFFFFFFFC
-	JUMP, _vm_reset
-.export _sym_phyto_surrounded
-_sym_phyto_surrounded:
-	PUSH, _c_i32_0000012C
+.export _sym__ClearBoard
+_sym__ClearBoard:
+	PUSH, _c_i32_00000000
 	PUSH, a0
 	COPY
 	PUSH, _vm_memory_chk
@@ -674,33 +650,9 @@ _sym__GetMarble:
 	PUSH, _vm_tmp_bool
 	JUMP_IF_FALSE, 0xFFFFFFFC
 	JUMP, _vm_reset
-.export _sym_phyto_select_marble_response
-_sym_phyto_select_marble_response:
-	PUSH, _c_i32_000003C8
-	PUSH, a0
-	COPY
-	PUSH, _vm_memory_chk
-	PUSH, _null
-	PUSH, _vm_tmp_bool
-	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
-	PUSH, _vm_tmp_bool
-	JUMP_IF_FALSE, 0xFFFFFFFC
-	JUMP, _vm_reset
-.export _sym_game_state
-_sym_game_state:
-	PUSH, _c_i32_00000628
-	PUSH, a0
-	COPY
-	PUSH, _vm_memory_chk
-	PUSH, _null
-	PUSH, _vm_tmp_bool
-	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
-	PUSH, _vm_tmp_bool
-	JUMP_IF_FALSE, 0xFFFFFFFC
-	JUMP, _vm_reset
-.export _sym__ClearBoard
-_sym__ClearBoard:
-	PUSH, _c_i32_00000000
+.export _sym__Recalculate
+_sym__Recalculate:
+	PUSH, _c_i32_00000060
 	PUSH, a0
 	COPY
 	PUSH, _vm_memory_chk
@@ -734,6 +686,42 @@ _sym__SetMarble:
 	PUSH, _vm_tmp_bool
 	JUMP_IF_FALSE, 0xFFFFFFFC
 	JUMP, _vm_reset
+.export _sym_board_layout
+_sym_board_layout:
+	PUSH, _c_i32_000003F0
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_game_state
+_sym_game_state:
+	PUSH, _c_i32_00000628
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_phyto_calc_qstate
+_sym_phyto_calc_qstate:
+	PUSH, _c_i32_00000794
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
 .export _sym_phyto_qstate_update_response
 _sym_phyto_qstate_update_response:
 	PUSH, _c_i32_000002BC
@@ -746,9 +734,21 @@ _sym_phyto_qstate_update_response:
 	PUSH, _vm_tmp_bool
 	JUMP_IF_FALSE, 0xFFFFFFFC
 	JUMP, _vm_reset
-.export _sym_board_layout
-_sym_board_layout:
-	PUSH, _c_i32_000003F0
+.export _sym_phyto_select_marble_response
+_sym_phyto_select_marble_response:
+	PUSH, _c_i32_000003C8
+	PUSH, a0
+	COPY
+	PUSH, _vm_memory_chk
+	PUSH, _null
+	PUSH, _vm_tmp_bool
+	EXTERN, _c_extern_SystemObject___op_Equality__SystemObject_SystemObject__SystemBoolean
+	PUSH, _vm_tmp_bool
+	JUMP_IF_FALSE, 0xFFFFFFFC
+	JUMP, _vm_reset
+.export _sym_phyto_surrounded
+_sym_phyto_surrounded:
+	PUSH, _c_i32_0000012C
 	PUSH, a0
 	COPY
 	PUSH, _vm_memory_chk
